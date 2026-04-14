@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper text-ink;
+  }
+
+  ::selection {
+    @apply bg-accent/15 text-ink;
+  }
+}
+
+@layer components {
+  .section-label {
+    @apply text-2xs font-medium tracking-widest uppercase text-ink-tertiary;
+  }
+
+  .case-number {
+    @apply font-serif text-[8rem] leading-none font-bold text-border select-none;
+  }
+
+  .result-value {
+    @apply font-serif text-4xl lg:text-5xl font-bold text-ink;
+  }
+
+  .pull-quote {
+    @apply font-serif text-xl lg:text-2xl leading-relaxed text-ink italic;
+    @apply border-l-2 border-accent pl-6 my-8;
+  }
+
+  .prose-content p {
+    @apply text-base lg:text-[1.0625rem] leading-relaxed text-ink-secondary mb-4 last:mb-0;
+  }
+}
+
+@layer utilities {
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer base {
+
+  a:focus-visible,
+  button:focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-paper;
+  }
+}
