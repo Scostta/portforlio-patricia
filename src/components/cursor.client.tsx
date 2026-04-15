@@ -1,11 +1,22 @@
 'use client'
 import { useEffect, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import type { ReactElement } from 'react'
 
 export function Cursor(): ReactElement {
   const dotRef = useRef<HTMLDivElement>(null)
   const posRef = useRef({ x: -100, y: -100 })
   const rafRef = useRef<number>(0)
+  const pathname = usePathname()
+
+  useEffect(() => {
+    const dot = dotRef.current
+    if (!dot) return
+    dot.style.width = '10px'
+    dot.style.height = '10px'
+    dot.style.backgroundColor = '#6667ab'
+    dot.style.border = '0px solid transparent'
+  }, [pathname])
 
   useEffect(() => {
     if (!window.matchMedia('(pointer: fine)').matches) return

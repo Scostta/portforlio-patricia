@@ -87,6 +87,49 @@
     z-index: 1;
   }
 
+  .approach-step-line {
+    position: relative;
+  }
+
+  /* Fallback: transition on scroll-reveal for older browsers */
+  .approach-step-line::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2px;
+    height: 0;
+    background: linear-gradient(180deg, rgb(138 200 231) 0%, rgb(171 107 255) 100%);
+    transition: height 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+  }
+
+  .reveal.is-visible .approach-step-line::before {
+    height: 100%;
+  }
+
+  /* Scroll-driven animation: line grows on scroll down, shrinks on scroll up */
+  @supports (animation-timeline: view()) {
+    @keyframes approach-line-grow {
+      from { transform: scaleY(0); }
+      to   { transform: scaleY(1); }
+    }
+
+    .approach-step-line::before {
+      height: 100%;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: none;
+      animation: approach-line-grow linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 55%;
+    }
+
+    /* reset: animation takes full control */
+    .reveal.is-visible .approach-step-line::before {
+      height: 100%;
+    }
+  }
+
   .case-number {
     @apply font-serif text-[8rem] leading-none font-bold text-border select-none;
   }
