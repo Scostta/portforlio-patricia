@@ -6,6 +6,8 @@ import { FEATURED_CASE_SLUGS } from '~/constants/home'
 import { SKILLS } from '~/constants/skills'
 import { STATS } from '~/constants/stats'
 import { StatNumber } from '~/components/stat-number.client'
+import { FeaturedCasesGrid } from '~/components/featured-cases-grid.client'
+import { HomeSkillsGrid } from '~/components/home-skills-grid.client'
 
 export default function HomePage(): ReactElement {
   const featuredCases = CASES.filter((c) => FEATURED_CASE_SLUGS.includes(c.slug))
@@ -13,40 +15,42 @@ export default function HomePage(): ReactElement {
   return (
     <>
       {/* Hero */}
-      <section className="min-h-[90vh] flex flex-col justify-center px-6 lg:px-12 max-w-7xl mx-auto py-20">
-        <div className="max-w-4xl">
-          <p className="section-label mb-8 animate-fade-up">Product Manager & UX Lead</p>
+      <section>
+        <div className="min-h-[90vh] flex flex-col justify-center px-6 lg:px-12 max-w-7xl mx-auto py-20">
+          <div className="max-w-4xl">
+            <p className="section-label mb-8 animate-fade-up">Product Manager & UX Lead</p>
 
-          <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight text-ink mb-10 animate-fade-up [animation-delay:100ms]">
-            Building products
-            <br />
-            <span className="bg-gradient-primary bg-clip-text text-transparent">people actually use.</span>
-          </h1>
+            <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight text-ink mb-10 animate-fade-up [animation-delay:100ms]">
+              Building products
+              <br />
+              <span className="bg-gradient-primary bg-clip-text text-transparent">people actually use.</span>
+            </h1>
 
-          <p className="text-lg lg:text-xl leading-relaxed text-ink-secondary max-w-2xl mb-12 animate-fade-up [animation-delay:200ms]">
-            I connect strategy, design and technology into products that ship — with a business
-            degree, a founder&apos;s P&amp;L instinct, and a researcher&apos;s understanding of users.
-            Formerly VP of UX at{' '}
-            <span className="text-accent font-medium">LINK Mobility</span> and Co-Founder at{' '}
-            <span className="text-accent font-medium">Alqua</span>.
-          </p>
+            <p className="text-xl lg:text-2xl leading-relaxed text-ink max-w-2xl mb-12 animate-fade-up [animation-delay:400ms]">
+              I connect strategy, design and technology into products that ship — with a business
+              degree, a founder&apos;s P&amp;L instinct, and a researcher&apos;s understanding of users.
+              Formerly VP of UX at{' '}
+              <span className="text-accent font-medium">LINK Mobility</span> and Co-Founder at{' '}
+              <span className="text-accent font-medium">Alqua</span>.
+            </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-up [animation-delay:300ms]">
-            <Link
-              href="/cases"
-              className="inline-flex items-center gap-3 bg-gradient-primary text-black rounded-lg px-7 py-3.5 text-sm font-medium tracking-wide hover:text-white hover:bg-accent-hover transition-colors duration-200"
-            >
-              View case studies
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-3 border border-border rounded-lg text-ink px-7 py-3.5 text-sm font-medium tracking-wide hover:border-accent transition-colors duration-200"
-            >
-              About me
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 animate-fade-up [animation-delay:300ms]">
+              <Link
+                href="/cases"
+                className="inline-flex items-center gap-3 bg-gradient-primary text-black rounded-lg px-7 py-3.5 text-sm font-medium tracking-wide hover:text-white hover:bg-accent-hover transition-colors duration-200"
+              >
+                View case studies
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+              <Link
+                href="/about"
+                className="inline-flex items-center gap-3 border border-border rounded-lg text-ink px-7 py-3.5 text-sm font-medium tracking-wide hover:border-accent transition-colors duration-200"
+              >
+                About me
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -88,54 +92,7 @@ export default function HomePage(): ReactElement {
           </Link>
         </div>
 
-        <div className="grid lg:grid-cols-3 gap-px bg-border">
-          {featuredCases.map((c, index) => (
-            <Link
-              key={c.slug}
-              href={`/cases/${c.slug}`}
-              className="group bg-paper p-8 lg:p-10 hover:bg-gradient-secondary transition-all duration-300 flex flex-col reveal"
-              style={{ transitionDelay: `${index * 120}ms` }}
-            >
-              <div className="flex items-start justify-between mb-6">
-                <span className="section-label">{c.company}</span>
-                <span className="font-serif text-5xl font-bold text-border group-hover:bg-gradient-primary group-hover:bg-clip-text group-hover:text-transparent group-hover:scale-110 transition-all duration-500 origin-top-right inline-block">
-                  {c.number}
-                </span>
-              </div>
-
-              <h3 className="font-serif text-xl lg:text-2xl text-ink mb-3 leading-snug">
-                {c.title}
-              </h3>
-              <p className="text-sm text-ink-secondary leading-relaxed mb-6 flex-1">
-                {c.subtitle}
-              </p>
-
-              <div className="flex flex-wrap gap-1.5 mb-8">
-                {c.tags.slice(0, 3).map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-2xs tracking-wide px-2.5 py-1 bg-surface text-ink-secondary"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex items-center gap-2 text-sm text-accent font-medium">
-                Read case study
-                <svg
-                  className="group-hover:translate-x-1 transition-transform duration-200"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <FeaturedCasesGrid cases={featuredCases} />
 
         <div className="mt-6 sm:hidden">
           <Link
@@ -153,12 +110,12 @@ export default function HomePage(): ReactElement {
       {/* Positioning block */}
       <section className="bg-gradient-secondary border-y border-border px-6 lg:px-12 py-20">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="font-serif text-2xl lg:text-3xl text-ink leading-relaxed italic reveal">
+          <p className="font-serif text-2xl lg:text-3xl text-ink leading-relaxed italic reveal-far">
             &ldquo;Building product systems from scratch — with a business degree, a founder&apos;s
             P&amp;L instinct, and a researcher&apos;s understanding of users. I connect strategy,
             design and technology into products that actually ship.&rdquo;
           </p>
-          <p className="mt-6 text-sm text-ink-secondary">Patricia Bayona Bultó</p>
+          <p className="mt-6 text-sm text-ink-secondary reveal-far [transition-delay:150ms]">Patricia Bayona Bultó</p>
         </div>
       </section>
 
@@ -191,38 +148,7 @@ export default function HomePage(): ReactElement {
             </Link>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            {SKILLS.map(({ label, items }, i) => (
-              <div
-                key={label}
-                className="bg-surface p-5 reveal hover:bg-gradient-secondary transition-colors duration-300"
-                style={{ transitionDelay: `${i * 100}ms` }}
-              >
-                <p className="section-label mb-3">{label}</p>
-                <ul className="space-y-2">
-                  {items.map(({ name, icon }) => (
-                    <li key={name} className="flex items-center gap-2 text-xs text-ink-secondary">
-                      <svg
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.75"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="flex-shrink-0 opacity-60"
-                        aria-hidden="true"
-                      >
-                        <path d={icon} />
-                      </svg>
-                      {name}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
+          <HomeSkillsGrid skills={SKILLS} />
         </div>
       </section>
     </>

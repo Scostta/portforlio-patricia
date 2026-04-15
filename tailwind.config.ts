@@ -46,11 +46,25 @@ const config: Config = {
           '0%': { opacity: '0', transform: 'translateY(8px) scale(0.96)' },
           '100%': { opacity: '1', transform: 'translateY(0) scale(1)' },
         },
+        'gradient-breathe': {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
+        'gradient-breathe-dark': {
+          '0%, 100%': { backgroundPosition: '0% 50%' },
+          '50%': { backgroundPosition: '100% 50%' },
+        },
       },
       animation: {
         'fade-up': 'fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both',
         'fade-in': 'fade-in 0.5s ease-out both',
         'count-in': 'count-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both',
+        'gradient-breathe': 'gradient-breathe 12s ease-in-out infinite',
+        'gradient-breathe-dark': 'gradient-breathe-dark 16s ease-in-out infinite',
+      },
+      boxShadow: {
+        'card-hover': '0 4px 24px -4px rgba(102, 103, 171, 0.18), 0 1px 4px -1px rgba(102, 103, 171, 0.10)',
+        'card-hover-strong': '0 8px 40px -8px rgba(102, 103, 171, 0.28), 0 2px 8px -2px rgba(102, 103, 171, 0.14)',
       },
       backgroundImage: {
         'gradient-accent': 'linear-gradient(135deg, #8B6FC9 0%, #7557B8 100%)',

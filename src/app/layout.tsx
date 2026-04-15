@@ -4,6 +4,9 @@ import { Inter, Playfair_Display } from 'next/font/google'
 import { Nav } from '~/components/nav'
 import { Footer } from '~/components/footer'
 import { RevealProvider } from '~/components/reveal-provider.client'
+import { Cursor } from '~/components/cursor.client'
+import { ScrollProgress } from '~/components/scroll-progress.client'
+import { PageTransition } from '~/components/page-transition.client'
 import './globals.css'
 
 const inter = Inter({
@@ -32,9 +35,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body suppressHydrationWarning className="font-sans min-h-screen flex flex-col">
+        <Cursor />
+        <ScrollProgress />
         <Nav />
         <main className="flex-1 pt-16">
-          <RevealProvider>{children}</RevealProvider>
+          <RevealProvider>
+            <PageTransition>{children}</PageTransition>
+          </RevealProvider>
         </main>
         <Footer />
       </body>

@@ -13,13 +13,36 @@ const NAV_LINKS = [
 
 export function Nav() {
   const [mounted, setMounted] = useState(false)
+  const [visible, setVisible] = useState(true)
   useEffect(() => setMounted(true), [])
+
+  useEffect(() => {
+    let last = window.scrollY
+
+    const onScroll = () => {
+      const current = window.scrollY
+      if (current < 80) {
+        setVisible(true)
+      } else {
+        setVisible(current < last)
+      }
+      last = current
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
   const pathname = usePathname() ?? ''
   const isActive = (href: string) =>
     mounted && (pathname === href || pathname.startsWith(href + '/'))
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-paper/95 backdrop-blur-sm border-b border-border">
+    <header className={cn(
+      'fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border',
+      'transition-transform duration-300',
+      visible ? 'translate-y-0' : '-translate-y-full',
+    )}>
       <nav className="max-w-7xl mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">
         <Link
           href="/"
