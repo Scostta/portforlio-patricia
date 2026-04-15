@@ -2,15 +2,10 @@ import type { ReactElement } from 'react'
 import Link from 'next/link'
 import { cn } from '~/utils/cn'
 import { CASES } from '~/constants/cases'
-
-const FEATURED_CASE_SLUGS = ['mylink-portal', 'ux-system', 'alqua-pricing']
-
-const STATS = [
-  { value: '12,900+', label: 'Portal users', sub: 'across 6 European markets' },
-  { value: '10+', label: 'Legacy products', sub: 'migrated or sunset' },
-  { value: '80%', label: 'Customer retention', sub: 'at Alqua over 4 years' },
-  { value: '300+', label: 'User interviews', sub: 'conducted across both roles' },
-]
+import { FEATURED_CASE_SLUGS } from '~/constants/home'
+import { SKILLS } from '~/constants/skills'
+import { STATS } from '~/constants/stats'
+import { StatNumber } from '~/components/stat-number.client'
 
 export default function HomePage(): ReactElement {
   const featuredCases = CASES.filter((c) => FEATURED_CASE_SLUGS.includes(c.slug))
@@ -59,13 +54,15 @@ export default function HomePage(): ReactElement {
       {/* Stats strip */}
       <section className="bg-gradient-secondary py-14 px-6 lg:px-12">
         <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 lg:divide-x lg:divide-white/10">
-          {STATS.map(({ value, label, sub }, index) => (
+          {STATS.map(({ target, suffix, useLocale, label, sub }, index) => (
             <div
               key={label}
               className={cn('lg:px-10 first:lg:pl-0 last:lg:pr-0 reveal')}
               style={{ transitionDelay: `${index * 80}ms` }}
             >
-              <p className="font-serif text-3xl lg:text-4xl font-bold text-black mb-1">{value}</p>
+              <div className="mb-1">
+                <StatNumber target={target} suffix={suffix} useLocale={useLocale} />
+              </div>
               <p className="text-sm font-medium text-black/80 mb-0.5">{label}</p>
               <p className="text-xs text-black/40">{sub}</p>
             </div>
@@ -195,22 +192,31 @@ export default function HomePage(): ReactElement {
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            {[
-              { label: 'Product', items: ['Roadmapping', 'Prioritisation', 'Sprint Planning', 'OKRs', 'Go-to-Market'] },
-              { label: 'UX & Research', items: ['User Interviews', 'Double Diamond', 'Figma', 'Prototyping', 'Usability Testing'] },
-              { label: 'Business', items: ['P&L Management', 'Fundraising', 'Cross-cultural Leadership', 'Agile / Scrum'] },
-              { label: 'Tools', items: ['Jira', 'Confluence', 'Hotjar', 'Plausible', 'Notion', 'Miro'] },
-            ].map(({ label, items }, i) => (
+            {SKILLS.map(({ label, items }, i) => (
               <div
                 key={label}
                 className="bg-surface p-5 reveal hover:bg-gradient-secondary transition-colors duration-300"
                 style={{ transitionDelay: `${i * 100}ms` }}
               >
                 <p className="section-label mb-3">{label}</p>
-                <ul className="space-y-1.5">
-                  {items.map((item) => (
-                    <li key={item} className="text-xs text-ink-secondary">
-                      {item}
+                <ul className="space-y-2">
+                  {items.map(({ name, icon }) => (
+                    <li key={name} className="flex items-center gap-2 text-xs text-ink-secondary">
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.75"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="flex-shrink-0 opacity-60"
+                        aria-hidden="true"
+                      >
+                        <path d={icon} />
+                      </svg>
+                      {name}
                     </li>
                   ))}
                 </ul>

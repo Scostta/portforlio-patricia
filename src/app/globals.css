@@ -54,6 +54,16 @@
     transform: translateY(0);
   }
 
+  .reveal-expand {
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .reveal-expand.is-visible {
+    transform: scaleX(1);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .reveal {
       opacity: 1;

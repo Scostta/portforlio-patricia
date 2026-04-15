@@ -1,5 +1,6 @@
 import type { ReactElement } from 'react'
 import Link from 'next/link'
+import { SkillsGrid } from '~/components/skills-grid.client'
 
 export const metadata = {
   title: 'About — Patricia Bayona',
@@ -230,18 +231,7 @@ export default function AboutPage(): ReactElement {
           <div className="flex-1 h-px bg-border" />
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
-          {SKILLS.map(({ area, items }, i) => (
-            <div
-              key={area}
-              className="bg-paper p-6 lg:p-8 reveal"
-              style={{ transitionDelay: `${i * 60}ms` }}
-            >
-              <p className="section-label mb-3">{area}</p>
-              <p className="text-sm text-ink-secondary leading-relaxed">{items}</p>
-            </div>
-          ))}
-        </div>
+        <SkillsGrid skills={SKILLS} />
       </section>
 
       {/* Education */}
@@ -304,7 +294,7 @@ export default function AboutPage(): ReactElement {
         </p>
         <Link
           href="/cases"
-          className="inline-flex items-center gap-3 bg-accent text-paper rounded-lg px-7 py-3.5 text-sm font-medium tracking-wide hover:bg-accent-hover transition-colors duration-200"
+          className="inline-flex items-center gap-3 bg-gradient-primary text-black rounded-lg px-7 py-3.5 text-sm font-medium tracking-wide hover:bg-accent-hover hover:text-white transition-colors duration-200"
         >
           View all cases
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
