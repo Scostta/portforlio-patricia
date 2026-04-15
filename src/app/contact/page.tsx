@@ -22,7 +22,7 @@ export default function ContactPage(): ReactElement {
           <div className="space-y-8">
             <a
               href="mailto:patricia.bulto@gmail.com"
-              className="group flex items-center gap-5 p-6 bg-surface hover:bg-border/50 transition-colors duration-200 reveal"
+              className="group flex items-center gap-5 p-6 bg-paper hover:bg-border/50 transition-colors duration-200 reveal"
               style={{ transitionDelay: '0ms' }}
             >
               <div className="w-10 h-10 bg-ink flex items-center justify-center flex-shrink-0 group-hover:bg-accent transition-colors duration-200">
@@ -47,7 +47,7 @@ export default function ContactPage(): ReactElement {
 
             <a
               href="tel:+34687983052"
-              className="group flex items-center gap-5 p-6 bg-surface hover:bg-border/50 transition-colors duration-200 reveal"
+              className="group flex items-center gap-5 p-6 bg-paper hover:bg-border/50 transition-colors duration-200 reveal"
               style={{ transitionDelay: '100ms' }}
             >
               <div className="w-10 h-10 bg-ink flex items-center justify-center flex-shrink-0 group-hover:bg-accent transition-colors duration-200">

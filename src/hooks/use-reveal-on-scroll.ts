@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 
-export function useRevealOnScroll(selector = '.reveal, .reveal-expand') {
+export function useRevealOnScroll(selector = '.reveal, .reveal-expand, .reveal-far') {
   const pathname = usePathname()
 
   useEffect(() => {

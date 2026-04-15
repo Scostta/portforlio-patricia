@@ -1,6 +1,7 @@
 import type { ReactElement } from 'react'
 import Link from 'next/link'
 import { SkillsGrid } from '~/components/skills-grid.client'
+import { LanguagesPersonalGrid } from '~/components/languages-personal-grid.client'
 
 export const metadata = {
   title: 'About — Patricia Bayona',
@@ -262,30 +263,7 @@ export default function AboutPage(): ReactElement {
       </section>
 
       {/* Languages & Personal */}
-      <div className="grid lg:grid-cols-2 gap-px bg-border border-t border-border">
-        <div className="bg-paper p-8 lg:p-10">
-          <p className="section-label mb-5">Languages</p>
-          <div className="space-y-3">
-            {[
-              { lang: 'Spanish', level: 'Native' },
-              { lang: 'English', level: 'Proficient — Cambridge CPE (C) · TOEFL 91' },
-              { lang: 'French', level: 'Intermediate — DELF B1' },
-            ].map(({ lang, level }) => (
-              <div key={lang} className="flex items-baseline gap-3">
-                <span className="text-sm font-medium text-ink w-20">{lang}</span>
-                <span className="text-sm text-ink-secondary">{level}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-surface p-8 lg:p-10">
-          <p className="section-label mb-5">Personal</p>
-          <p className="text-sm text-ink-secondary leading-relaxed">
-            Abstract painter with an independent online art business · Startup advisor (Borkenleg.com) · Kitesurfer based in Southern Spain.
-          </p>
-        </div>
-      </div>
+      <LanguagesPersonalGrid />
 
       {/* CTA */}
       <div className="mt-16 pt-12 border-t border-border text-center">

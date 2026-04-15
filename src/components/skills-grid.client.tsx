@@ -40,8 +40,8 @@ export function SkillsGrid({ skills }: { skills: SkillEntry[] }): ReactElement {
         {skills.map(({ area, items }, i) => (
           <div
             key={area}
-            className="bg-paper p-6 lg:p-8 reveal"
-            style={{ transitionDelay: `${i * 60}ms` } as CSSProperties}
+            className="bg-white p-6 lg:p-8 animate-fade-up"
+            style={{ animationDelay: `${i * 60}ms` } as CSSProperties}
           >
             <p className="section-label mb-3">{area}</p>
             <p className="text-sm text-ink-secondary leading-relaxed">{items}</p>

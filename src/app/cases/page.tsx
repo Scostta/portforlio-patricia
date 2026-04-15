@@ -17,7 +17,6 @@ export default function CasesPage(): ReactElement {
           Six case studies.<br />
           <span className="bg-gradient-primary bg-clip-text text-transparent">Real problems. Real outcomes.</span>
         </h1>
-        <div className="h-0.5 bg-gradient-primary w-12 reveal-expand [animation-delay:300ms] mb-6" aria-hidden="true" />
         <p className="text-base lg:text-lg text-ink-secondary leading-relaxed animate-fade-up [animation-delay:200ms]">
           Each case covers a distinct challenge — organisational, strategic, design, commercial —
           and how I approached it. They are written to be honest about what was hard, what worked,
@@ -63,7 +62,7 @@ export default function CasesPage(): ReactElement {
                 {c.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-2xs tracking-wide px-2.5 py-1 bg-surface text-ink-secondary"
+                    className="text-2xs tracking-wide px-2.5 py-1 bg-paper text-ink-secondary"
                   >
                     {tag}
                   </span>
