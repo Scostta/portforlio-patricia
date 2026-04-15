@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workspace Report — portfolio-pati</title>
+  <style>
+    :root {
+      --paper: #F6F5F0;
+      --ink: #131310;
+      --accent: #6667ab;
+      --accent-light: #8e8fc5;
+      --border: #E0DFD7;
+      --surface: #EDECEA;
+      --success: #2d8a4e;
+      --warning: #b85c00;
+      --danger: #c0392b;
+      --neutral: #6b7280;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    /* ───── HEADER ───── */
+    .report-header {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 48px 64px 40px;
+    }
+    .report-header .label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-light);
+      margin-bottom: 12px;
+    }
+    .report-header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .report-header p {
+      color: #9ca3af;
+      font-size: 13px;
+    }
+    .report-header .meta {
+      display: flex;
+      gap: 32px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+    .meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .meta-item .key { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #6b7280; }
+    .meta-item .val { font-size: 13px; font-weight: 500; color: var(--paper); }
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge-accent { background: var(--accent); color: white; }
+    .badge-success { background: var(--success); color: white; }
+    .badge-warning { background: var(--warning); color: white; }
+
+    /* ───── LAYOUT ───── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 64px;
+    }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+    /* ───── SECTIONS ───── */
+    .section { margin-bottom: 48px; }
+    .section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--border);
+    }
+
+    /* ───── CARDS ───── */
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 24px;
+    }
+    .card-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--neutral);
+      margin-bottom: 14px;
+    }
+
+    /* ───── STAT CARDS ───── */
+    .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 48px; }
+    .stat-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-card .num {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-card .desc { font-size: 12px; color: var(--neutral); margin-top: 6px; }
+
+    /* ───── FILE TREE ───── */
+    .file-tree {
+      background: #1a1a1a;
+      color: #d4d4d4;
+      border-radius: 10px;
+      padding: 24px;
+      font-family: 'Cascadia Code', 'Fira Code', 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.8;
+      overflow-x: auto;
+    }
+    .tree-dir { color: #7dd3fc; font-weight: 600; }
+    .tree-client { color: #86efac; }
+    .tree-config { color: #fde68a; }
+    .tree-ts { color: #c4b5fd; }
+    .tree-css { color: #fb923c; }
+    .tree-other { color: #9ca3af; }
+
+    /* ───── TECH BADGES ───── */
+    .tech-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tech-tag {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .tech-tag.primary { background: var(--accent); color: white; border-color: var(--accent); }
+    .tech-tag.secondary { background: var(--ink); color: white; border-color: var(--ink); }
+
+    /* ───── COMPONENT TABLE ───── */
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      text-align: left;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--neutral);
+      padding: 8px 12px;
+      border-bottom: 2px solid var(--border);
+    }
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: var(--surface); }
+    code {
+      font-family: monospace;
+      font-size: 11px;
+      background: var(--surface);
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: var(--accent);
+    }
+
+    /* ───── GIT ───── */
+    .git-log { list-style: none; }
+    .git-log li {
+      display: flex;
+      gap: 12px;
+      align-items: baseline;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+    .git-log li:last-child { border-bottom: none; }
+    .git-hash {
+      font-family: monospace;
+      font-size: 11px;
+      color: var(--accent);
+      background: #f0effe;
+      padding: 2px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .git-msg { color: var(--ink); }
+
+    /* ───── ISSUES ───── */
+    .issue-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .issue {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid;
+    }
+    .issue-warn { background: #fffbeb; border-color: #fde68a; }
+    .issue-info { background: #eff6ff; border-color: #bfdbfe; }
+    .issue-ok { background: #f0fdf4; border-color: #bbf7d0; }
+    .issue-icon { font-size: 16px; flex-shrink: 0; }
+    .issue-title { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+    .issue-desc { font-size: 12px; color: var(--neutral); }
+
+    /* ───── COLOR SWATCHES ───── */
+    .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; }
+    .color-swatch { border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+    .swatch-preview { height: 48px; }
+    .swatch-info { padding: 8px 10px; background: white; }
+    .swatch-name { font-size: 11px; font-weight: 600; }
+    .swatch-hex { font-size: 10px; color: var(--neutral); font-family: monospace; }
+
+    /* ───── PAGES ───── */
+    .page-card {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: white;
+    }
+    .page-icon {
+      width: 36px; height: 36px;
+      background: var(--surface);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .page-path { font-family: monospace; font-size: 11px; color: var(--neutral); }
+    .page-name { font-size: 13px; font-weight: 600; }
+
+    /* ───── FOOTER ───── */
+    .report-footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 20px 64px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--neutral);
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="report-header">
+  <div class="label">Workspace Report · Claude Code</div>
+  <h1>portfolio-pati</h1>
+  <p>Portfolio web de Patricia Bayona Bultó — Product Manager &amp; UX Lead</p>
+  <div class="meta">
+    <div class="meta-item">
+      <span class="key">Fecha</span>
+      <span class="val">15 de abril de 2026</span>
+    </div>
+    <div class="meta-item">
+      <span class="key">Rama activa</span>
+      <span class="val"><span class="badge badge-accent">feature/cases-redesign</span></span>
+    </div>
+    <div class="meta-item">
+      <span class="key">Estado git</span>
+      <span class="val"><span class="badge badge-success">Working tree limpio</span></span>
+    </div>
+    <div class="meta-item">
+      <span class="key">Framework</span>
+      <span class="val">Next.js 15.3.1 · React 19 · TypeScript 5</span>
+    </div>
+    <div class="meta-item">
+      <span class="key">Ruta</span>
+      <span class="val">C:/Users/pw-scosta/Documents/mis_proyectos/portfolio-pati</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- STATS GLOBALES -->
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="num">5</div>
+      <div class="desc">Páginas</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">11</div>
+      <div class="desc">Componentes</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">6</div>
+      <div class="desc">Case Studies</div>
+    </div>
+    <div class="stat-card">
+      <div class="num">7</div>
+      <div class="desc">Commits</div>
+    </div>
+  </div>
+
+  <!-- TECH STACK -->
+  <div class="section">
+    <div class="section-title">Stack tecnológico</div>
+    <div class="card">
+      <div class="card-title">Core</div>
+      <div class="tech-list" style="margin-bottom:16px">
+        <span class="tech-tag primary">Next.js 15.3.1</span>
+        <span class="tech-tag primary">React 19</span>
+        <span class="tech-tag secondary">TypeScript 5</span>
+        <span class="tech-tag">App Router</span>
+        <span class="tech-tag">Server Components</span>
+      </div>
+      <div class="card-title">Estilos</div>
+      <div class="tech-list" style="margin-bottom:16px">
+        <span class="tech-tag primary">Tailwind CSS 3.4</span>
+        <span class="tech-tag">clsx 2.1</span>
+        <span class="tech-tag">tailwind-merge 2.6</span>
+        <span class="tech-tag">PostCSS</span>
+        <span class="tech-tag">Autoprefixer</span>
+      </div>
+      <div class="card-title">Fuentes</div>
+      <div class="tech-list">
+        <span class="tech-tag">Inter (sans)</span>
+        <span class="tech-tag">Playfair Display (serif)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ESTRUCTURA DE ARCHIVOS -->
+  <div class="section">
+    <div class="section-title">Estructura de archivos</div>
+    <div class="file-tree">
+<span class="tree-dir">portfolio-pati/</span>
+├── <span class="tree-dir">src/</span>
+│   ├── <span class="tree-dir">app/</span>
+│   │   ├── <span class="tree-dir">about/</span>
+│   │   │   └── <span class="tree-ts">page.tsx</span>
+│   │   ├── <span class="tree-dir">cases/</span>
+│   │   │   ├── <span class="tree-dir">[slug]/</span>
+│   │   │   │   └── <span class="tree-ts">page.tsx</span>
+│   │   │   └── <span class="tree-ts">page.tsx</span>
+│   │   ├── <span class="tree-dir">contact/</span>
+│   │   │   └── <span class="tree-ts">page.tsx</span>
+│   │   ├── <span class="tree-css">globals.css</span>
+│   │   ├── <span class="tree-ts">layout.tsx</span>
+│   │   └── <span class="tree-ts">page.tsx</span>               <span style="color:#4b5563">← Home</span>
+│   ├── <span class="tree-dir">components/</span>
+│   │   ├── <span class="tree-client">cursor.client.tsx</span>
+│   │   ├── <span class="tree-client">featured-cases-grid.client.tsx</span>
+│   │   ├── <span class="tree-ts">footer.tsx</span>
+│   │   ├── <span class="tree-client">home-skills-grid.client.tsx</span>
+│   │   ├── <span class="tree-client">languages-personal-grid.client.tsx</span>
+│   │   ├── <span class="tree-ts">nav.tsx</span>
+│   │   ├── <span class="tree-client">page-transition.client.tsx</span>
+│   │   ├── <span class="tree-client">reveal-provider.client.tsx</span>
+│   │   ├── <span class="tree-client">scroll-progress.client.tsx</span>
+│   │   ├── <span class="tree-client">skills-grid.client.tsx</span>
+│   │   └── <span class="tree-client">stat-number.client.tsx</span>
+│   ├── <span class="tree-dir">constants/</span>
+│   │   ├── <span class="tree-ts">cases.ts</span>               <span style="color:#4b5563">← 6 case studies</span>
+│   │   ├── <span class="tree-ts">home.ts</span>
+│   │   ├── <span class="tree-ts">skills.ts</span>
+│   │   └── <span class="tree-ts">stats.ts</span>
+│   ├── <span class="tree-dir">hooks/</span>
+│   │   ├── <span class="tree-ts">use-count-up.ts</span>
+│   │   └── <span class="tree-ts">use-reveal-on-scroll.ts</span>
+│   └── <span class="tree-dir">utils/</span>
+│       └── <span class="tree-ts">cn.ts</span>
+├── <span class="tree-config">next.config.ts</span>
+├── <span class="tree-config">tailwind.config.ts</span>
+├── <span class="tree-config">tsconfig.json</span>
+├── <span class="tree-config">postcss.config.mjs</span>
+├── <span class="tree-other">design-proposal-case-slug.html</span>
+└── <span class="tree-other">.gitignore</span>
+    </div>
+    <p style="margin-top:10px; font-size:11px; color:var(--neutral)">
+      <span style="color:#86efac">■</span> Verde = Client Component &nbsp;
+      <span style="color:#c4b5fd">■</span> Morado = Server Component / TS &nbsp;
+      <span style="color:#fde68a">■</span> Amarillo = Config
+    </p>
+  </div>
+
+  <!-- PÁGINAS -->
+  <div class="section">
+    <div class="section-title">Páginas (5)</div>
+    <div class="grid-2">
+      <div class="page-card">
+        <div class="page-icon">🏠</div>
+        <div>
+          <div class="page-name">Home</div>
+          <div class="page-path">src/app/page.tsx</div>
+          <div style="margin-top:6px; font-size:12px; color:var(--neutral)">Hero, featured cases, stats, quote, about teaser</div>
+        </div>
+      </div>
+      <div class="page-card">
+        <div class="page-icon">📁</div>
+        <div>
+          <div class="page-name">Cases (listado)</div>
+          <div class="page-path">src/app/cases/page.tsx</div>
+          <div style="margin-top:6px; font-size:12px; color:var(--neutral)">Grid con los 6 case studies</div>
+        </div>
+      </div>
+      <div class="page-card">
+        <div class="page-icon">📄</div>
+        <div>
+          <div class="page-name">Case Detail</div>
+          <div class="page-path">src/app/cases/[slug]/page.tsx</div>
+          <div style="margin-top:6px; font-size:12px; color:var(--neutral)">Ruta dinámica por slug, detalle de cada caso</div>
+        </div>
+      </div>
+      <div class="page-card">
+        <div class="page-icon">👩</div>
+        <div>
+          <div class="page-name">About</div>
+          <div class="page-path">src/app/about/page.tsx</div>
+          <div style="margin-top:6px; font-size:12px; color:var(--neutral)">Experiencia, skills, idiomas</div>
+        </div>
+      </div>
+      <div class="page-card">
+        <div class="page-icon">✉️</div>
+        <div>
+          <div class="page-name">Contact</div>
+          <div class="page-path">src/app/contact/page.tsx</div>
+          <div style="margin-top:6px; font-size:12px; color:var(--neutral)">Email y teléfono</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPONENTES -->
+  <div class="section">
+    <div class="section-title">Componentes (11)</div>
+    <div class="card" style="padding:0; overflow:hidden;">
+      <table>
+        <thead>
+          <tr>
+            <th>Archivo</th>
+            <th>Tipo</th>
+            <th>Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><code>nav.tsx</code></td><td><span class="badge" style="background:#e0e7ff;color:#4338ca;font-size:11px">Server</span></td><td>Barra de navegación principal</td></tr>
+          <tr><td><code>footer.tsx</code></td><td><span class="badge" style="background:#e0e7ff;color:#4338ca;font-size:11px">Server</span></td><td>Footer del sitio</td></tr>
+          <tr><td><code>cursor.client.tsx</code></td><td><span class="badge" style="background:#dcfce7;color:#166534;font-size:11px">Client</span></td><td>Cursor personalizado animado</td></tr>
+          <tr><td><code>scroll-progress.client.tsx</code></td><td><span class="badge" style="background:#dcfce7;color:#166534;font-size:11px">Client</span></td><td>Barra de progreso de scroll</td></tr>
+          <tr><td><code>page-transition.client.tsx</code></td><td><span class="badge" style="background:#dcfce7;color:#166534;font-size:11px">Client</span></td><td>Wrapper de transición entre páginas</td></tr>
+          <tr><td><code>reveal-provider.client.tsx</code></td><td><span class="badge" style="background:#dcfce7;color:#166534;font-size:11px">Client</span></td><td>Context provider para animaciones de scroll</td></tr>
+          <tr><td><code>featured-cases-grid.client.tsx</code></td><td><span class="badge" style="background:#dcfce7;color:#166534;font-size:11px">Client</span></td><td>Grid de casos destacados en Home</td></tr>
+          <tr><td><code>home-skills-grid.client.tsx</code></td><td><span class="badge" style="background:#dcfce7;color:#166534;font-size:11px">Client</span></td><td>Grid de skills en Home</td></tr>
+          <tr><td><code>skills-grid.client.tsx</code></td><td><span class="badge" style="background:#dcfce7;color:#166534;font-size:11px">Client</span></td><td>Grid de skills (general)</td></tr>
+          <tr><td><code>languages-personal-grid.client.tsx</code></td><td><span class="badge" style="background:#dcfce7;color:#166534;font-size:11px">Client</span></td><td>Idiomas e info personal</td></tr>
+          <tr><td><code>stat-number.client.tsx</code></td><td><span class="badge" style="background:#dcfce7;color:#166534;font-size:11px">Client</span></td><td>Número animado con count-up</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CASE STUDIES -->
+  <div class="section">
+    <div class="section-title">Case Studies (6)</div>
+    <div class="grid-2">
+      <div class="card"><strong>MyLINK Portal</strong><br><code>mylink-portal</code><br><span style="font-size:12px;color:var(--neutral);margin-top:4px;display:block">Unifying 50+ legacy products</span></div>
+      <div class="card"><strong>UX System</strong><br><code>ux-system</code><br><span style="font-size:12px;color:var(--neutral);margin-top:4px;display:block">Design system UX</span></div>
+      <div class="card"><strong>Roadmap</strong><br><code>roadmap</code><br><span style="font-size:12px;color:var(--neutral);margin-top:4px;display:block">Proyecto de roadmapping</span></div>
+      <div class="card"><strong>Engage GTM</strong><br><code>engage-gtm</code><br><span style="font-size:12px;color:var(--neutral);margin-top:4px;display:block">Go-to-Market Engage</span></div>
+      <div class="card"><strong>Alqua Pricing</strong><br><code>alqua-pricing</code><br><span style="font-size:12px;color:var(--neutral);margin-top:4px;display:block">Pricing Alqua</span></div>
+      <div class="card"><strong>ADI</strong><br><code>alqua-digital-index</code><br><span style="font-size:12px;color:var(--neutral);margin-top:4px;display:block">Alqua Digital Index</span></div>
+    </div>
+  </div>
+
+  <!-- DESIGN SYSTEM COLORS -->
+  <div class="section">
+    <div class="section-title">Design System — Paleta de colores</div>
+    <div class="color-grid">
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background:#F6F5F0"></div>
+        <div class="swatch-info"><div class="swatch-name">Paper</div><div class="swatch-hex">#F6F5F0</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background:#131310"></div>
+        <div class="swatch-info"><div class="swatch-name">Ink</div><div class="swatch-hex">#131310</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background:#6667ab"></div>
+        <div class="swatch-info"><div class="swatch-name">Accent</div><div class="swatch-hex">#6667AB</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background:#E0DFD7"></div>
+        <div class="swatch-info"><div class="swatch-name">Border</div><div class="swatch-hex">#E0DFD7</div></div>
+      </div>
+      <div class="color-swatch">
+        <div class="swatch-preview" style="background:#EDECEA"></div>
+        <div class="swatch-info"><div class="swatch-name">Surface</div><div class="swatch-hex">#EDECEA</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GIT HISTORY -->
+  <div class="section">
+    <div class="section-title">Historial Git</div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Commits recientes</div>
+        <ul class="git-log">
+          <li><span class="git-hash">0c4d04e</span><span class="git-msg">first version <span class="badge badge-accent" style="font-size:10px">HEAD</span></span></li>
+          <li><span class="git-hash">7197d60</span><span class="git-msg">Merge pull request #1 from Scostta/feature/design</span></li>
+          <li><span class="git-hash">705f084</span><span class="git-msg">improve design and animations</span></li>
+          <li><span class="git-hash">4d5aa64</span><span class="git-msg">design improvements</span></li>
+          <li><span class="git-hash">207daca</span><span class="git-msg">gitignore</span></li>
+          <li><span class="git-hash">802e052</span><span class="git-msg">first commit</span></li>
+          <li><span class="git-hash">9568e51</span><span class="git-msg">Initial commit</span></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Ramas</div>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="badge badge-accent">feature/cases-redesign</span>
+            <span style="font-size:11px;color:var(--neutral)">← activa</span>
+          </div>
+          <div><span class="badge" style="background:var(--surface);border:1px solid var(--border);font-size:11px;color:var(--ink)">feature/design</span></div>
+          <div><span class="badge" style="background:var(--surface);border:1px solid var(--border);font-size:11px;color:var(--ink)">main</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONFIGURACION -->
+  <div class="section">
+    <div class="section-title">Configuración</div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">tsconfig.json</div>
+        <ul style="font-size:12px; list-style:none; display:flex; flex-direction:column; gap:6px;">
+          <li>✅ <code>strict: true</code></li>
+          <li>✅ Alias <code>~/*</code> → <code>./src/*</code></li>
+          <li>✅ Target: ES2017</li>
+          <li>✅ Module: ESNext</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">tailwind.config.ts</div>
+        <ul style="font-size:12px; list-style:none; display:flex; flex-direction:column; gap:6px;">
+          <li>✅ Paleta custom (paper/ink/accent)</li>
+          <li>✅ Fuentes extendidas</li>
+          <li>✅ Animaciones custom</li>
+          <li>✅ Box shadows custom</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">Archivos .env</div>
+        <ul style="font-size:12px; list-style:none; display:flex; flex-direction:column; gap:6px;">
+          <li>⚠️ No hay archivos .env</li>
+          <li style="color:var(--neutral)">El proyecto no usa Supabase ni API keys por ahora</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- OBSERVACIONES -->
+  <div class="section">
+    <div class="section-title">Observaciones &amp; puntos de atención</div>
+    <ul class="issue-list">
+      <li class="issue issue-ok">
+        <span class="issue-icon">✅</span>
+        <div>
+          <div class="issue-title">Naming conventions correcto</div>
+          <div class="issue-desc">Los Client Components llevan sufijo <code>.client.tsx</code> correctamente. Hooks en kebab-case con prefijo <code>use-</code>. Directorios en kebab-case.</div>
+        </div>
+      </li>
+      <li class="issue issue-ok">
+        <span class="issue-icon">✅</span>
+        <div>
+          <div class="issue-title">Server Components por defecto</div>
+          <div class="issue-desc">Solo los componentes que lo necesitan tienen <code>'use client'</code>. Nav y Footer son Server Components.</div>
+        </div>
+      </li>
+      <li class="issue issue-ok">
+        <span class="issue-icon">✅</span>
+        <div>
+          <div class="issue-title">Alias de paths configurado</div>
+          <div class="issue-desc">El alias <code>~/</code> apunta a <code>src/</code>. Evita rutas relativas profundas.</div>
+        </div>
+      </li>
+      <li class="issue issue-warn">
+        <span class="issue-icon">⚠️</span>
+        <div>
+          <div class="issue-title">Sin CLAUDE.md en el proyecto</div>
+          <div class="issue-desc">No existe un archivo <code>CLAUDE.md</code> en la raíz del proyecto. Esto hace que el agente parta sin contexto específico del proyecto en cada sesión y no delega bien las tareas. Recomendado crear uno con descripción del proyecto, convenciones y estado actual.</div>
+        </div>
+      </li>
+      <li class="issue issue-warn">
+        <span class="issue-icon">⚠️</span>
+        <div>
+          <div class="issue-title">Sin README.md</div>
+          <div class="issue-desc">No hay documentación de onboarding. Útil para nuevos colaboradores o para que los agentes entiendan el propósito y estado del proyecto rápidamente.</div>
+        </div>
+      </li>
+      <li class="issue issue-warn">
+        <span class="issue-icon">⚠️</span>
+        <div>
+          <div class="issue-title">Rama activa no es <code>main</code></div>
+          <div class="issue-desc">Estás en <code>feature/cases-redesign</code>. Si el rediseño está listo, considera mergear a <code>main</code>. Si hay trabajo pendiente, documenta el estado en CLAUDE.md.</div>
+        </div>
+      </li>
+      <li class="issue issue-info">
+        <span class="issue-icon">ℹ️</span>
+        <div>
+          <div class="issue-title">Sin loading.tsx ni error.tsx</div>
+          <div class="issue-desc">Las rutas no tienen <code>loading.tsx</code> con skeletons ni <code>error.tsx</code> como boundary. Para un portfolio es opcional, pero mejora la UX percibida.</div>
+        </div>
+      </li>
+      <li class="issue issue-info">
+        <span class="issue-icon">ℹ️</span>
+        <div>
+          <div class="issue-title">Datos estáticos en <code>constants/</code></div>
+          <div class="issue-desc">Los case studies están hardcoded en <code>constants/cases.ts</code>. Correcto para un portfolio estático. Si en el futuro se quiere un CMS, habrá que migrar a un repositorio con Supabase o un headless CMS.</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- RECOMENDACION CLAUDE.MD -->
+  <div class="section">
+    <div class="section-title">Acción recomendada — Crear CLAUDE.md</div>
+    <div class="card" style="background:#fefce8; border-color:#fde68a;">
+      <p style="font-size:13px; margin-bottom:12px;">
+        <strong>El problema principal que describes</strong> (el agente no responde bien ni delega tareas) se debe casi siempre a la <strong>falta de un archivo <code>CLAUDE.md</code> en la raíz del proyecto</strong>. Sin él, el agente arranca sin saber qué es el proyecto, qué tech stack usa, cuál es el estado actual, ni cómo dividir las tareas.
+      </p>
+      <p style="font-size:13px; margin-bottom:12px;">El <code>CLAUDE.md</code> debe incluir:</p>
+      <ul style="font-size:12px; padding-left:20px; display:flex; flex-direction:column; gap:6px;">
+        <li><strong>Descripción del proyecto</strong>: qué es, para quién, propósito.</li>
+        <li><strong>Estado actual</strong>: qué está hecho, qué está en curso, qué falta.</li>
+        <li><strong>Tech stack</strong>: Next.js 15, React 19, TypeScript, Tailwind.</li>
+        <li><strong>Convenciones</strong>: naming, sufijos, dónde va cada cosa.</li>
+        <li><strong>Instrucciones para el agente</strong>: cómo dividir tareas, qué agentes usar.</li>
+        <li><strong>Rama activa y próximos pasos</strong>: contexto de la rama <code>feature/cases-redesign</code>.</li>
+      </ul>
+      <p style="font-size:12px; margin-top:12px; color:var(--neutral)">Dime si quieres que lo genere automáticamente basándome en este informe.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="report-footer">
+  Generado por Claude Code · 15 abril 2026 · portfolio-pati workspace report
+</div>
+
+</body>
+</html>

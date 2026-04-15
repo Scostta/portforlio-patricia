@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyLINK Portal — Patricia Bayona</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS
+       ============================================================ */
+    :root {
+      --ink:           #111110;
+      --ink-secondary: #6B6A65;
+      --ink-tertiary:  #9B9A95;
+      --accent:        #6667ab;
+      --accent-light:  #F3EFFC;
+      --accent-soft:   #E8DFF7;
+      --paper:         #F6F5F0;
+      --border:        #E5E4E0;
+      --white:         #FFFFFF;
+
+      --grad-blue:   #8AC8E7;
+      --grad-purple: #AB6BFF;
+
+      --gradient-primary:   linear-gradient(135deg, #8AC8E7 0%, #AB6BFF 100%);
+      --gradient-secondary: linear-gradient(160deg, #F6F5F0 0%, #F3EFFC 40%, #E8DFF7 70%, #F6F5F0 100%);
+
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans:  'Inter', system-ui, -apple-system, sans-serif;
+
+      --space-1:  0.25rem;
+      --space-2:  0.5rem;
+      --space-3:  0.75rem;
+      --space-4:  1rem;
+      --space-5:  1.25rem;
+      --space-6:  1.5rem;
+      --space-8:  2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --space-24: 6rem;
+      --space-32: 8rem;
+
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+
+      --max-prose: 680px;
+      --max-wide:  1100px;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--ink);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ============================================================
+       SCROLL PROGRESS BAR
+       ============================================================ */
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--gradient-primary);
+      z-index: 1000;
+      transition: width 0.05s linear;
+    }
+
+    /* ============================================================
+       SCROLL REVEAL
+       ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       UTILITY
+       ============================================================ */
+    .section-label {
+      font-family: var(--font-sans);
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-tertiary);
+    }
+
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-10);
+    }
+    .section-divider .line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+    }
+    .section-divider.visible .line {
+      transform: scaleX(1);
+    }
+
+    .gradient-text {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-wide);
+      margin: 0 auto;
+      padding: 0 var(--space-6);
+    }
+    .container--prose {
+      max-width: var(--max-prose);
+    }
+
+    /* ============================================================
+       BACK LINK
+       ============================================================ */
+    .back-link {
+      position: fixed;
+      top: var(--space-6);
+      left: var(--space-6);
+      z-index: 100;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: var(--space-2) var(--space-4);
+      transition: color 0.2s ease, border-color 0.2s ease;
+    }
+    .back-link:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+    .back-link svg {
+      transition: transform 0.2s ease;
+    }
+    .back-link:hover svg {
+      transform: translateX(-3px);
+    }
+
+    /* ============================================================
+       HEADER — gradient-secondary background, light and airy
+       ============================================================ */
+    .case-header {
+      background: var(--gradient-secondary);
+      padding: var(--space-32) 0 var(--space-20);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative watermark case number */
+    .case-header__watermark {
+      position: absolute;
+      bottom: -0.1em;
+      right: -0.02em;
+      font-family: var(--font-serif);
+      font-weight: 900;
+      font-size: clamp(8rem, 22vw, 18rem);
+      line-height: 1;
+      color: var(--ink);
+      opacity: 0.04;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.04em;
+    }
+
+    .case-header__inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .case-header__meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      margin-bottom: var(--space-8);
+    }
+    .case-header__meta-item {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-tertiary);
+    }
+    .case-header__meta-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--ink-tertiary);
+      opacity: 0.5;
+    }
+
+    .case-header__eyebrow {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-4);
+    }
+
+    .case-header__title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3.75rem);
+      line-height: 1.15;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-5);
+      max-width: 820px;
+    }
+
+    .case-header__subtitle {
+      font-family: var(--font-sans);
+      font-size: clamp(1rem, 2vw, 1.1875rem);
+      font-weight: 400;
+      color: var(--ink-secondary);
+      max-width: 600px;
+      line-height: 1.55;
+      margin-bottom: var(--space-8);
+    }
+
+    .case-header__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+    .tag {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--ink-secondary);
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.6);
+      border-radius: var(--radius-sm);
+      padding: var(--space-1) var(--space-3);
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+    .tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ============================================================
+       INTRO — white, editorial
+       ============================================================ */
+    .intro-section {
+      background: var(--white);
+      padding: var(--space-20) 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .intro-section__text {
+      font-family: var(--font-sans);
+      font-size: clamp(1.0625rem, 2vw, 1.25rem);
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.75;
+      max-width: var(--max-prose);
+    }
+    .intro-section__text strong {
+      font-weight: 600;
+    }
+
+    /* ============================================================
+       SITUATION — paper background
+       ============================================================ */
+    .situation-section {
+      background: var(--paper);
+      padding: var(--space-20) 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .situation-section__body {
+      max-width: var(--max-prose);
+    }
+    .situation-section__body p {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--ink-secondary);
+      margin-bottom: var(--space-5);
+    }
+    .situation-section__body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ============================================================
+       APPROACH — white, step-based
+       ============================================================ */
+    .approach-section {
+      background: var(--white);
+      padding: var(--space-20) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .approach-steps {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-16);
+      max-width: var(--max-prose);
+    }
+
+    .approach-step {
+      display: grid;
+      grid-template-columns: 3.5rem 1fr;
+      gap: var(--space-6);
+      align-items: start;
+    }
+
+    .approach-step__number {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 2.5rem;
+      line-height: 1;
+      color: var(--accent);
+      opacity: 0.25;
+      padding-top: 0.15em;
+      letter-spacing: -0.02em;
+    }
+
+    .approach-step__content {
+      position: relative;
+      padding-left: var(--space-6);
+    }
+
+    .approach-step__content::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2px;
+      height: 0;
+      background: linear-gradient(180deg, #8AC8E7 0%, #AB6BFF 100%);
+      transition: height 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+    }
+
+    .approach-step.reveal.visible .approach-step__content::before {
+      height: 100%;
+    }
+
+    .approach-step__title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1.375rem;
+      line-height: 1.3;
+      color: var(--ink);
+      margin-bottom: var(--space-3);
+      letter-spacing: -0.01em;
+    }
+
+    .approach-step__body {
+      font-size: 0.9375rem;
+      line-height: 1.75;
+      color: var(--ink-secondary);
+      margin-bottom: var(--space-4);
+    }
+
+    .approach-step__quote {
+      background: var(--accent-light);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: var(--space-4) var(--space-5);
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: var(--ink-secondary);
+    }
+
+    /* ============================================================
+       RESULTS — gradient-secondary background, white stat cards
+       ============================================================ */
+    .results-section {
+      background: var(--gradient-secondary);
+      padding: var(--space-20) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-top: var(--space-12);
+    }
+
+    @media (min-width: 768px) {
+      .results-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .stat-card {
+      background: var(--white);
+      padding: var(--space-8) var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .stat-card__value {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      line-height: 1;
+      letter-spacing: -0.03em;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-card__label {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    .stat-card__context {
+      font-size: 0.75rem;
+      color: var(--ink-tertiary);
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       WHAT I LEARNED — white, dot-grid callout
+       ============================================================ */
+    .learned-section {
+      background: var(--white);
+      padding: var(--space-20) 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .learned-section__body {
+      max-width: var(--max-prose);
+    }
+    .learned-section__body p {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--ink-secondary);
+      margin-bottom: var(--space-5);
+    }
+
+    .quote-callout {
+      margin-top: var(--space-10);
+      background: var(--accent-light);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: var(--space-8) var(--space-8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Dot-grid pattern */
+    .quote-callout::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, var(--accent-soft) 1px, transparent 1px);
+      background-size: 20px 20px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .quote-callout__text {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.0625rem, 2vw, 1.25rem);
+      line-height: 1.65;
+      color: var(--ink);
+    }
+
+    /* ============================================================
+       PREV / NEXT NAVIGATION
+       ============================================================ */
+    .case-nav {
+      background: var(--paper);
+      border-top: 1px solid var(--border);
+      padding: var(--space-12) 0;
+    }
+
+    .case-nav__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-4);
+    }
+
+    @media (max-width: 480px) {
+      .case-nav__grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .case-nav__card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+    .case-nav__card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(102, 103, 171, 0.1);
+    }
+
+    .case-nav__card--next {
+      text-align: right;
+      align-items: flex-end;
+    }
+
+    .case-nav__direction {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-tertiary);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .case-nav__card--next .case-nav__direction {
+      flex-direction: row-reverse;
+    }
+
+    .case-nav__arrow {
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+    .case-nav__card:hover .case-nav__arrow--left {
+      transform: translateX(-4px);
+    }
+    .case-nav__card:hover .case-nav__arrow--right {
+      transform: translateX(4px);
+    }
+
+    .case-nav__title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 640px) {
+      .case-header { padding: calc(var(--space-20) + var(--space-8)) 0 var(--space-16); }
+      .approach-step { grid-template-columns: 2.5rem 1fr; gap: var(--space-4); }
+      .approach-step__number { font-size: 1.75rem; }
+      .case-header__meta { gap: var(--space-2); }
+      .back-link { top: var(--space-4); left: var(--space-4); }
+    }
+
+    @media (min-width: 1024px) {
+      .results-grid { max-width: var(--max-wide); }
+      .approach-steps { max-width: 740px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll progress bar -->
+  <div id="progress-bar" aria-hidden="true"></div>
+
+  <!-- Back link -->
+  <a href="/cases" class="back-link" aria-label="Back to all cases">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+      <path d="M8.5 2.5L4 7l4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    All cases
+  </a>
+
+  <!-- ============================================================
+       HEADER
+       ============================================================ -->
+  <header class="case-header">
+    <div class="case-header__watermark" aria-hidden="true">01</div>
+
+    <div class="container case-header__inner">
+      <!-- Meta row: Company · Role · Timeline -->
+      <div class="case-header__meta reveal">
+        <span class="case-header__meta-item">LINK Mobility</span>
+        <span class="case-header__meta-dot"></span>
+        <span class="case-header__meta-item">VP of UX &amp; Product Manager</span>
+        <span class="case-header__meta-dot"></span>
+        <span class="case-header__meta-item">2021 – Present</span>
+      </div>
+
+      <!-- Eyebrow -->
+      <p class="case-header__eyebrow reveal" style="transition-delay: 0.08s;">Case 01 — MyLINK Portal</p>
+
+      <!-- Title -->
+      <h1 class="case-header__title reveal" style="transition-delay: 0.14s;">
+        Unifying 50+ legacy products<br>into one platform
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="case-header__subtitle reveal" style="transition-delay: 0.2s;">
+        From the inside out — a multi-year journey through organisational change, product strategy, and platform design.
+      </p>
+
+      <!-- Tags -->
+      <div class="case-header__tags reveal" style="transition-delay: 0.26s;">
+        <span class="tag">Product Strategy</span>
+        <span class="tag">UX Leadership</span>
+        <span class="tag">Organisational Change</span>
+        <span class="tag">Go-to-Market</span>
+        <span class="tag">Platform Design</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       INTRO
+       ============================================================ -->
+  <section class="intro-section" aria-label="Introduction">
+    <div class="container">
+      <p class="intro-section__text reveal">
+        LINK Mobility is one of Europe's largest CPaaS providers — Oslo-listed, ~700 employees,
+        <strong>NOK 7bn revenue</strong>, 50,000+ customers sending over <strong>20 billion messages a year</strong>.
+        It had grown primarily through acquisitions, resulting in a fragmented product landscape that was
+        slowly becoming a liability — technically, commercially, and organisationally.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       THE SITUATION
+       ============================================================ -->
+  <section class="situation-section" aria-label="The Situation">
+    <div class="container">
+      <div class="section-divider reveal">
+        <span class="section-label">The Situation</span>
+        <div class="line"></div>
+      </div>
+
+      <div class="situation-section__body">
+        <p class="reveal" style="transition-delay: 0.08s;">
+          Dozens of products, dozens of teams, dozens of roadmaps — none of them talking to each other.
+          Customers were managing four or five different portals to access services that should have been
+          unified years ago. Sales teams were struggling to pitch a coherent story. Engineering was
+          maintaining legacy systems with no clear path forward.
+        </p>
+        <p class="reveal" style="transition-delay: 0.16s;">
+          The business case for unification was obvious to everyone. What wasn't obvious was who owned it,
+          how to sequence it, and how to bring along the people who had built their identities around the
+          products being consolidated.
+        </p>
+        <p class="reveal" style="transition-delay: 0.24s;">
+          This wasn't primarily a design challenge. It was a change management challenge dressed up as a
+          product challenge. That distinction shaped every decision I made over the next four years.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HOW I APPROACHED IT
+       ============================================================ -->
+  <section class="approach-section" aria-label="How I Approached It">
+    <div class="container">
+      <div class="section-divider reveal">
+        <span class="section-label">How I Approached It</span>
+        <div class="line"></div>
+      </div>
+
+      <div class="approach-steps">
+
+        <!-- Step 01 -->
+        <div class="approach-step reveal" style="transition-delay: 0.06s;">
+          <div class="approach-step__number" aria-hidden="true">01</div>
+          <div class="approach-step__content">
+            <h2 class="approach-step__title">The Copenhagen moment</h2>
+            <p class="approach-step__body">
+              The first leadership alignment session was going nowhere. Fourteen people around a table,
+              each defending their product's strategic importance. I asked one question: "If a new customer
+              signed with us tomorrow and we could only give them one access point — what would it be?"
+              The room went quiet. That question unlocked six months of subsequent agreement.
+            </p>
+            <blockquote class="approach-step__quote">
+              "In politically charged rooms, a well-placed question does more than any argument."
+            </blockquote>
+          </div>
+        </div>
+
+        <!-- Step 02 -->
+        <div class="approach-step reveal" style="transition-delay: 0.12s;">
+          <div class="approach-step__number" aria-hidden="true">02</div>
+          <div class="approach-step__content">
+            <h2 class="approach-step__title">Build the north star before anything else</h2>
+            <p class="approach-step__body">
+              Before wireframes, before engineering sprints, before any feature discussion — I wrote the
+              Product Blueprint. A 40-page document defining the platform's purpose, principles, scope,
+              and the sequencing logic for every migration phase. It became the reference document
+              that every team pointed to when scope debates arose. Three years later, it still is.
+            </p>
+            <p class="approach-step__body">
+              The Blueprint wasn't a backlog. It was a strategic anchor. The difference matters: a backlog
+              can be negotiated away line by line. A blueprint forces conversations about direction, not
+              just features.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 03 -->
+        <div class="approach-step reveal" style="transition-delay: 0.18s;">
+          <div class="approach-step__number" aria-hidden="true">03</div>
+          <div class="approach-step__content">
+            <h2 class="approach-step__title">Build the team before building the product</h2>
+            <p class="approach-step__body">
+              I built the UX practice from scratch: process definition, hiring criteria, onboarding
+              structure, rituals. Five designers across three countries. Zero turnover in four years —
+              in an industry where 18-month tenures are considered long.
+            </p>
+            <p class="approach-step__body">
+              The team's stability became the product's stability. Institutional knowledge didn't walk
+              out the door. Patterns were refined over time rather than reinvented. The consistency in
+              the final product is a direct output of the consistency in the team.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       RESULTS
+       ============================================================ -->
+  <section class="results-section" aria-label="Results">
+    <div class="container">
+      <div class="section-divider reveal">
+        <span class="section-label">Results</span>
+        <div class="line"></div>
+      </div>
+
+      <div class="results-grid" role="list">
+
+        <div class="stat-card reveal" role="listitem" style="transition-delay: 0.04s;">
+          <div class="stat-card__value" data-count="12900" data-suffix="+">12,900+</div>
+          <div class="stat-card__label">Unique users</div>
+          <div class="stat-card__context">MyLINK Portal at launch</div>
+        </div>
+
+        <div class="stat-card reveal" role="listitem" style="transition-delay: 0.08s;">
+          <div class="stat-card__value" data-raw="8m 41s">8m 41s</div>
+          <div class="stat-card__label">Avg session</div>
+          <div class="stat-card__context">vs industry avg ~2m</div>
+        </div>
+
+        <div class="stat-card reveal" role="listitem" style="transition-delay: 0.12s;">
+          <div class="stat-card__value" data-count="14" data-suffix="%">14%</div>
+          <div class="stat-card__label">Bounce rate</div>
+          <div class="stat-card__context">Benchmark: 40–60%</div>
+        </div>
+
+        <div class="stat-card reveal" role="listitem" style="transition-delay: 0.16s;">
+          <div class="stat-card__value" data-raw="91–100%">91–100%</div>
+          <div class="stat-card__label">Migration completion</div>
+          <div class="stat-card__context">Across Nordic markets</div>
+        </div>
+
+        <div class="stat-card reveal" role="listitem" style="transition-delay: 0.2s;">
+          <div class="stat-card__value" data-count="10" data-suffix="+">10+</div>
+          <div class="stat-card__label">Legacy products sunset</div>
+          <div class="stat-card__context">Without churn</div>
+        </div>
+
+        <div class="stat-card reveal" role="listitem" style="transition-delay: 0.24s;">
+          <div class="stat-card__value" data-count="5">5</div>
+          <div class="stat-card__label">UX team built</div>
+          <div class="stat-card__context">Across 3 countries</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       WHAT I LEARNED
+       ============================================================ -->
+  <section class="learned-section" aria-label="What I Learned">
+    <div class="container">
+      <div class="section-divider reveal">
+        <span class="section-label">What I Learned</span>
+        <div class="line"></div>
+      </div>
+
+      <div class="learned-section__body">
+        <p class="reveal" style="transition-delay: 0.06s;">
+          The hardest part wasn't the product — it was the politics. Every meaningful change required
+          building trust in three directions simultaneously: with the engineering team who doubted PM
+          involvement, with the market managers who feared disruption, and with C-level stakeholders
+          who had heard promises before.
+        </p>
+        <p class="reveal" style="transition-delay: 0.12s;">
+          What I underestimated at the start was how much of product leadership is reputation management.
+          Your ability to ship depends on the credit you've accumulated with the people around you.
+          You spend it every time you ask for a hard call. You build it every time you tell the truth
+          when a comfortable lie was available.
+        </p>
+
+        <div class="quote-callout reveal" style="transition-delay: 0.18s;">
+          <p class="quote-callout__text">
+            "Credibility under pressure is built by telling the truth when it's uncomfortable."
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PREV / NEXT NAVIGATION
+       ============================================================ -->
+  <nav class="case-nav" aria-label="Case navigation">
+    <div class="container">
+      <div class="case-nav__grid">
+
+        <a href="/cases/alqua-cloud" class="case-nav__card" aria-label="Previous case: Alqua Cloud">
+          <span class="case-nav__direction">
+            <span class="case-nav__arrow case-nav__arrow--left" aria-hidden="true">&#8592;</span>
+            Previous
+          </span>
+          <span class="case-nav__title">Alqua Cloud</span>
+        </a>
+
+        <a href="/cases/ai-message-composer" class="case-nav__card case-nav__card--next" aria-label="Next case: AI Message Composer">
+          <span class="case-nav__direction">
+            Next
+            <span class="case-nav__arrow case-nav__arrow--right" aria-hidden="true">&#8594;</span>
+          </span>
+          <span class="case-nav__title">AI Message Composer</span>
+        </a>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
+  <script>
+    /* -- Scroll progress bar -- */
+    (function () {
+      const bar = document.getElementById('progress-bar');
+      function updateProgress() {
+        const scrollTop = window.scrollY;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        bar.style.width = pct + '%';
+      }
+      window.addEventListener('scroll', updateProgress, { passive: true });
+      updateProgress();
+    })();
+
+    /* -- Scroll reveal (IntersectionObserver) -- */
+    (function () {
+      const revealEls = document.querySelectorAll('.reveal');
+      const dividers  = document.querySelectorAll('.section-divider');
+
+      const observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: '0px 0px -32px 0px' }
+      );
+
+      revealEls.forEach(function (el) { observer.observe(el); });
+      dividers.forEach(function (el) { observer.observe(el); });
+
+      /* Trigger above-fold elements immediately */
+      setTimeout(function () {
+        document.querySelectorAll('.reveal:not(.visible)').forEach(function (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight) {
+            el.classList.add('visible');
+          }
+        });
+      }, 60);
+    })();
+
+    /* -- Count-up animation for stat cards -- */
+    (function () {
+      const statEls = document.querySelectorAll('.stat-card__value[data-count]');
+
+      function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function animateCount(el) {
+        const target  = parseInt(el.getAttribute('data-count'), 10);
+        const suffix  = el.getAttribute('data-suffix') || '';
+        const duration = 1400;
+        const startTime = performance.now();
+
+        function tick(now) {
+          const elapsed  = now - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased    = easeOutCubic(progress);
+          const current  = Math.round(eased * target);
+
+          /* Format with comma for thousands */
+          el.textContent = current >= 1000
+            ? current.toLocaleString('en-US') + suffix
+            : current + suffix;
+
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            el.textContent = target >= 1000
+              ? target.toLocaleString('en-US') + suffix
+              : target + suffix;
+          }
+        }
+
+        requestAnimationFrame(tick);
+      }
+
+      const countObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              animateCount(entry.target);
+              countObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+
+      statEls.forEach(function (el) { countObserver.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
