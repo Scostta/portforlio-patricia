@@ -5,6 +5,7 @@ import type { ReactElement, KeyboardEvent } from 'react'
 import Link from 'next/link'
 import { cn } from '~/utils/cn'
 import { SUGGESTED_QUESTIONS } from '~/constants/chat-responses'
+import type { ChatSession } from './chat-sidebar.client'
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -12,6 +13,16 @@ type Message = {
   id: string
   role: 'user' | 'assistant'
   content: string
+}
+
+type ChatInterfaceProps = {
+  chatId: string | null
+  userSessionId: string
+  initialMessages: Message[]
+  loadingMessages: boolean
+  onSessionCreated: (session: ChatSession) => void
+  onMessageSent: (chatId: string) => void
+  onOpenSidebar: () => void
 }
 
 // ─── Markdown renderer ───────────────────────────────────────────────────────
@@ -58,14 +69,7 @@ function MarkdownContent({ content, isUser }: { content: string; isUser: boolean
             <ul key={bIdx} className="space-y-1.5">
               {lines.map((line, lIdx) => (
                 <li key={lIdx} className="flex gap-2 items-start">
-                  <span
-                    className={cn(
-                      'shrink-0 mt-[3px] text-[10px]',
-                      isUser ? 'opacity-70' : 'text-accent',
-                    )}
-                  >
-                    ●
-                  </span>
+                  <span className={cn('shrink-0 mt-[3px] text-[10px]', isUser ? 'opacity-70' : 'text-accent')}>●</span>
                   <span>{parseInline(line.replace(/^[•\-]\s*/, ''))}</span>
                 </li>
               ))}
@@ -79,40 +83,23 @@ function MarkdownContent({ content, isUser }: { content: string; isUser: boolean
               const trimmed = line.trim()
               if (!trimmed) return null
 
-              // Standalone bold line → section label
               if (/^\*\*[^*]+\*\*$/.test(trimmed)) {
                 return (
-                  <p
-                    key={lIdx}
-                    className={cn(
-                      'font-semibold text-[0.8125rem] tracking-wide',
-                      isUser ? 'opacity-80' : 'text-ink',
-                      lIdx > 0 && 'mt-2',
-                    )}
-                  >
+                  <p key={lIdx} className={cn('font-semibold text-[0.8125rem] tracking-wide', isUser ? 'opacity-80' : 'text-ink', lIdx > 0 && 'mt-2')}>
                     {trimmed.slice(2, -2)}
                   </p>
                 )
               }
 
-              // Bullet on its own line
               if (/^[•\-]/.test(trimmed)) {
                 return (
                   <div key={lIdx} className="flex gap-2 items-start">
-                    <span
-                      className={cn(
-                        'shrink-0 mt-[3px] text-[10px]',
-                        isUser ? 'opacity-70' : 'text-accent',
-                      )}
-                    >
-                      ●
-                    </span>
+                    <span className={cn('shrink-0 mt-[3px] text-[10px]', isUser ? 'opacity-70' : 'text-accent')}>●</span>
                     <span>{parseInline(trimmed.replace(/^[•\-]\s*/, ''))}</span>
                   </div>
                 )
               }
 
-              // Italic block quote
               if (trimmed.startsWith('*') && trimmed.endsWith('*') && !trimmed.startsWith('**')) {
                 return (
                   <p key={lIdx} className={cn('italic', isUser ? 'opacity-80' : 'text-ink-secondary')}>
@@ -227,25 +214,27 @@ What would you like to know?`,
 
 // ─── Main component ──────────────────────────────────────────────────────────
 
-export function ChatInterface(): ReactElement {
-  const [messages, setMessages] = useState<Message[]>([WELCOME])
+export function ChatInterface({
+  chatId,
+  userSessionId,
+  initialMessages,
+  loadingMessages,
+  onSessionCreated,
+  onMessageSent,
+  onOpenSidebar,
+}: ChatInterfaceProps): ReactElement {
+  const hasInitialMessages = initialMessages.length > 0
+  const [messages, setMessages] = useState<Message[]>(hasInitialMessages ? initialMessages : [WELCOME])
   const [input, setInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
-  const [showSuggestions, setShowSuggestions] = useState(true)
+  const [showSuggestions, setShowSuggestions] = useState(!hasInitialMessages)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
-  const sessionId = useRef<string>('')
+  const activeChatId = useRef<string | null>(chatId)
 
   useEffect(() => {
-    const stored = localStorage.getItem('pati-chat-session')
-    if (stored) {
-      sessionId.current = stored
-    } else {
-      const id = crypto.randomUUID()
-      localStorage.setItem('pati-chat-session', id)
-      sessionId.current = id
-    }
-  }, [])
+    activeChatId.current = chatId
+  }, [chatId])
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -266,22 +255,46 @@ export function ChatInterface(): ReactElement {
         content: trimmed,
       }
 
-      setMessages((prev) => [...prev, userMessage])
+      setMessages((prev) => [...prev.filter((m) => m.id !== 'welcome'), userMessage])
       setInput('')
       setIsTyping(true)
       setShowSuggestions(false)
+
+      // Optimistic session creation — appears in sidebar immediately
+      let isNewChat = false
+      if (!activeChatId.current) {
+        const newId = crypto.randomUUID()
+        const title = trimmed.length > 50 ? trimmed.slice(0, 50) + '…' : trimmed
+        activeChatId.current = newId
+        isNewChat = true
+        onSessionCreated({
+          id: newId,
+          title,
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        })
+      }
 
       try {
         const res = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question: trimmed, sessionId: sessionId.current }),
+          body: JSON.stringify({
+            question: trimmed,
+            chatId: activeChatId.current,
+            userSessionId,
+            isNewChat,
+          }),
         })
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
 
         const data = await res.json()
         const content: string = data.text ?? data.answer ?? 'No response received.'
+
+        if (data.chatId) {
+          onMessageSent(data.chatId)
+        }
 
         setMessages((prev) => [
           ...prev,
@@ -290,17 +303,13 @@ export function ChatInterface(): ReactElement {
       } catch {
         setMessages((prev) => [
           ...prev,
-          {
-            id: `error-${Date.now()}`,
-            role: 'assistant',
-            content: 'Sorry, something went wrong. Please try again.',
-          },
+          { id: `error-${Date.now()}`, role: 'assistant', content: 'Sorry, something went wrong. Please try again.' },
         ])
       } finally {
         setIsTyping(false)
       }
     },
-    [isTyping],
+    [isTyping, userSessionId, onSessionCreated, onMessageSent],
   )
 
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -310,11 +319,6 @@ export function ChatInterface(): ReactElement {
     }
   }
 
-  const handleSuggestion = (q: string) => {
-    sendMessage(q)
-  }
-
-  // Auto-resize textarea
   const handleInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value)
     const el = e.target
@@ -325,32 +329,19 @@ export function ChatInterface(): ReactElement {
   return (
     <div className="flex flex-col h-dvh bg-paper">
       {/* Header */}
-      <header className="shrink-0 bg-white border-b border-border px-4 sm:px-6 py-3 flex items-center gap-4">
-        <Link
-          href="/"
-          className="flex items-center gap-1.5 text-ink-tertiary hover:text-ink transition-colors group"
-          aria-label="Back to portfolio"
+      <header className="shrink-0 bg-white border-b border-border px-4 sm:px-6 py-3 flex items-center gap-3">
+        <button
+          onClick={onOpenSidebar}
+          className="lg:hidden shrink-0 w-8 h-8 flex items-center justify-center rounded-lg text-ink-tertiary hover:text-ink hover:bg-surface transition-colors"
+          aria-label="Open sidebar"
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 16 16"
-            fill="none"
-            className="transition-transform group-hover:-translate-x-0.5"
-          >
-            <path
-              d="M10 12L6 8l4-4"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
-          <span className="text-xs font-medium">Portfolio</span>
-        </Link>
+        </button>
 
-        <div className="flex items-center gap-3 flex-1">
-          <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center shadow-sm shrink-0">
+        <div className="flex items-center gap-3 flex-1 min-w-0">
+          <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center shadow-sm shrink-0 hidden lg:flex">
             <span className="text-white text-xs font-semibold tracking-wide select-none">PB</span>
           </div>
           <div className="min-w-0">
@@ -367,19 +358,33 @@ export function ChatInterface(): ReactElement {
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 py-6 space-y-5">
-          {messages.map((msg) => (
-            <MessageBubble key={msg.id} message={msg} />
-          ))}
+        {loadingMessages ? (
+          <div className="flex items-center justify-center h-full">
+            <div className="flex gap-1.5">
+              {[0, 1, 2].map((i) => (
+                <span
+                  key={i}
+                  className="w-1.5 h-1.5 rounded-full bg-ink-tertiary animate-bounce"
+                  style={{ animationDelay: `${i * 150}ms`, animationDuration: '900ms' }}
+                />
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="max-w-2xl mx-auto px-4 sm:px-6 py-6 space-y-5">
+            {messages.map((msg) => (
+              <MessageBubble key={msg.id} message={msg} />
+            ))}
 
-          {showSuggestions && !isTyping && (
-            <SuggestedQuestions onSelect={handleSuggestion} />
-          )}
+            {showSuggestions && !isTyping && (
+              <SuggestedQuestions onSelect={(q) => sendMessage(q)} />
+            )}
 
-          {isTyping && <TypingIndicator />}
+            {isTyping && <TypingIndicator />}
 
-          <div ref={messagesEndRef} />
-        </div>
+            <div ref={messagesEndRef} />
+          </div>
+        )}
       </div>
 
       {/* Input area */}
@@ -400,27 +405,21 @@ export function ChatInterface(): ReactElement {
               rows={1}
               className="flex-1 resize-none bg-transparent text-sm text-ink placeholder:text-ink-tertiary focus:outline-none leading-relaxed max-h-[120px] scrollbar-none"
               style={{ scrollbarWidth: 'none' }}
-              disabled={isTyping}
+              disabled={isTyping || loadingMessages}
             />
             <button
               onClick={() => sendMessage(input)}
-              disabled={!input.trim() || isTyping}
+              disabled={!input.trim() || isTyping || loadingMessages}
               aria-label="Send message"
               className={cn(
                 'shrink-0 w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-200',
-                input.trim() && !isTyping
+                input.trim() && !isTyping && !loadingMessages
                   ? 'bg-accent text-white hover:bg-accent-hover shadow-sm hover:shadow-card-hover scale-100'
                   : 'bg-border text-ink-tertiary scale-95 opacity-60',
               )}
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                <path
-                  d="M7 11.5V2.5M7 2.5L3 6.5M7 2.5L11 6.5"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
+                <path d="M7 11.5V2.5M7 2.5L3 6.5M7 2.5L11 6.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
           </div>
