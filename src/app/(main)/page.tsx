@@ -18,12 +18,12 @@ export default function HomePage(): ReactElement {
       <section>
         <div className="min-h-[90vh] flex flex-col justify-center px-6 lg:px-12 max-w-7xl mx-auto py-20">
           <div className="max-w-4xl">
-            <p className="section-label mb-8 animate-fade-up">Product Manager & UX Lead</p>
+            <p className="section-label mb-8 animate-fade-up">Product & Design Lead</p>
 
             <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight text-ink mb-10 animate-fade-up [animation-delay:100ms]">
-              Building products
+              Building product systems from scratch
               <br />
-              <span className="bg-gradient-primary bg-clip-text text-transparent">people actually use.</span>
+              <span className="bg-gradient-primary bg-clip-text text-transparent">with a founder's instinct.</span>
             </h1>
 
             <p className="text-xl lg:text-2xl leading-relaxed text-ink max-w-2xl mb-12 animate-fade-up [animation-delay:400ms]">
@@ -110,7 +110,7 @@ export default function HomePage(): ReactElement {
       {/* Positioning block */}
       <section className="bg-gradient-secondary border-y border-border px-6 lg:px-12 py-20">
         <div className="max-w-3xl mx-auto text-center">
-          <p className="font-serif text-2xl lg:text-3xl text-ink leading-relaxed italic reveal-far">
+          <p className="font-serif text-2xl lg:text-3xl text-ink leading-relaxed reveal-far">
             &ldquo;Building product systems from scratch — with a business degree, a founder&apos;s
             P&amp;L instinct, and a researcher&apos;s understanding of users. I connect strategy,
             design and technology into products that actually ship.&rdquo;
