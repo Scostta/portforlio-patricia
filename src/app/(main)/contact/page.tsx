@@ -1,5 +1,5 @@
 import type { ReactElement } from 'react'
-import Link from 'next/link'
+import { Button } from '~/components/ui/button'
 
 export const metadata = {
   title: 'Contact — Patricia Bayona',
@@ -142,17 +142,9 @@ export default function ContactPage(): ReactElement {
             ))}
           </ul>
 
-          <a
-            href="https://calendly.com/patricia-bulto/know-me"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 bg-gradient-primary text-black rounded-lg px-6 py-3.5 text-sm font-medium tracking-wide hover:text-white hover:bg-accent-hover transition-colors duration-200 self-start"
-          >
+          <Button variant="primary" size="md" href="https://calendly.com/patricia-bulto/know-me" external arrow className="self-start">
             Schedule a call
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </a>
+          </Button>
         </div>
 
       </section>

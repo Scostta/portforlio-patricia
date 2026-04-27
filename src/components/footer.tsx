@@ -1,3 +1,5 @@
+import { Button } from '~/components/ui/button'
+
 export function Footer() {
   return (
     <footer className="bg-paper px-6 lg:px-12 py-8">
@@ -15,20 +17,12 @@ export function Footer() {
             </div>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <a
-              href="https://www.linkedin.com/in/patriciabayona"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-1.5 rounded-full border border-border text-xs text-ink hover:bg-border transition-colors"
-            >
+            <Button variant="pill" size="sm" href="https://www.linkedin.com/in/patriciabayona" external>
               LinkedIn
-            </a>
-            <a
-              href="/cv"
-              className="px-4 py-1.5 rounded-full border border-border text-xs text-ink hover:bg-border transition-colors"
-            >
+            </Button>
+            <Button variant="pill" size="sm" href="/cv">
               CV
-            </a>
+            </Button>
           </div>
         </div>
       </div>

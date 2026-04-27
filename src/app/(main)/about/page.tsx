@@ -1,7 +1,7 @@
 import type { ReactElement } from 'react'
-import Link from 'next/link'
 import { SkillsGrid } from '~/components/skills-grid.client'
 import { LanguagesPersonalGrid } from '~/components/languages-personal-grid.client'
+import { Button } from '~/components/ui/button'
 
 export const metadata = {
   title: 'About — Patricia Bayona',
@@ -270,15 +270,9 @@ export default function AboutPage(): ReactElement {
         <p className="text-base text-ink-secondary mb-6">
           Want to see how I work? Start with the case studies.
         </p>
-        <Link
-          href="/cases"
-          className="inline-flex items-center gap-3 bg-gradient-primary text-black rounded-lg px-7 py-3.5 text-sm font-medium tracking-wide hover:bg-accent-hover hover:text-white transition-colors duration-200"
-        >
+        <Button variant="primary" size="lg" href="/cases" arrow>
           View all cases
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </Link>
+        </Button>
       </div>
     </div>
   )

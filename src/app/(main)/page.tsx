@@ -8,6 +8,7 @@ import { STATS } from '~/constants/stats'
 import { StatNumber } from '~/components/stat-number.client'
 import { FeaturedCasesGrid } from '~/components/featured-cases-grid.client'
 import { HomeSkillsGrid } from '~/components/home-skills-grid.client'
+import { Button } from '~/components/ui/button'
 
 export default function HomePage(): ReactElement {
   const featuredCases = CASES.filter((c) => FEATURED_CASE_SLUGS.includes(c.slug))
@@ -35,21 +36,12 @@ export default function HomePage(): ReactElement {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 animate-fade-up [animation-delay:300ms]">
-              <Link
-                href="/cases"
-                className="inline-flex items-center gap-3 bg-gradient-primary text-black rounded-lg px-7 py-3.5 text-sm font-medium tracking-wide hover:text-white hover:bg-accent-hover transition-colors duration-200"
-              >
+              <Button variant="primary" size="lg" href="/cases" arrow>
                 View case studies
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </Link>
-              <Link
-                href="/about"
-                className="inline-flex items-center gap-3 border border-border rounded-lg text-ink px-7 py-3.5 text-sm font-medium tracking-wide hover:border-accent transition-colors duration-200"
-              >
+              </Button>
+              <Button variant="secondary" size="lg" href="/about">
                 About me
-              </Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -81,29 +73,17 @@ export default function HomePage(): ReactElement {
             <p className="section-label mb-3">Selected work</p>
             <h2 className="font-serif text-3xl lg:text-4xl text-ink">Featured cases</h2>
           </div>
-          <Link
-            href="/cases"
-            className="hidden sm:inline-flex items-center gap-2 text-sm text-ink-secondary hover:text-ink transition-colors"
-          >
+          <Button variant="ghost" size="md" href="/cases" arrow className="hidden sm:inline-flex">
             All 6 cases
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Link>
+          </Button>
         </div>
 
         <FeaturedCasesGrid cases={featuredCases} />
 
         <div className="mt-6 sm:hidden">
-          <Link
-            href="/cases"
-            className="inline-flex items-center gap-2 text-sm text-ink-secondary hover:text-ink transition-colors"
-          >
+          <Button variant="ghost" size="md" href="/cases" arrow>
             All 6 cases
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-              <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </Link>
+          </Button>
         </div>
       </section>
 
@@ -137,15 +117,9 @@ export default function HomePage(): ReactElement {
               Business degree from ICADE. I&apos;m Spanish, English-proficient (Cambridge CPE), and
               work fully remote.
             </p>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-2 text-sm font-medium text-ink border-b border-ink pb-0.5 hover:text-accent hover:border-accent transition-colors"
-            >
+            <Button variant="ghost" size="md" href="/about" arrow className="text-ink font-medium border-b border-ink pb-0.5 hover:text-accent hover:border-accent">
               Full profile
-              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
+            </Button>
           </div>
 
           <HomeSkillsGrid skills={SKILLS} />

@@ -1,6 +1,8 @@
 import type { ReactElement } from 'react'
 import Link from 'next/link'
 import { CASES } from '~/constants/cases'
+import { Button } from '~/components/ui/button'
+import { Tag } from '~/components/ui/tag'
 
 export const metadata = {
   title: 'Case Studies — Patricia Bayona',
@@ -60,12 +62,7 @@ export default function CasesPage(): ReactElement {
 
               <div className="flex flex-wrap gap-1.5">
                 {c.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-2xs tracking-wide px-2.5 py-1 bg-paper text-ink-secondary"
-                  >
-                    {tag}
-                  </span>
+                  <Tag key={tag}>{tag}</Tag>
                 ))}
               </div>
             </div>
@@ -103,21 +100,12 @@ export default function CasesPage(): ReactElement {
             </p>
           </div>
           <div className="flex items-center gap-3 flex-shrink-0">
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-3 bg-gradient-primary text-black rounded-lg px-7 py-3.5 text-sm font-medium tracking-wide hover:text-white hover:bg-accent-hover transition-colors duration-200"
-            >
+            <Button variant="primary" size="lg" href="/contact" arrow>
               Get in touch
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
-            </Link>
-            <Link
-              href="/about"
-              className="inline-flex items-center gap-3 border border-border text-ink rounded-lg px-7 py-3.5 text-sm font-medium tracking-wide hover:border-accent transition-colors duration-200"
-            >
+            </Button>
+            <Button variant="secondary" size="lg" href="/about">
               About me
-            </Link>
+            </Button>
           </div>
         </div>
       </div>

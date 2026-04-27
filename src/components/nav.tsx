@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '~/utils/cn'
+import { Button } from '~/components/ui/button'
 
 const NAV_LINKS = [
   { href: '/cases', label: 'Cases' },
@@ -70,12 +71,9 @@ export function Nav() {
             ))}
           </ul>
 
-          <a
-            href="mailto:patricia.bulto@gmail.com"
-            className="inline-flex items-center gap-2 bg-gradient-primary text-black rounded-lg px-4 py-2 text-sm font-medium tracking-wide hover:bg-accent hover:text-white transition-colors duration-200"
-          >
+          <Button variant="primary" size="sm" href="mailto:patricia.bulto@gmail.com" external>
             Get in touch
-          </a>
+          </Button>
         </div>
       </nav>
     </header>
