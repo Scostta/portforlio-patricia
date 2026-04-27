@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import Link from 'next/link'
 import type { CSSProperties, ReactElement } from 'react'
 import type { Case } from '~/constants/cases'
+import { Tag } from '~/components/ui/tag'
 
 type FeaturedCasesGridProps = {
   cases: Case[]
@@ -60,12 +61,7 @@ export function FeaturedCasesGrid({ cases }: FeaturedCasesGridProps): ReactEleme
 
             <div className="flex flex-wrap gap-1.5 mb-8">
               {c.tags.slice(0, 3).map((tag) => (
-                <span
-                  key={tag}
-                  className="text-2xs tracking-wide px-2.5 py-1 bg-paper text-ink-secondary"
-                >
-                  {tag}
-                </span>
+                <Tag key={tag}>{tag}</Tag>
               ))}
             </div>
 

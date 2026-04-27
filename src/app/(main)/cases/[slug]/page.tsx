@@ -4,6 +4,8 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 import { CASES } from '~/constants/cases'
+import { Button } from '~/components/ui/button'
+import { Tag } from '~/components/ui/tag'
 
 type Props = {
   params: Promise<{ slug: string }>
@@ -127,12 +129,7 @@ export default async function CasePage({ params }: Props): Promise<ReactElement>
             style={{ transitionDelay: '260ms' }}
           >
             {c.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-2xs font-medium tracking-[0.04em] text-ink-secondary border border-border bg-white/60 rounded-sm px-3 py-1 transition-colors duration-200 hover:border-accent hover:text-accent"
-              >
-                {tag}
-              </span>
+              <Tag key={tag} variant="bordered">{tag}</Tag>
             ))}
           </div>
         </div>

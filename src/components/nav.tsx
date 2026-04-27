@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '~/utils/cn'
+import { Button } from '~/components/ui/button'
 
 const NAV_LINKS = [
   { href: '/cases', label: 'Cases' },
@@ -51,23 +52,29 @@ export function Nav() {
           Patricia Bayona Bultó
         </Link>
 
-        <ul className="flex items-center gap-8">
-          {NAV_LINKS.map(({ href, label }) => (
-            <li key={href}>
-              <Link
-                href={href}
-                className={cn(
-                  'relative text-sm tracking-wide transition-colors duration-200',
-                  'after:absolute after:left-0 after:-bottom-1 after:h-px after:bg-accent',
-                  'after:w-0 after:transition-[width] after:duration-300',
-                  isActive(href) ? 'text-ink font-medium after:!w-full' : 'text-ink-secondary hover:text-ink hover:after:w-full',
-                )}
-              >
-                {label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="flex items-center gap-8">
+          <ul className="flex items-center gap-8">
+            {NAV_LINKS.map(({ href, label }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className={cn(
+                    'relative text-sm tracking-wide transition-colors duration-200',
+                    'after:absolute after:left-0 after:-bottom-1 after:h-px after:bg-accent',
+                    'after:w-0 after:transition-[width] after:duration-300',
+                    isActive(href) ? 'text-ink font-medium after:!w-full' : 'text-ink-secondary hover:text-ink hover:after:w-full',
+                  )}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <Button variant="primary" size="sm" href="mailto:patricia.bulto@gmail.com" external>
+            Get in touch
+          </Button>
+        </div>
       </nav>
     </header>
   )
