@@ -18,7 +18,7 @@ export default function HomePage(): ReactElement {
       <section>
         <div className="min-h-[90vh] flex flex-col justify-center px-6 lg:px-12 max-w-7xl mx-auto py-20">
           <div className="max-w-4xl">
-            <p className="section-label mb-8 animate-fade-up">Product & Design Lead</p>
+            <p className="section-label mb-8 animate-fade-up">Product & Design Leader</p>
 
             <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight text-ink mb-10 animate-fade-up [animation-delay:100ms]">
               Building product systems from scratch

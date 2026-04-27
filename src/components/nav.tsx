@@ -51,23 +51,32 @@ export function Nav() {
           Patricia Bayona Bultó
         </Link>
 
-        <ul className="flex items-center gap-8">
-          {NAV_LINKS.map(({ href, label }) => (
-            <li key={href}>
-              <Link
-                href={href}
-                className={cn(
-                  'relative text-sm tracking-wide transition-colors duration-200',
-                  'after:absolute after:left-0 after:-bottom-1 after:h-px after:bg-accent',
-                  'after:w-0 after:transition-[width] after:duration-300',
-                  isActive(href) ? 'text-ink font-medium after:!w-full' : 'text-ink-secondary hover:text-ink hover:after:w-full',
-                )}
-              >
-                {label}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <div className="flex items-center gap-8">
+          <ul className="flex items-center gap-8">
+            {NAV_LINKS.map(({ href, label }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className={cn(
+                    'relative text-sm tracking-wide transition-colors duration-200',
+                    'after:absolute after:left-0 after:-bottom-1 after:h-px after:bg-accent',
+                    'after:w-0 after:transition-[width] after:duration-300',
+                    isActive(href) ? 'text-ink font-medium after:!w-full' : 'text-ink-secondary hover:text-ink hover:after:w-full',
+                  )}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href="mailto:patricia.bulto@gmail.com"
+            className="inline-flex items-center gap-2 bg-gradient-primary text-black rounded-lg px-4 py-2 text-sm font-medium tracking-wide hover:bg-accent hover:text-white transition-colors duration-200"
+          >
+            Get in touch
+          </a>
+        </div>
       </nav>
     </header>
   )
