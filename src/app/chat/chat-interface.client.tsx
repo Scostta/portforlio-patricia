@@ -192,14 +192,20 @@ function ChatHome({
       leaving && 'opacity-0 -translate-y-4 pointer-events-none',
     )}>
       {/* Title */}
-      <div className="flex flex-col items-center mb-8 text-center">
+      <div
+        className="flex flex-col items-center mb-8 text-center"
+        style={{ animation: 'land-up 500ms 80ms both cubic-bezier(.4,0,.2,1)' }}
+      >
         <h1 className="font-serif text-2xl lg:text-3xl text-ink mb-2">
-          Welcome, to Patricia’s Portfolio AI Experience
+          Welcome, to Patricia's Portfolio AI Experience
         </h1>
       </div>
 
       {/* Centered input */}
-      <div className="w-full max-w-xl mb-5">
+      <div
+        className="w-full max-w-xl mb-5"
+        style={{ animation: 'land-up 500ms 220ms both cubic-bezier(.4,0,.2,1)' }}
+      >
         <InputBox
           value={input}
           onChange={handleInputChange}
@@ -213,10 +219,11 @@ function ChatHome({
 
       {/* Topic chips */}
       <div className="flex flex-wrap justify-center gap-2 mb-4">
-        {TOPICS.map((topic) => (
+        {TOPICS.map((topic, i) => (
           <button
             key={topic.id}
             onClick={() => setActiveId(activeId === topic.id ? null : topic.id)}
+            style={{ animation: `land-up-sm 350ms ${380 + i * 60}ms both cubic-bezier(.4,0,.2,1)` }}
             className={cn(
               'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-150',
               activeId === topic.id

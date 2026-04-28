@@ -51,7 +51,10 @@ function ChatsListView({
           </button>
 
           {/* Title + CTA */}
-          <div className="flex items-center justify-between mb-6">
+          <div
+            className="flex items-center justify-between mb-6"
+            style={{ animation: 'land-up 500ms 80ms both cubic-bezier(.4,0,.2,1)' }}
+          >
             <h1 className="font-serif text-3xl text-ink">Chats</h1>
             <button
               onClick={onNewChat}
@@ -60,12 +63,15 @@ function ChatsListView({
               <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
                 <path d="M5.5 1v9M1 5.5h9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
-              Nueva conversación
+              New conversation
             </button>
           </div>
 
           {/* Search */}
-          <div className="relative mb-6">
+          <div
+            className="relative mb-6"
+            style={{ animation: 'land-up 500ms 200ms both cubic-bezier(.4,0,.2,1)' }}
+          >
             <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-tertiary pointer-events-none" width="14" height="14" viewBox="0 0 24 24" fill="none">
               <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.5" />
               <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -80,13 +86,19 @@ function ChatsListView({
 
           {/* Sessions */}
           {filtered.length === 0 ? (
-            <p className="text-sm text-ink-tertiary italic">
+            <p
+              className="text-sm text-ink-tertiary italic"
+              style={{ animation: 'land-up 400ms 320ms both cubic-bezier(.4,0,.2,1)' }}
+            >
               {search ? 'No se encontraron conversaciones.' : 'Sin conversaciones aún.'}
             </p>
           ) : (
             <ul className="divide-y divide-border">
-              {filtered.map((session) => (
-                <li key={session.id}>
+              {filtered.map((session, i) => (
+                <li
+                  key={session.id}
+                  style={{ animation: `land-up-sm 400ms ${320 + i * 50}ms both cubic-bezier(.4,0,.2,1)` }}
+                >
                   <button
                     onClick={() => onSelectSession(session.id)}
                     className="w-full text-left py-4 hover:bg-surface rounded-xl px-3 -mx-3 transition-colors duration-150 group"

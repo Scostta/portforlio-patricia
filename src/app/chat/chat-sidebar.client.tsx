@@ -243,10 +243,10 @@ export function ChatSidebar({
 
         {/* Nav items */}
         <div className={cn('shrink-0 pt-3 pb-2', isCollapsed ? 'px-2 space-y-1' : 'px-3 space-y-0.5')}>
-          {/* Nueva conversación */}
+          {/* New conversation */}
           <button
             onClick={() => { onNewChat(); onClose() }}
-            title={isCollapsed ? 'Nueva conversación' : undefined}
+            title={isCollapsed ? 'New conversation' : undefined}
             className={cn(
               'w-full flex items-center rounded-lg text-sm text-ink-secondary hover:bg-surface hover:text-ink transition-all duration-150',
               isCollapsed ? 'justify-center p-2' : 'gap-2.5 px-3 py-2',
@@ -255,7 +255,7 @@ export function ChatSidebar({
             <svg width="15" height="15" viewBox="0 0 15 15" fill="none" className="shrink-0">
               <path d="M7.5 2.5v10M2.5 7.5h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
-            {!isCollapsed && 'Nueva conversación'}
+            {!isCollapsed && 'New conversation'}
           </button>
 
           {/* Chats */}
@@ -284,7 +284,7 @@ export function ChatSidebar({
             {sessions.length > 0 && (
               <>
                 <p className="px-2 py-1 text-2xs font-medium tracking-widest uppercase text-ink-tertiary">
-                  Recientes
+                  Recent
                 </p>
                 <ul className="space-y-px">
                   {sessions.map((session) => (
@@ -313,7 +313,7 @@ export function ChatSidebar({
         <div className={cn('shrink-0 pb-5 pt-2 border-t border-border', isCollapsed ? 'px-2' : 'px-3')}>
           <Link
             href="/"
-            title={isCollapsed ? 'Volver al portfolio' : undefined}
+            title={isCollapsed ? 'Back' : undefined}
             className={cn(
               'flex items-center rounded-lg text-sm text-ink-tertiary hover:text-ink hover:bg-surface transition-all duration-150',
               isCollapsed ? 'justify-center p-2' : 'gap-2 px-3 py-2',
@@ -322,7 +322,7 @@ export function ChatSidebar({
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0">
               <path d="M9 11L5 7l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            {!isCollapsed && 'Volver al portfolio'}
+            {!isCollapsed && 'Back'}
           </Link>
         </div>
       </aside>
