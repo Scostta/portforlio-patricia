@@ -2,7 +2,7 @@ import type { ReactElement } from 'react'
 import { Button } from '~/components/ui/button'
 
 export const metadata = {
-  title: 'Contact — Patricia Bayona',
+  title: 'Contact',
   description: 'Get in touch with Patricia Bayona Bultó — Product Manager & UX Lead.',
 }
 
@@ -11,13 +11,12 @@ export default function ContactPage(): ReactElement {
     <div className="px-6 lg:px-12 max-w-7xl mx-auto">
 
       {/* ── Hero ─────────────────────────────────────── */}
-      <section className="py-20 lg:py-24 border-b border-border grid lg:grid-cols-2 gap-12 lg:gap-20 items-end animate-fade-up">
+      <p className="section-label mb-6 pt-20 animate-fade-up">Contact</p>
+      <section className="pb-20 lg:pb-24 border-b border-border grid lg:grid-cols-2 gap-12 lg:gap-20 items-start animate-fade-up">
         <div>
-          <p className="section-label mb-6">Contact</p>
           <h1 className="font-serif text-5xl lg:text-6xl xl:text-7xl leading-[1.06] tracking-tight text-ink mb-6">
-            Let&rsquo;s build<br />
-            something{' '}
-            <em className="not-italic bg-gradient-primary bg-clip-text text-transparent">great.</em>
+            Good work starts with good
+            <em className="not-italic bg-gradient-primary bg-clip-text text-transparent"> people.</em>
           </h1>
           <p className="text-lg lg:text-xl text-ink/60 leading-relaxed max-w-md">
             I&rsquo;m open to Product Manager and UX Lead roles &mdash; remote or hybrid across Europe.
@@ -31,10 +30,9 @@ export default function ContactPage(): ReactElement {
             <p className="text-xs font-semibold tracking-widest uppercase text-ink/40 mb-5">What I&rsquo;m looking for</p>
             <ul className="space-y-3.5">
               {[
-                'Product Manager or UX Lead roles in B2B / SaaS / tech companies',
-                'Remote-first or hybrid in Europe (Spain, UK, Netherlands…)',
-                'Teams where design, product and engineering collaborate closely',
-                'Environments with room to build from 0 to 1',
+                'A role where the challenge is real and the people are good.',
+                'I care more about culture and craft than about company size or stage.',
+                'Remote-first in Europe, open to the occasional office if it makes sense.',
               ].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm text-ink/60 leading-relaxed">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0 mt-1.5" />
@@ -42,9 +40,6 @@ export default function ContactPage(): ReactElement {
                 </li>
               ))}
             </ul>
-            <p className="mt-5 pt-5 border-t border-border text-xs text-ink/40 leading-relaxed">
-              Spain · CET timezone · Full Remote preferred · Open to relocation for the right role
-            </p>
           </div>
         </div>
       </section>
@@ -125,15 +120,15 @@ export default function ContactPage(): ReactElement {
             <p className="section-label mb-4">Book a call</p>
             <h2 className="font-serif text-3xl lg:text-4xl text-ink mb-3">Prefer to talk?</h2>
             <p className="text-base text-ink/60 leading-relaxed">
-              Pick a time that works for you — 30 minutes, no prep needed.
+              If you prefer a conversation, book a 45-minute call — just bring your questions.
             </p>
           </div>
 
           <ul className="space-y-3">
             {[
-              'Free 30-min intro call',
+              '45-min intro call',
               'No agenda required',
-              'Remote via Google Meet or your preferred tool',
+              'Via Google Meet',
             ].map((item) => (
               <li key={item} className="flex items-center gap-3 text-sm text-ink/60">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
