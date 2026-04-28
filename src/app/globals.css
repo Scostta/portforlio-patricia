@@ -353,3 +353,71 @@
     land-orb-from-bl 900ms 1700ms both cubic-bezier(.34, 1.56, .64, 1);
   pointer-events: none;
 }
+
+/* ─── Split-screen landing ──────────────────────────────────── */
+
+.split-container {
+  display: flex;
+}
+
+.split-panel {
+  flex: none;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Hover expand — desktop only, with :has() support */
+@media (min-width: 768px) {
+  .split-panel {
+    transition: width 0.4s ease;
+  }
+
+  @supports selector(:has(*)) {
+    .split-container:has(.split-panel-left:hover) .split-panel-left  { width: 60%; }
+    .split-container:has(.split-panel-left:hover) .split-panel-right { width: 40%; }
+    .split-container:has(.split-panel-right:hover) .split-panel-right { width: 60%; }
+    .split-container:has(.split-panel-right:hover) .split-panel-left  { width: 40%; }
+  }
+}
+
+/* Mobile: stack vertically */
+@media (max-width: 767px) {
+  .split-container { flex-direction: column; }
+  .split-panel { flex: 1; width: 100%; }
+}
+
+/* Icon circles */
+.split-icon-dark  { border: 1px solid rgba(255,255,255,0.18); }
+.split-icon-light { border: 1px solid rgba(0,0,0,0.14); }
+
+/* CTA buttons */
+.split-btn-dark {
+  color: rgba(255,255,255,0.68);
+  border: 1px solid rgba(255,255,255,0.22);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.split-btn-dark:hover {
+  color: rgba(255,255,255,1);
+  border-color: rgba(255,255,255,0.5);
+}
+.split-btn-light {
+  color: #131310;
+  border: 1px solid rgba(0,0,0,0.22);
+  transition: border-color 0.2s ease;
+}
+.split-btn-light:hover {
+  border-color: rgba(0,0,0,0.6);
+}
+
+/* Badges */
+.split-badge-dark {
+  color: rgba(255,255,255,0.22);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.split-badge-light {
+  color: rgba(0,0,0,0.3);
+  border: 1px solid rgba(0,0,0,0.1);
+}

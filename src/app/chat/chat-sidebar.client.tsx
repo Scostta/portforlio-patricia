@@ -100,8 +100,8 @@ function SessionItem({
         className={cn(
           'w-full text-left px-3 py-2 rounded-lg text-sm transition-all duration-150 flex items-center gap-1 pr-8',
           isActive
-            ? 'bg-accent-light text-accent font-medium'
-            : 'text-ink-secondary hover:bg-surface hover:text-ink',
+            ? 'bg-black text-white/50 font-medium'
+            : 'text-white/50 hover:bg-white/[0.06] hover:text-white/80',
         )}
       >
         {renaming ? (
@@ -112,7 +112,7 @@ function SessionItem({
             onKeyDown={handleRenameKey}
             onBlur={commitRename}
             onClick={(e) => e.stopPropagation()}
-            className="flex-1 bg-transparent outline-none text-sm text-ink min-w-0"
+            className="flex-1 bg-transparent outline-none text-sm text-white/85 min-w-0"
           />
         ) : (
           <span className="truncate flex-1">{session.title}</span>
@@ -124,7 +124,7 @@ function SessionItem({
           onClick={handleMenuToggle}
           className={cn(
             'absolute right-1.5 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center',
-            'rounded-md text-ink-tertiary hover:text-ink hover:bg-border transition-all duration-150',
+            'rounded-md text-white/25 hover:text-white/70 hover:bg-white/[0.1] transition-all duration-150',
             'opacity-0 group-hover:opacity-100 focus:opacity-100',
             menuOpen && 'opacity-100',
           )}
@@ -141,21 +141,21 @@ function SessionItem({
       {menuOpen && (
         <div
           ref={menuRef}
-          className="absolute right-0 top-full mt-1 z-50 w-40 bg-white border border-border rounded-xl shadow-card-hover py-1 animate-fade-in"
+          className="absolute right-0 top-full mt-1 z-50 w-40 bg-[#2a2a2a] border border-white/[0.1] rounded-xl shadow-xl py-1 animate-fade-in"
         >
           <button
             onClick={startRename}
-            className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-ink hover:bg-surface transition-colors"
+            className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-white/80 hover:bg-white/[0.07] transition-colors"
           >
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
               <path d="M9.5 1.5a1.414 1.414 0 0 1 2 2L4 11H1.5V8.5L9.5 1.5z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             Renombrar
           </button>
-          <div className="my-1 border-t border-border" />
+          <div className="my-1 border-t border-white/[0.08]" />
           <button
             onClick={async () => { setMenuOpen(false); await onDelete() }}
-            className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-red-500 hover:bg-red-50 transition-colors"
+            className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-red-400 hover:bg-red-500/10 transition-colors"
           >
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
               <path d="M1.5 3.5h10M4.5 3.5V2.5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1M5.5 6v3.5M7.5 6v3.5M2.5 3.5l.5 7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1l.5-7" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
@@ -191,7 +191,7 @@ export function ChatSidebar({
 
       <aside
         className={cn(
-          'fixed top-0 left-0 h-full bg-white border-r border-border flex flex-col z-40',
+          'fixed top-0 left-0 h-full bg-[#161616] border-r border-white/[0.06] flex flex-col z-40',
           'transition-[width,transform] duration-300 ease-out-expo',
           'lg:relative lg:translate-x-0 lg:z-auto lg:shrink-0',
           isOpen ? 'translate-x-0' : '-translate-x-full',
@@ -200,7 +200,7 @@ export function ChatSidebar({
       >
         {/* AI Portfolio Assistant identity + collapse toggle */}
         <div className={cn(
-          'shrink-0 border-b border-border',
+          'shrink-0 border-b border-white/[0.06]',
           isCollapsed ? 'px-2 py-4 flex flex-col items-center gap-3' : 'px-4 pt-4 pb-3',
         )}>
           {isCollapsed ? (
@@ -208,32 +208,32 @@ export function ChatSidebar({
               <button
                 onClick={() => setIsCollapsed(false)}
                 title="Expandir barra lateral"
-                className="w-7 h-7 flex items-center justify-center rounded-md text-ink-tertiary hover:text-ink hover:bg-surface transition-colors"
+                className="w-7 h-7 flex items-center justify-center rounded-md text-white/30 hover:text-white/70 hover:bg-white/[0.07] transition-colors"
               >
                 <CollapseIcon expanded={false} />
               </button>
-              <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center shadow-sm shrink-0">
+              <Link href="/chat" onClick={onClose} className="w-8 h-8 rounded-full bg-accent flex items-center justify-center shadow-sm shrink-0 hover:opacity-85 transition-opacity">
                 <span className="text-white text-xs font-semibold tracking-wide select-none">PB</span>
-              </div>
+              </Link>
             </>
           ) : (
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center shadow-sm shrink-0">
+              <Link href="/chat" onClick={onClose} className="flex items-center gap-3 min-w-0 group">
+                <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center shadow-sm shrink-0 group-hover:opacity-85 transition-opacity">
                   <span className="text-white text-xs font-semibold tracking-wide select-none">PB</span>
                 </div>
                 <div className="min-w-0">
-                  <p className="text-sm font-semibold text-ink leading-none">AI Portfolio Assistant</p>
+                  <p className="text-sm font-semibold text-white/85 leading-none group-hover:text-white transition-colors">AI Portfolio Assistant</p>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                    <p className="text-2xs text-ink-tertiary">Online</p>
+                    <p className="text-2xs text-white/30">Online</p>
                   </div>
                 </div>
-              </div>
+              </Link>
               <button
                 onClick={() => setIsCollapsed(true)}
                 title="Colapsar barra lateral"
-                className="shrink-0 ml-2 w-7 h-7 flex items-center justify-center rounded-md text-ink-tertiary hover:text-ink hover:bg-surface transition-colors"
+                className="shrink-0 ml-2 w-7 h-7 flex items-center justify-center rounded-md text-white/30 hover:text-white/70 hover:bg-white/[0.07] transition-colors"
               >
                 <CollapseIcon expanded={true} />
               </button>
@@ -248,7 +248,7 @@ export function ChatSidebar({
             onClick={() => { onNewChat(); onClose() }}
             title={isCollapsed ? 'New conversation' : undefined}
             className={cn(
-              'w-full flex items-center rounded-lg text-sm text-ink-secondary hover:bg-surface hover:text-ink transition-all duration-150',
+              'w-full flex items-center rounded-lg text-sm text-white/50 hover:bg-white/[0.07] hover:text-white/85 transition-all duration-150',
               isCollapsed ? 'justify-center p-2' : 'gap-2.5 px-3 py-2',
             )}
           >
@@ -266,8 +266,8 @@ export function ChatSidebar({
             className={cn(
               'flex items-center rounded-lg text-sm transition-all duration-150',
               pathname === '/chat/recents'
-                ? 'bg-surface text-ink font-medium'
-                : 'text-ink-secondary hover:bg-surface hover:text-ink',
+                ? 'bg-white/[0.07] text-white/85 font-medium'
+                : 'text-white/50 hover:bg-white/[0.07] hover:text-white/85',
               isCollapsed ? 'justify-center p-2' : 'gap-2.5 px-3 py-2',
             )}
           >
@@ -280,10 +280,10 @@ export function ChatSidebar({
 
         {/* Sessions — hidden when collapsed */}
         {!isCollapsed && (
-          <div className="flex-1 overflow-y-auto px-2 pt-2">
+          <div className="flex-1 overflow-y-auto px-2 pt-2 [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none' }}>
             {sessions.length > 0 && (
               <>
-                <p className="px-2 py-1 text-2xs font-medium tracking-widest uppercase text-ink-tertiary">
+                <p className="px-2 py-1 text-2xs font-medium tracking-widest uppercase text-white/25">
                   Recent
                 </p>
                 <ul className="space-y-px">
@@ -301,7 +301,7 @@ export function ChatSidebar({
               </>
             )}
             {sessions.length === 0 && (
-              <p className="px-3 py-2 text-2xs text-ink-tertiary italic">Sin conversaciones aún</p>
+              <p className="px-3 py-2 text-2xs text-white/25 italic">Sin conversaciones aún</p>
             )}
           </div>
         )}
@@ -310,19 +310,20 @@ export function ChatSidebar({
         {isCollapsed && <div className="flex-1" />}
 
         {/* Footer */}
-        <div className={cn('shrink-0 pb-5 pt-2 border-t border-border', isCollapsed ? 'px-2' : 'px-3')}>
+        <div className={cn('shrink-0 pb-5 pt-2 border-t border-white/[0.06]', isCollapsed ? 'px-2' : 'px-3')}>
           <Link
             href="/"
-            title={isCollapsed ? 'Back' : undefined}
+            title={isCollapsed ? 'Home' : undefined}
             className={cn(
-              'flex items-center rounded-lg text-sm text-ink-tertiary hover:text-ink hover:bg-surface transition-all duration-150',
+              'flex items-center rounded-lg text-sm text-white/50 hover:text-white/70 hover:bg-white/[0.07] transition-all duration-150',
               isCollapsed ? 'justify-center p-2' : 'gap-2 px-3 py-2',
             )}
           >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0">
-              <path d="M9 11L5 7l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="shrink-0">
+              <path d="M2 6.5L8 2l6 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6.5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+              <path d="M6 15v-5h4v5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
             </svg>
-            {!isCollapsed && 'Back'}
+            {!isCollapsed && 'Home'}
           </Link>
         </div>
       </aside>

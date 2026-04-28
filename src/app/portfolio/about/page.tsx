@@ -164,7 +164,7 @@ export default function AboutPage(): ReactElement {
         <p className="text-base text-ink-secondary mb-6">
           Want to see how I work? Start with the case studies.
         </p>
-        <Button variant="primary" size="lg" href="/cases" arrow>
+        <Button variant="primary" size="lg" href="/portfolio/cases" arrow>
           View all cases
         </Button>
       </div>

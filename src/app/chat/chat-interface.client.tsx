@@ -125,8 +125,8 @@ function InputBox({
 }): ReactElement {
   return (
     <div className={cn(
-      'flex items-end gap-3 rounded-2xl border bg-white px-4 py-3 transition-all duration-200',
-      'border-border focus-within:border-accent focus-within:shadow-card-hover',
+      'flex items-end gap-3 rounded-2xl border bg-[#2a2a2a] px-4 py-3 transition-all duration-200',
+      'border-white/[0.1] focus-within:border-accent',
     )}>
       <textarea
         ref={inputRef}
@@ -135,7 +135,7 @@ function InputBox({
         onKeyDown={onKeyDown}
         placeholder={placeholder ?? "Ask about Patricia's work, skills, or experience…"}
         rows={1}
-        className="flex-1 resize-none bg-transparent text-sm text-ink placeholder:text-ink-tertiary focus:outline-none leading-relaxed max-h-[120px] scrollbar-none"
+        className="flex-1 resize-none bg-transparent text-sm text-white/85 placeholder:text-white/30 focus:outline-none leading-relaxed max-h-[120px] scrollbar-none"
         style={{ scrollbarWidth: 'none' }}
         disabled={disabled}
       />
@@ -147,7 +147,7 @@ function InputBox({
           'shrink-0 w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-200',
           value.trim() && !disabled
             ? 'bg-accent text-white hover:bg-accent-hover shadow-sm scale-100'
-            : 'bg-border text-ink-tertiary scale-95 opacity-60',
+            : 'bg-white/[0.08] text-white/30 scale-95 opacity-60',
         )}
       >
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -196,7 +196,7 @@ function ChatHome({
         className="flex flex-col items-center mb-8 text-center"
         style={{ animation: 'land-up 500ms 80ms both cubic-bezier(.4,0,.2,1)' }}
       >
-        <h1 className="font-serif text-2xl lg:text-3xl text-ink mb-2">
+        <h1 className="font-serif text-2xl lg:text-3xl text-white/85 mb-2">
           Welcome, to Patricia's Portfolio AI Experience
         </h1>
       </div>
@@ -219,24 +219,40 @@ function ChatHome({
 
       {/* Topic chips */}
       <div className="flex flex-wrap justify-center gap-2 mb-4">
-        {TOPICS.map((topic, i) => (
-          <button
-            key={topic.id}
-            onClick={() => setActiveId(activeId === topic.id ? null : topic.id)}
-            style={{ animation: `land-up-sm 350ms ${380 + i * 60}ms both cubic-bezier(.4,0,.2,1)` }}
-            className={cn(
-              'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-150',
-              activeId === topic.id
-                ? 'bg-accent text-white border-accent shadow-sm'
-                : 'bg-white text-ink-secondary border-border hover:border-accent hover:text-ink',
-            )}
-          >
-            <span className={activeId === topic.id ? 'text-white' : 'text-ink-tertiary'}>
-              {topic.icon}
-            </span>
-            {topic.label}
-          </button>
-        ))}
+        {TOPICS.map((topic, i) => {
+          if (topic.id === 'cv') {
+            return (
+              <a
+                key={topic.id}
+                href="/downloads/cv_patricia_bayona_en.pdf"
+                download
+                style={{ animation: `land-up-sm 350ms ${380 + i * 60}ms both cubic-bezier(.4,0,.2,1)` }}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-150 bg-white/[0.06] text-white/50 border-white/[0.1] hover:border-accent hover:text-white/85"
+              >
+                <span className="text-white/30">{topic.icon}</span>
+                {topic.label}
+              </a>
+            )
+          }
+          return (
+            <button
+              key={topic.id}
+              onClick={() => setActiveId(activeId === topic.id ? null : topic.id)}
+              style={{ animation: `land-up-sm 350ms ${380 + i * 60}ms both cubic-bezier(.4,0,.2,1)` }}
+              className={cn(
+                'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-150',
+                activeId === topic.id
+                  ? 'bg-accent text-white border-accent shadow-sm'
+                  : 'bg-white/[0.06] text-white/50 border-white/[0.1] hover:border-accent hover:text-white/85',
+              )}
+            >
+              <span className={activeId === topic.id ? 'text-white' : 'text-white/30'}>
+                {topic.icon}
+              </span>
+              {topic.label}
+            </button>
+          )
+        })}
       </div>
 
       {/* Questions for active topic */}
@@ -247,7 +263,7 @@ function ChatHome({
               key={q}
               onClick={() => onSend()}
               onMouseDown={() => onInputChange({ target: { value: q } } as React.ChangeEvent<HTMLTextAreaElement>)}
-              className="w-full text-left text-sm text-ink-secondary hover:text-ink bg-white hover:bg-surface rounded-xl px-4 py-2.5 transition-colors duration-150 border border-border flex items-start gap-2.5"
+              className="w-full text-left text-sm text-white/50 hover:text-white/85 bg-white/[0.05] hover:bg-white/[0.08] rounded-xl px-4 py-2.5 transition-colors duration-150 border border-white/[0.08] flex items-start gap-2.5"
             >
               <span className="text-accent shrink-0 mt-0.5">›</span>
               {q}
@@ -255,6 +271,24 @@ function ChatHome({
           ))}
         </div>
       )}
+
+      {/* Get in touch CTA */}
+      <div
+        className="mt-10 flex flex-col items-center gap-3"
+        style={{ animation: 'land-up-sm 400ms 700ms both cubic-bezier(.4,0,.2,1)' }}
+      >
+        <p className="text-xs text-white/25 tracking-wide">Prefer to reach out directly?</p>
+        <a
+          href="mailto:patricia.bulto@gmail.com"
+          className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-sm font-medium border border-white/[0.12] text-white/50 hover:text-white/85 hover:border-white/30 transition-all duration-200"
+        >
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M2 4h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V4z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
+            <path d="M2 4l6 5 6-5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          Get in touch
+        </a>
+      </div>
     </div>
   )
 }
@@ -305,7 +339,7 @@ function MarkdownContent({ content, isUser }: { content: string; isUser: boolean
               const trimmed = line.trim()
               if (!trimmed) return null
               if (/^\*\*[^*]+\*\*$/.test(trimmed)) {
-                return <p key={lIdx} className={cn('font-semibold text-[0.8125rem] tracking-wide', isUser ? 'opacity-80' : 'text-ink', lIdx > 0 && 'mt-2')}>{trimmed.slice(2, -2)}</p>
+                return <p key={lIdx} className={cn('font-semibold text-[0.8125rem] tracking-wide', isUser ? 'opacity-80' : 'text-white/85', lIdx > 0 && 'mt-2')}>{trimmed.slice(2, -2)}</p>
               }
               if (/^[•\-]/.test(trimmed)) {
                 return (
@@ -316,7 +350,7 @@ function MarkdownContent({ content, isUser }: { content: string; isUser: boolean
                 )
               }
               if (trimmed.startsWith('*') && trimmed.endsWith('*') && !trimmed.startsWith('**')) {
-                return <p key={lIdx} className={cn('italic', isUser ? 'opacity-80' : 'text-ink-secondary')}>{parseInline(trimmed.slice(1, -1))}</p>
+                return <p key={lIdx} className={cn('italic', isUser ? 'opacity-80' : 'text-white/60')}>{parseInline(trimmed.slice(1, -1))}</p>
               }
               return <p key={lIdx}>{parseInline(trimmed)}</p>
             })}
@@ -339,10 +373,10 @@ function TypingIndicator(): ReactElement {
   return (
     <div className="flex items-end gap-3">
       <AssistantAvatar />
-      <div className="bg-white border border-border rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm">
+      <div className="bg-[#262626] border border-white/[0.08] rounded-2xl rounded-bl-sm px-4 py-3">
         <div className="flex gap-1.5 items-center h-4">
           {[0, 1, 2].map((i) => (
-            <span key={i} className="w-1.5 h-1.5 rounded-full bg-ink-tertiary animate-bounce" style={{ animationDelay: `${i * 150}ms`, animationDuration: '900ms' }} />
+            <span key={i} className="w-1.5 h-1.5 rounded-full bg-white/30 animate-bounce" style={{ animationDelay: `${i * 150}ms`, animationDuration: '900ms' }} />
           ))}
         </div>
       </div>
@@ -367,7 +401,7 @@ function MessageBubble({ message }: { message: Message }): ReactElement {
     <div className="flex items-end gap-3">
       <AssistantAvatar />
       <div className="max-w-[85%] sm:max-w-[78%]">
-        <div className="bg-white border border-border rounded-2xl rounded-bl-sm px-4 py-3 text-sm leading-relaxed text-ink shadow-sm">
+        <div className="bg-[#262626] border border-white/[0.08] rounded-2xl rounded-bl-sm px-4 py-3 text-sm leading-relaxed text-white/85">
           <MarkdownContent content={message.content} isUser={false} />
         </div>
       </div>
@@ -524,12 +558,12 @@ export function ChatInterface({
   }
 
   return (
-    <div className="flex flex-col h-dvh bg-paper">
+    <div className="flex flex-col h-dvh bg-[#1a1a1a]">
       {/* Mobile hamburger — only visible when sidebar is closed on small screens */}
       <div className="lg:hidden shrink-0 px-4 pt-3">
         <button
           onClick={onOpenSidebar}
-          className="w-8 h-8 flex items-center justify-center rounded-lg text-ink-tertiary hover:text-ink hover:bg-surface transition-colors"
+          className="w-8 h-8 flex items-center justify-center rounded-lg text-white/30 hover:text-white/70 hover:bg-white/[0.07] transition-colors"
           aria-label="Open sidebar"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -546,7 +580,7 @@ export function ChatInterface({
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="flex gap-1.5">
               {[0, 1, 2].map((i) => (
-                <span key={i} className="w-1.5 h-1.5 rounded-full bg-ink-tertiary animate-bounce" style={{ animationDelay: `${i * 150}ms`, animationDuration: '900ms' }} />
+                <span key={i} className="w-1.5 h-1.5 rounded-full bg-white/30 animate-bounce" style={{ animationDelay: `${i * 150}ms`, animationDuration: '900ms' }} />
               ))}
             </div>
           </div>
@@ -554,7 +588,7 @@ export function ChatInterface({
 
         {/* Home — centered input + topics */}
         {!hasStarted && !loadingMessages && (
-          <div className="h-full overflow-y-auto">
+          <div className="h-full overflow-y-auto [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none' }}>
             <ChatHome
               input={input}
               onInputChange={handleInputChange}
@@ -568,7 +602,7 @@ export function ChatInterface({
 
         {/* Messages — fade in after transition */}
         {hasStarted && !loadingMessages && (
-          <div className="h-full overflow-y-auto animate-fade-in">
+          <div className="h-full overflow-y-auto animate-fade-in [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none' }}>
             <div className="max-w-2xl mx-auto px-4 sm:px-6 py-6 space-y-5">
               {messages.map((msg) => <MessageBubble key={msg.id} message={msg} />)}
               {isTyping && <TypingIndicator />}
@@ -580,7 +614,7 @@ export function ChatInterface({
 
       {/* Bottom input — slides up into view during/after transition */}
       <div className={cn(
-        'shrink-0 bg-white border-t border-border px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-out',
+        'shrink-0 bg-[#1a1a1a] border-t border-white/[0.08] px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-out',
         hasStarted || leaving ? 'max-h-40 py-4 opacity-100 translate-y-0' : 'max-h-0 py-0 opacity-0 translate-y-4',
       )}>
         <div className="max-w-2xl mx-auto">
@@ -592,7 +626,7 @@ export function ChatInterface({
             disabled={isTyping || loadingMessages}
             inputRef={bottomInputRef}
           />
-          <p className="text-center text-2xs text-ink-tertiary mt-2">
+          <p className="text-center text-2xs text-white/25 mt-2">
             Press Enter to send · Shift+Enter for new line
           </p>
         </div>

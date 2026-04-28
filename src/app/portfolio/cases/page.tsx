@@ -100,10 +100,10 @@ export default function CasesPage(): ReactElement {
             </p>
           </div>
           <div className="flex items-center gap-3 flex-shrink-0">
-            <Button variant="primary" size="lg" href="/contact" arrow>
+            <Button variant="primary" size="lg" href="/portfolio/contact" arrow>
               Get in touch
             </Button>
-            <Button variant="secondary" size="lg" href="/about">
+            <Button variant="secondary" size="lg" href="/portfolio/about">
               About me
             </Button>
           </div>

@@ -28,13 +28,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${title} — Patricia Bayona`,
       description,
       type: 'article',
-      images: [{ url: `/cases/${slug}/opengraph-image`, width: 1200, height: 630, alt: title }],
+      images: [{ url: `/portfolio/cases/${slug}/opengraph-image`, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: 'summary_large_image',
       title,
       description,
-      images: [`/cases/${slug}/opengraph-image`],
+      images: [`/portfolio/cases/${slug}/opengraph-image`],
     },
   }
 }
@@ -52,7 +52,7 @@ export default async function CasePage({ params }: Props): Promise<ReactElement>
     <>
       {/* Fixed back-link pill */}
       <Link
-        href="/cases"
+        href="/portfolio/cases"
         className="fixed top-6 left-6 z-[100] inline-flex items-center gap-2 text-[0.8125rem] font-medium text-ink-secondary bg-white/85 backdrop-blur-sm border border-border rounded-full px-4 py-2 transition-colors duration-200 hover:text-accent hover:border-accent group max-sm:top-4 max-sm:left-4"
       >
         <svg
@@ -297,7 +297,7 @@ export default async function CasePage({ params }: Props): Promise<ReactElement>
           <div className="grid grid-cols-2 gap-4 max-[480px]:grid-cols-1">
             {prevCase ? (
               <Link
-                href={`/cases/${prevCase.slug}`}
+                href={`/portfolio/cases/${prevCase.slug}`}
                 className="group border border-border rounded-lg p-6 bg-white flex flex-col gap-2 hover:border-accent hover:shadow-card-hover transition-all duration-200"
               >
                 <span className="text-2xs font-semibold tracking-widest uppercase text-ink-tertiary flex items-center gap-2">
@@ -324,7 +324,7 @@ export default async function CasePage({ params }: Props): Promise<ReactElement>
 
             {nextCase ? (
               <Link
-                href={`/cases/${nextCase.slug}`}
+                href={`/portfolio/cases/${nextCase.slug}`}
                 className="group border border-border rounded-lg p-6 bg-white flex flex-col gap-2 items-end text-right hover:border-accent hover:shadow-card-hover transition-all duration-200"
               >
                 <span className="text-2xs font-semibold tracking-widest uppercase text-ink-tertiary flex flex-row-reverse items-center gap-2">
