@@ -13,6 +13,19 @@ export const metadata = {
   title: 'Portfolio',
   description:
     'Portfolio of Patricia Bayona Bultó — Product Manager and UX Lead with 10+ years building digital products from 0 to 1. Formerly VP of UX at LINK Mobility and Co-Founder at Alqua.',
+  openGraph: {
+    title: 'Patricia Bayona — Product Manager & UX Lead',
+    description:
+      'Portfolio of Patricia Bayona Bultó — Product Manager and UX Lead with 10+ years building digital products from 0 to 1.',
+    images: [{ url: '/portfolio/opengraph-image', width: 1200, height: 630, alt: 'Patricia Bayona — Portfolio' }],
+  },
+  twitter: {
+    card: 'summary_large_image' as const,
+    title: 'Patricia Bayona — Product Manager & UX Lead',
+    description:
+      'Portfolio of Patricia Bayona Bultó — Product Manager and UX Lead with 10+ years building digital products from 0 to 1.',
+    images: ['/portfolio/opengraph-image'],
+  },
 }
 
 export default function PortfolioPage(): ReactElement {
@@ -55,7 +68,7 @@ export default function PortfolioPage(): ReactElement {
               className="flex flex-col sm:flex-row gap-4"
               style={{ animation: 'land-left 500ms 520ms both cubic-bezier(.34,1.56,.64,1)' }}
             >
-              <Button variant="primary" size="lg" href="/cases" arrow>
+              <Button variant="primary" size="lg" href="/portfolio/cases" arrow>
                 See my work
               </Button>
               <Button variant="secondary" size="lg" href="/downloads/cv_patricia_bayona_en.pdf" download>
@@ -92,7 +105,7 @@ export default function PortfolioPage(): ReactElement {
             <p className="section-label mb-3">Selected work</p>
             <h2 className="font-serif text-3xl lg:text-4xl text-ink">Featured cases</h2>
           </div>
-          <Button variant="ghost" size="md" href="/cases" arrow className="hidden sm:inline-flex">
+          <Button variant="ghost" size="md" href="/portfolio/cases" arrow className="hidden sm:inline-flex">
             All 6 cases
           </Button>
         </div>
@@ -100,7 +113,7 @@ export default function PortfolioPage(): ReactElement {
         <FeaturedCasesGrid cases={featuredCases} />
 
         <div className="mt-6 sm:hidden">
-          <Button variant="ghost" size="md" href="/cases" arrow>
+          <Button variant="ghost" size="md" href="/portfolio/cases" arrow>
             All 6 cases
           </Button>
         </div>
@@ -136,7 +149,7 @@ export default function PortfolioPage(): ReactElement {
               Business degree from ICADE. I&apos;m Spanish, English-proficient (Cambridge CPE), and
               work fully remote.
             </p>
-            <Button variant="ghost" size="md" href="/about" arrow className="text-ink font-medium border-b border-ink pb-0.5 hover:text-accent hover:border-accent">
+            <Button variant="ghost" size="md" href="/portfolio/about" arrow className="text-ink font-medium border-b border-ink pb-0.5 hover:text-accent hover:border-accent">
               Full profile
             </Button>
           </div>

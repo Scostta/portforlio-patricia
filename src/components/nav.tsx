@@ -7,9 +7,9 @@ import { cn } from '~/utils/cn'
 import { Button } from '~/components/ui/button'
 
 const NAV_LINKS = [
-  { href: '/cases', label: 'Cases' },
-  { href: '/about', label: 'About' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/portfolio/cases', label: 'Cases' },
+  { href: '/portfolio/about', label: 'About' },
+  { href: '/portfolio/contact', label: 'Contact' },
 ]
 
 export function Nav() {

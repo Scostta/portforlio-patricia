@@ -35,14 +35,14 @@ function ChatsListView({
     : sessions
 
   return (
-    <div className="flex flex-col h-dvh bg-paper">
-      <div className="flex-1 overflow-y-auto">
+    <div className="flex flex-col h-dvh bg-[#1a1a1a]">
+      <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none' }}>
         <div className="max-w-2xl mx-auto px-6 sm:px-8 py-10">
 
           {/* Mobile sidebar toggle */}
           <button
             onClick={onOpenSidebar}
-            className="lg:hidden mb-6 w-8 h-8 flex items-center justify-center rounded-lg text-ink-tertiary hover:text-ink hover:bg-surface transition-colors"
+            className="lg:hidden mb-6 w-8 h-8 flex items-center justify-center rounded-lg text-white/30 hover:text-white/70 hover:bg-white/[0.07] transition-colors"
             aria-label="Open sidebar"
           >
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -55,10 +55,10 @@ function ChatsListView({
             className="flex items-center justify-between mb-6"
             style={{ animation: 'land-up 500ms 80ms both cubic-bezier(.4,0,.2,1)' }}
           >
-            <h1 className="font-serif text-3xl text-ink">Chats</h1>
+            <h1 className="font-serif text-3xl text-white/85">Chats</h1>
             <button
               onClick={onNewChat}
-              className="flex items-center gap-1.5 bg-ink text-white rounded-lg px-4 py-2 text-sm font-medium hover:bg-ink/85 transition-colors duration-150"
+              className="flex items-center gap-1.5 bg-white/[0.1] text-white/85 rounded-lg px-4 py-2 text-sm font-medium hover:bg-white/[0.15] transition-colors duration-150"
             >
               <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
                 <path d="M5.5 1v9M1 5.5h9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -72,7 +72,7 @@ function ChatsListView({
             className="relative mb-6"
             style={{ animation: 'land-up 500ms 200ms both cubic-bezier(.4,0,.2,1)' }}
           >
-            <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-tertiary pointer-events-none" width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" width="14" height="14" viewBox="0 0 24 24" fill="none">
               <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.5" />
               <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
@@ -80,20 +80,20 @@ function ChatsListView({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar en sus chats..."
-              className="w-full bg-white border border-border rounded-xl pl-10 pr-4 py-2.5 text-sm text-ink placeholder:text-ink-tertiary focus:outline-none focus:border-accent transition-colors"
+              className="w-full bg-[#2a2a2a] border border-white/[0.1] rounded-xl pl-10 pr-4 py-2.5 text-sm text-white/85 placeholder:text-white/30 focus:outline-none focus:border-accent transition-colors"
             />
           </div>
 
           {/* Sessions */}
           {filtered.length === 0 ? (
             <p
-              className="text-sm text-ink-tertiary italic"
+              className="text-sm text-white/30 italic"
               style={{ animation: 'land-up 400ms 320ms both cubic-bezier(.4,0,.2,1)' }}
             >
               {search ? 'No se encontraron conversaciones.' : 'Sin conversaciones aún.'}
             </p>
           ) : (
-            <ul className="divide-y divide-border">
+            <ul className="divide-y divide-white/[0.06]">
               {filtered.map((session, i) => (
                 <li
                   key={session.id}
@@ -101,12 +101,12 @@ function ChatsListView({
                 >
                   <button
                     onClick={() => onSelectSession(session.id)}
-                    className="w-full text-left py-4 hover:bg-surface rounded-xl px-3 -mx-3 transition-colors duration-150 group"
+                    className="w-full text-left py-4 hover:bg-white/[0.05] rounded-xl px-3 -mx-3 transition-colors duration-150 group"
                   >
-                    <p className="text-sm font-medium text-ink group-hover:text-accent transition-colors truncate">
+                    <p className="text-sm font-medium text-white/85 group-hover:text-accent transition-colors truncate">
                       {session.title}
                     </p>
-                    <p className="text-xs text-ink-tertiary mt-0.5">
+                    <p className="text-xs text-white/30 mt-0.5">
                       Último mensaje {formatRelativeTime(session.updated_at)}
                     </p>
                   </button>
@@ -250,7 +250,7 @@ export function ChatApp(): ReactElement {
   const isChatsView = pathname === '/chat/recents'
 
   return (
-    <div className="flex h-dvh bg-paper overflow-hidden">
+    <div className="flex h-dvh bg-[#1a1a1a] overflow-hidden">
       <ChatSidebar
         sessions={sessions}
         activeSessionId={activeChatId}
