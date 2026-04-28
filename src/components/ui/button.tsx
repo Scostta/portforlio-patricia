@@ -73,8 +73,9 @@ export function Button({
 
   if (href) {
     if (external) {
+      const isMailto = href.startsWith('mailto:')
       return (
-        <a href={href} target="_blank" rel="noopener noreferrer" className={classes}>
+        <a href={href} target={isMailto ? undefined : '_blank'} rel={isMailto ? undefined : 'noopener noreferrer'} className={classes}>
           {content}
         </a>
       )

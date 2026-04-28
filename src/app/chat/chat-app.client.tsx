@@ -7,6 +7,108 @@ import { ChatSidebar } from './chat-sidebar.client'
 import type { ChatSession } from './chat-sidebar.client'
 import { ChatInterface } from './chat-interface.client'
 
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+function formatRelativeTime(dateString: string): string {
+  const diffDays = Math.floor((Date.now() - new Date(dateString).getTime()) / 86400000)
+  if (diffDays === 0) return 'hoy'
+  if (diffDays === 1) return 'hace 1 día'
+  return `hace ${diffDays} días`
+}
+
+// ─── Chats list view ─────────────────────────────────────────────────────────
+
+function ChatsListView({
+  sessions,
+  onNewChat,
+  onSelectSession,
+  onOpenSidebar,
+}: {
+  sessions: ChatSession[]
+  onNewChat: () => void
+  onSelectSession: (id: string) => void
+  onOpenSidebar: () => void
+}): ReactElement {
+  const [search, setSearch] = useState('')
+  const filtered = search
+    ? sessions.filter((s) => s.title.toLowerCase().includes(search.toLowerCase()))
+    : sessions
+
+  return (
+    <div className="flex flex-col h-dvh bg-paper">
+      <div className="flex-1 overflow-y-auto">
+        <div className="max-w-2xl mx-auto px-6 sm:px-8 py-10">
+
+          {/* Mobile sidebar toggle */}
+          <button
+            onClick={onOpenSidebar}
+            className="lg:hidden mb-6 w-8 h-8 flex items-center justify-center rounded-lg text-ink-tertiary hover:text-ink hover:bg-surface transition-colors"
+            aria-label="Open sidebar"
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </button>
+
+          {/* Title + CTA */}
+          <div className="flex items-center justify-between mb-6">
+            <h1 className="font-serif text-3xl text-ink">Chats</h1>
+            <button
+              onClick={onNewChat}
+              className="flex items-center gap-1.5 bg-ink text-white rounded-lg px-4 py-2 text-sm font-medium hover:bg-ink/85 transition-colors duration-150"
+            >
+              <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+                <path d="M5.5 1v9M1 5.5h9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+              Nueva conversación
+            </button>
+          </div>
+
+          {/* Search */}
+          <div className="relative mb-6">
+            <svg className="absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-tertiary pointer-events-none" width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <circle cx="11" cy="11" r="8" stroke="currentColor" strokeWidth="1.5" />
+              <path d="M21 21l-4.35-4.35" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+            <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Buscar en sus chats..."
+              className="w-full bg-white border border-border rounded-xl pl-10 pr-4 py-2.5 text-sm text-ink placeholder:text-ink-tertiary focus:outline-none focus:border-accent transition-colors"
+            />
+          </div>
+
+          {/* Sessions */}
+          {filtered.length === 0 ? (
+            <p className="text-sm text-ink-tertiary italic">
+              {search ? 'No se encontraron conversaciones.' : 'Sin conversaciones aún.'}
+            </p>
+          ) : (
+            <ul className="divide-y divide-border">
+              {filtered.map((session) => (
+                <li key={session.id}>
+                  <button
+                    onClick={() => onSelectSession(session.id)}
+                    className="w-full text-left py-4 hover:bg-surface rounded-xl px-3 -mx-3 transition-colors duration-150 group"
+                  >
+                    <p className="text-sm font-medium text-ink group-hover:text-accent transition-colors truncate">
+                      {session.title}
+                    </p>
+                    <p className="text-xs text-ink-tertiary mt-0.5">
+                      Último mensaje {formatRelativeTime(session.updated_at)}
+                    </p>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+
+        </div>
+      </div>
+    </div>
+  )
+}
+
 type Message = { id: string; role: 'user' | 'assistant'; content: string }
 
 export function ChatApp(): ReactElement {
@@ -133,6 +235,8 @@ export function ChatApp(): ReactElement {
     }
   }, [activeChatId, router])
 
+  const isChatsView = pathname === '/chat/recents'
+
   return (
     <div className="flex h-dvh bg-paper overflow-hidden">
       <ChatSidebar
@@ -146,16 +250,25 @@ export function ChatApp(): ReactElement {
         onDeleteSession={handleDeleteSession}
       />
       <div className="flex-1 min-w-0">
-        <ChatInterface
-          key={chatKey}
-          chatId={activeChatId}
-          userSessionId={userSessionId}
-          initialMessages={activeMessages}
-          loadingMessages={loadingMessages}
-          onSessionCreated={handleSessionCreated}
-          onMessageSent={handleMessageSent}
-          onOpenSidebar={() => setSidebarOpen(true)}
-        />
+        {isChatsView ? (
+          <ChatsListView
+            sessions={sessions}
+            onNewChat={handleNewChat}
+            onSelectSession={handleSelectSession}
+            onOpenSidebar={() => setSidebarOpen(true)}
+          />
+        ) : (
+          <ChatInterface
+            key={chatKey}
+            chatId={activeChatId}
+            userSessionId={userSessionId}
+            initialMessages={activeMessages}
+            loadingMessages={loadingMessages}
+            onSessionCreated={handleSessionCreated}
+            onMessageSent={handleMessageSent}
+            onOpenSidebar={() => setSidebarOpen(true)}
+          />
+        )}
       </div>
     </div>
   )

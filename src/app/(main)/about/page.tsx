@@ -120,7 +120,7 @@ export default function AboutPage(): ReactElement {
   return (
     <div className="px-6 lg:px-12 py-20 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 mb-20 pb-16 border-b border-border animate-fade-up">
+      <div className="grid lg:grid-cols-[1fr_auto] gap-12 lg:gap-20 mb-20 pb-16 animate-fade-up">
         <div className="max-w-2xl">
           <p className="section-label mb-4">About</p>
           <h1 className="font-serif text-4xl lg:text-5xl text-ink mb-6 leading-tight">
@@ -226,7 +226,7 @@ export default function AboutPage(): ReactElement {
       </section>
 
       {/* Skills */}
-      <section className="mb-20 border-t border-border pt-16">
+      <section className="mb-20 pt-4">
         <div className="flex items-center gap-4 mb-12">
           <span className="section-label">Skills & Tools</span>
           <div className="flex-1 h-px bg-border" />
@@ -236,7 +236,7 @@ export default function AboutPage(): ReactElement {
       </section>
 
       {/* Education */}
-      <section className="mb-20 border-t border-border pt-16">
+      <section className="mb-20 pt-4">
         <div className="flex items-center gap-4 mb-12">
           <span className="section-label">Education</span>
           <div className="flex-1 h-px bg-border" />
@@ -266,7 +266,7 @@ export default function AboutPage(): ReactElement {
       <LanguagesPersonalGrid />
 
       {/* CTA */}
-      <div className="mt-16 pt-12 border-t border-border text-center">
+      <div className="mt-16 pt-12 text-center">
         <p className="text-base text-ink-secondary mb-6">
           Want to see how I work? Start with the case studies.
         </p>
