@@ -1,5 +1,4 @@
 import type { ReactElement } from 'react'
-import Link from 'next/link'
 import { cn } from '~/utils/cn'
 import { CASES } from '~/constants/cases'
 import { FEATURED_CASE_SLUGS } from '~/constants/home'

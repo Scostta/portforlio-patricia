@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import type { ReactElement, KeyboardEvent } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { cn } from '~/utils/cn'
 
 export type ChatSession = {
@@ -45,7 +46,6 @@ function SessionItem({
   const inputRef = useRef<HTMLInputElement>(null)
   const longPressTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  // Close menu on outside click
   useEffect(() => {
     if (!menuOpen) return
     const handler = (e: MouseEvent) => {
@@ -57,7 +57,6 @@ function SessionItem({
     return () => document.removeEventListener('mousedown', handler)
   }, [menuOpen])
 
-  // Focus input when renaming starts
   useEffect(() => {
     if (renaming) inputRef.current?.select()
   }, [renaming])
@@ -86,7 +85,6 @@ function SessionItem({
     if (e.key === 'Escape') { setRenaming(false); setRenameValue(session.title) }
   }
 
-  // Long press for mobile
   const handleTouchStart = () => {
     longPressTimer.current = setTimeout(() => setMenuOpen(true), 500)
   }
@@ -121,7 +119,6 @@ function SessionItem({
         )}
       </button>
 
-      {/* Three dots button */}
       {!renaming && (
         <button
           onClick={handleMenuToggle}
@@ -141,7 +138,6 @@ function SessionItem({
         </button>
       )}
 
-      {/* Dropdown menu */}
       {menuOpen && (
         <div
           ref={menuRef}
@@ -152,13 +148,7 @@ function SessionItem({
             className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-ink hover:bg-surface transition-colors"
           >
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-              <path
-                d="M9.5 1.5a1.414 1.414 0 0 1 2 2L4 11H1.5V8.5L9.5 1.5z"
-                stroke="currentColor"
-                strokeWidth="1.3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+              <path d="M9.5 1.5a1.414 1.414 0 0 1 2 2L4 11H1.5V8.5L9.5 1.5z" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             Renombrar
           </button>
@@ -168,13 +158,7 @@ function SessionItem({
             className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-red-500 hover:bg-red-50 transition-colors"
           >
             <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-              <path
-                d="M1.5 3.5h10M4.5 3.5V2.5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1M5.5 6v3.5M7.5 6v3.5M2.5 3.5l.5 7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1l.5-7"
-                stroke="currentColor"
-                strokeWidth="1.3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+              <path d="M1.5 3.5h10M4.5 3.5V2.5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v1M5.5 6v3.5M7.5 6v3.5M2.5 3.5l.5 7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1l.5-7" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             Eliminar
           </button>
@@ -196,6 +180,9 @@ export function ChatSidebar({
   onRenameSession,
   onDeleteSession,
 }: ChatSidebarProps): ReactElement {
+  const pathname = usePathname()
+  const [isCollapsed, setIsCollapsed] = useState(false)
+
   return (
     <>
       {isOpen && (
@@ -204,63 +191,151 @@ export function ChatSidebar({
 
       <aside
         className={cn(
-          'fixed top-0 left-0 h-full w-60 bg-white border-r border-border flex flex-col z-40 transition-transform duration-300 ease-out-expo',
+          'fixed top-0 left-0 h-full bg-white border-r border-border flex flex-col z-40',
+          'transition-[width,transform] duration-300 ease-out-expo',
           'lg:relative lg:translate-x-0 lg:z-auto lg:shrink-0',
           isOpen ? 'translate-x-0' : '-translate-x-full',
+          isCollapsed ? 'w-14' : 'w-60',
         )}
       >
-        {/* New chat */}
-        <div className="shrink-0 px-3 pt-4 pb-3">
+        {/* AI Portfolio Assistant identity + collapse toggle */}
+        <div className={cn(
+          'shrink-0 border-b border-border',
+          isCollapsed ? 'px-2 py-4 flex flex-col items-center gap-3' : 'px-4 pt-4 pb-3',
+        )}>
+          {isCollapsed ? (
+            <>
+              <button
+                onClick={() => setIsCollapsed(false)}
+                title="Expandir barra lateral"
+                className="w-7 h-7 flex items-center justify-center rounded-md text-ink-tertiary hover:text-ink hover:bg-surface transition-colors"
+              >
+                <CollapseIcon expanded={false} />
+              </button>
+              <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center shadow-sm shrink-0">
+                <span className="text-white text-xs font-semibold tracking-wide select-none">PB</span>
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-8 h-8 rounded-full bg-accent flex items-center justify-center shadow-sm shrink-0">
+                  <span className="text-white text-xs font-semibold tracking-wide select-none">PB</span>
+                </div>
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-ink leading-none">AI Portfolio Assistant</p>
+                  <div className="flex items-center gap-1.5 mt-0.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
+                    <p className="text-2xs text-ink-tertiary">Online</p>
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsCollapsed(true)}
+                title="Colapsar barra lateral"
+                className="shrink-0 ml-2 w-7 h-7 flex items-center justify-center rounded-md text-ink-tertiary hover:text-ink hover:bg-surface transition-colors"
+              >
+                <CollapseIcon expanded={true} />
+              </button>
+            </div>
+          )}
+        </div>
+
+        {/* Nav items */}
+        <div className={cn('shrink-0 pt-3 pb-2', isCollapsed ? 'px-2 space-y-1' : 'px-3 space-y-0.5')}>
+          {/* Nueva conversación */}
           <button
             onClick={() => { onNewChat(); onClose() }}
-            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-sm text-ink-secondary hover:bg-surface hover:text-ink transition-all duration-150"
+            title={isCollapsed ? 'Nueva conversación' : undefined}
+            className={cn(
+              'w-full flex items-center rounded-lg text-sm text-ink-secondary hover:bg-surface hover:text-ink transition-all duration-150',
+              isCollapsed ? 'justify-center p-2' : 'gap-2.5 px-3 py-2',
+            )}
           >
-            <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <svg width="15" height="15" viewBox="0 0 15 15" fill="none" className="shrink-0">
               <path d="M7.5 2.5v10M2.5 7.5h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
-            New chat
+            {!isCollapsed && 'Nueva conversación'}
           </button>
+
+          {/* Chats */}
+          <Link
+            href="/chat/recents"
+            onClick={onClose}
+            title={isCollapsed ? 'Chats' : undefined}
+            className={cn(
+              'flex items-center rounded-lg text-sm transition-all duration-150',
+              pathname === '/chat/recents'
+                ? 'bg-surface text-ink font-medium'
+                : 'text-ink-secondary hover:bg-surface hover:text-ink',
+              isCollapsed ? 'justify-center p-2' : 'gap-2.5 px-3 py-2',
+            )}
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" className="shrink-0">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+            </svg>
+            {!isCollapsed && 'Chats'}
+          </Link>
         </div>
 
-        {/* Sessions */}
-        <div className="flex-1 overflow-y-auto px-2">
-          {sessions.length > 0 && (
-            <>
-              <p className="px-2 py-1 text-2xs font-medium tracking-widest uppercase text-ink-tertiary">
-                Recent
-              </p>
-              <ul className="space-y-px">
-                {sessions.map((session) => (
-                  <SessionItem
-                    key={session.id}
-                    session={session}
-                    isActive={activeSessionId === session.id}
-                    onSelect={() => { onSelectSession(session.id); onClose() }}
-                    onRename={(title) => onRenameSession(session.id, title)}
-                    onDelete={() => onDeleteSession(session.id)}
-                  />
-                ))}
-              </ul>
-            </>
-          )}
-          {sessions.length === 0 && (
-            <p className="px-3 py-2 text-2xs text-ink-tertiary italic">No conversations yet</p>
-          )}
-        </div>
+        {/* Sessions — hidden when collapsed */}
+        {!isCollapsed && (
+          <div className="flex-1 overflow-y-auto px-2 pt-2">
+            {sessions.length > 0 && (
+              <>
+                <p className="px-2 py-1 text-2xs font-medium tracking-widest uppercase text-ink-tertiary">
+                  Recientes
+                </p>
+                <ul className="space-y-px">
+                  {sessions.map((session) => (
+                    <SessionItem
+                      key={session.id}
+                      session={session}
+                      isActive={activeSessionId === session.id}
+                      onSelect={() => { onSelectSession(session.id); onClose() }}
+                      onRename={(title) => onRenameSession(session.id, title)}
+                      onDelete={() => onDeleteSession(session.id)}
+                    />
+                  ))}
+                </ul>
+              </>
+            )}
+            {sessions.length === 0 && (
+              <p className="px-3 py-2 text-2xs text-ink-tertiary italic">Sin conversaciones aún</p>
+            )}
+          </div>
+        )}
+
+        {/* Spacer when collapsed so footer stays at bottom */}
+        {isCollapsed && <div className="flex-1" />}
 
         {/* Footer */}
-        <div className="shrink-0 px-3 pb-5 pt-2 border-t border-border">
+        <div className={cn('shrink-0 pb-5 pt-2 border-t border-border', isCollapsed ? 'px-2' : 'px-3')}>
           <Link
             href="/"
-            className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-ink-tertiary hover:text-ink hover:bg-surface transition-all duration-150"
+            title={isCollapsed ? 'Volver al portfolio' : undefined}
+            className={cn(
+              'flex items-center rounded-lg text-sm text-ink-tertiary hover:text-ink hover:bg-surface transition-all duration-150',
+              isCollapsed ? 'justify-center p-2' : 'gap-2 px-3 py-2',
+            )}
           >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="shrink-0">
               <path d="M9 11L5 7l4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            Back to portfolio
+            {!isCollapsed && 'Volver al portfolio'}
           </Link>
         </div>
       </aside>
     </>
+  )
+}
+
+// ─── Collapse icon ────────────────────────────────────────────────────────────
+
+function CollapseIcon({ expanded: _ }: { expanded: boolean }): ReactElement {
+  return (
+    <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor">
+      <path d="M16.5 4A1.5 1.5 0 0 1 18 5.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 2 14.5v-9A1.5 1.5 0 0 1 3.5 4zM7 15h9.5a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5H7zM3.5 5a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5H6V5z" />
+    </svg>
   )
 }
