@@ -110,8 +110,13 @@
   /* Scroll-driven animation: line grows on scroll down, shrinks on scroll up */
   @supports (animation-timeline: view()) {
     @keyframes approach-line-grow {
-      from { transform: scaleY(0); }
-      to   { transform: scaleY(1); }
+      from {
+        transform: scaleY(0);
+      }
+
+      to {
+        transform: scaleY(1);
+      }
     }
 
     .approach-step-line::before {
@@ -205,4 +210,146 @@
   button:focus-visible {
     @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-paper;
   }
+}
+
+/* ─── Landing page ─────────────────────────────────────────────────────────── */
+
+@keyframes land-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes land-up-sm {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes land-scale {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes land-left {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes land-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes orb-drift-1 {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(-12px, 8px) scale(1.06);
+  }
+}
+
+@keyframes orb-drift-2 {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+
+  to {
+    transform: translate(10px, -6px) scale(0.96);
+  }
+}
+
+@keyframes land-orb-from-tr {
+  from {
+    translate: 500px -500px;
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes land-orb-from-bl {
+  from {
+    translate: -500px 500px;
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
+
+@keyframes land-orb-from-center {
+  from {
+    translate: 0 -300px;
+  }
+
+  to {
+    translate: 0 0;
+  }
+}
+
+.landing-orb-1 {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  top: -200px;
+  right: -180px;
+  border-radius: 9999px;
+  background: rgba(195, 185, 235, 0.55);
+  opacity: 0.3;
+  animation:
+    orb-drift-1 8s ease-in-out infinite alternate,
+    land-orb-from-tr 900ms 1500ms both cubic-bezier(.34, 1.56, .64, 1);
+  pointer-events: none;
+}
+
+.landing-orb-2 {
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  bottom: -120px;
+  left: -100px;
+  border-radius: 9999px;
+  background: rgba(138, 200, 231, 0.35);
+  opacity: 0.3;
+  animation:
+    orb-drift-2 11s ease-in-out infinite alternate,
+    land-orb-from-bl 900ms 1700ms both cubic-bezier(.34, 1.56, .64, 1);
+  pointer-events: none;
 }
