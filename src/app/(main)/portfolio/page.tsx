@@ -56,10 +56,10 @@ export default function PortfolioPage(): ReactElement {
               style={{ animation: 'land-left 500ms 520ms both cubic-bezier(.34,1.56,.64,1)' }}
             >
               <Button variant="primary" size="lg" href="/cases" arrow>
-                View case studies
+                See my work
               </Button>
-              <Button variant="secondary" size="lg" href="/about">
-                About me
+              <Button variant="secondary" size="lg" href="/downloads/cv_patricia_bayona_en.pdf" download>
+                Download CV
               </Button>
             </div>
           </div>

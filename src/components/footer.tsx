@@ -17,10 +17,10 @@ export function Footer() {
             </div>
           </div>
           <div className="flex items-center gap-2 shrink-0">
-            <Button variant="pill" size="sm" href="https://www.linkedin.com/in/patriciabayona" external>
+            <Button variant="pill" size="sm" href="https://linkedin.com/in/patriciabayonabulto" external>
               LinkedIn
             </Button>
-            <Button variant="pill" size="sm" href="/cv">
+            <Button variant="pill" size="sm" href="/downloads/cv_patricia_bayona_en.pdf" download>
               CV
             </Button>
           </div>
