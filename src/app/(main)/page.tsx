@@ -2,9 +2,9 @@ import type { ReactElement } from 'react'
 import Link from 'next/link'
 
 export const metadata = {
-  title: 'Patricia Bayona — Product Manager & Head of UX',
+  title: { absolute: 'Patricia Bayona — Product Manager & UX Lead' },
   description:
-    'Portfolio of Patricia Bayona Bultó — Product Manager and Head of UX with 10+ years building digital products. Formerly VP of UX at LINK Mobility and Co-Founder at Alqua.',
+    'Portfolio of Patricia Bayona Bultó — Product Manager and UX Lead with 10+ years building digital products from 0 to 1. Formerly VP of UX at LINK Mobility and Co-Founder at Alqua.',
 }
 
 const TAGS = ['LINK Mobility', 'Alqua', 'Discovery to Delivery', 'UX Research', 'Roadmapping']

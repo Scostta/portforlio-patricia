@@ -17,10 +17,37 @@ const playfair = Playfair_Display({
   display: 'swap',
 })
 
+const siteUrl =
+  process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : 'http://localhost:3000'
+
 export const metadata: Metadata = {
-  title: 'Patricia Bayona — Product Manager & UX Lead',
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: 'Patricia Bayona — Product Manager & UX Lead',
+    template: '%s — Patricia Bayona',
+  },
   description:
     'Portfolio of Patricia Bayona Bultó — Product Manager and UX Lead with 10+ years building digital products from 0 to 1. Formerly VP of UX at LINK Mobility and Co-Founder at Alqua.',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    siteName: 'Patricia Bayona',
+    title: 'Patricia Bayona — Product Manager & UX Lead',
+    description:
+      'Portfolio of Patricia Bayona Bultó — Product Manager and UX Lead with 10+ years building digital products from 0 to 1. Formerly VP of UX at LINK Mobility and Co-Founder at Alqua.',
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: 'Patricia Bayona — Product Manager & UX Lead' }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Patricia Bayona — Product Manager & UX Lead',
+    description:
+      'Portfolio of Patricia Bayona Bultó — Product Manager and UX Lead with 10+ years building digital products from 0 to 1.',
+    images: ['/opengraph-image'],
+  },
 }
 
 export default function RootLayout({

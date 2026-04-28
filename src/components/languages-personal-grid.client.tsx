@@ -33,7 +33,7 @@ export function LanguagesPersonalGrid(): ReactElement {
         </div>
 
         <p className="text-sm text-ink-secondary leading-relaxed animate-fade-up">
-          Abstract painter with an independent online art business · Startup advisor (Borkenleg.com) · Kitesurfer based in Southern Spain.
+          When I'm not thinking about product, I'm usually in the water. I'm a kitesurfer based in Tarifa, in the south of Spain — one of the windiest places in Europe, which suits me fine. I also paint, abstract work that I sell through my own small online business. And occasionally I advise early-stage startups through Borkenleg.
         </p>
       </section>
     </>

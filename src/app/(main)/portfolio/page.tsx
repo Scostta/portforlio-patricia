@@ -10,7 +10,7 @@ import { HomeSkillsGrid } from '~/components/home-skills-grid.client'
 import { Button } from '~/components/ui/button'
 
 export const metadata = {
-  title: 'Portfolio — Patricia Bayona',
+  title: 'Portfolio',
   description:
     'Portfolio of Patricia Bayona Bultó — Product Manager and UX Lead with 10+ years building digital products from 0 to 1. Formerly VP of UX at LINK Mobility and Co-Founder at Alqua.',
 }

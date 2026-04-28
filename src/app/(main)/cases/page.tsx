@@ -5,7 +5,7 @@ import { Button } from '~/components/ui/button'
 import { Tag } from '~/components/ui/tag'
 
 export const metadata = {
-  title: 'Case Studies — Patricia Bayona',
+  title: 'Case Studies',
   description: 'Six detailed case studies spanning product strategy, UX leadership, roadmapping, go-to-market, and business model innovation.',
 }
 
