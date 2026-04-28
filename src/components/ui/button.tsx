@@ -41,6 +41,7 @@ export interface ButtonProps {
   arrow?: boolean | 'left'
   href?: string
   external?: boolean
+  download?: boolean | string
   className?: string
   children: ReactNode
   onClick?: () => void
@@ -54,6 +55,7 @@ export function Button({
   arrow,
   href,
   external,
+  download,
   className,
   children,
   onClick,
@@ -72,10 +74,16 @@ export function Button({
   )
 
   if (href) {
-    if (external) {
+    if (external || download) {
       const isMailto = href.startsWith('mailto:')
       return (
-        <a href={href} target={isMailto ? undefined : '_blank'} rel={isMailto ? undefined : 'noopener noreferrer'} className={classes}>
+        <a
+          href={href}
+          target={download || isMailto ? undefined : '_blank'}
+          rel={download || isMailto ? undefined : 'noopener noreferrer'}
+          download={download === true ? true : download || undefined}
+          className={classes}
+        >
           {content}
         </a>
       )
