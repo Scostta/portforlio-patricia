@@ -24,15 +24,26 @@ export default function PortfolioPage(): ReactElement {
       <section>
         <div className="min-h-[90vh] flex flex-col justify-center px-6 lg:px-12 max-w-7xl mx-auto py-20">
           <div className="max-w-4xl">
-            <p className="section-label mb-8 animate-fade-up">Product & Design Leader</p>
+            <p
+              className="section-label mb-8"
+              style={{ animation: 'land-up 500ms 100ms both cubic-bezier(.4,0,.2,1)' }}
+            >
+              Product & Design Leader
+            </p>
 
-            <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight text-ink mb-10 animate-fade-up [animation-delay:100ms]">
+            <h1
+              className="font-serif text-5xl sm:text-6xl lg:text-7xl xl:text-8xl leading-[1.05] tracking-tight text-ink mb-10"
+              style={{ animation: 'land-up 600ms 220ms both cubic-bezier(.4,0,.2,1)' }}
+            >
               Building product systems from scratch
               <br />
               <span className="bg-gradient-primary bg-clip-text text-transparent">with a founder's instinct.</span>
             </h1>
 
-            <p className="text-xl lg:text-2xl leading-relaxed text-ink max-w-2xl mb-12 animate-fade-up [animation-delay:400ms]">
+            <p
+              className="text-xl lg:text-2xl leading-relaxed text-ink max-w-2xl mb-12"
+              style={{ animation: 'land-up 500ms 380ms both cubic-bezier(.4,0,.2,1)' }}
+            >
               I connect strategy, design and technology into products that ship — with a business
               degree, a founder&apos;s P&amp;L instinct, and a researcher&apos;s understanding of users.
               Formerly VP of UX at{' '}
@@ -40,7 +51,10 @@ export default function PortfolioPage(): ReactElement {
               <span className="text-accent font-medium">Alqua</span>.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-up [animation-delay:300ms]">
+            <div
+              className="flex flex-col sm:flex-row gap-4"
+              style={{ animation: 'land-left 500ms 520ms both cubic-bezier(.34,1.56,.64,1)' }}
+            >
               <Button variant="primary" size="lg" href="/cases" arrow>
                 View case studies
               </Button>
