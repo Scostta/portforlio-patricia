@@ -41,7 +41,7 @@ export function FeaturedCasesGrid({ cases }: FeaturedCasesGridProps): ReactEleme
         {cases.map((c, index) => (
           <Link
             key={c.slug}
-            href={`/cases/${c.slug}`}
+            href={`/portfolio/cases/${c.slug}`}
             className="group bg-white p-8 lg:p-10 flex flex-col animate-fade-up"
             style={{ animationDelay: `${index * 120}ms` } as CSSProperties}
           >

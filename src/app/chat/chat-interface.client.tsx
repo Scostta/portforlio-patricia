@@ -125,7 +125,7 @@ function InputBox({
 }): ReactElement {
   return (
     <div className={cn(
-      'flex items-end gap-3 rounded-2xl border bg-[#2a2a2a] px-4 py-3 transition-all duration-200',
+      'flex items-center gap-3 rounded-2xl border bg-[#2a2a2a] px-4 py-3 transition-all duration-200',
       'border-white/[0.1] focus-within:border-accent',
     )}>
       <textarea
@@ -373,7 +373,7 @@ function TypingIndicator(): ReactElement {
   return (
     <div className="flex items-end gap-3">
       <AssistantAvatar />
-      <div className="bg-[#262626] border border-white/[0.08] rounded-2xl rounded-bl-sm px-4 py-3">
+      <div className="py-2">
         <div className="flex gap-1.5 items-center h-4">
           {[0, 1, 2].map((i) => (
             <span key={i} className="w-1.5 h-1.5 rounded-full bg-white/30 animate-bounce" style={{ animationDelay: `${i * 150}ms`, animationDuration: '900ms' }} />
@@ -389,21 +389,17 @@ function MessageBubble({ message }: { message: Message }): ReactElement {
   if (isUser) {
     return (
       <div className="flex justify-end">
-        <div className="max-w-[80%] sm:max-w-[70%]">
-          <div className="bg-accent text-white rounded-2xl rounded-br-sm px-4 py-3 text-sm leading-relaxed">
-            <MarkdownContent content={message.content} isUser />
-          </div>
+        <div className="max-w-[80%] sm:max-w-[70%] bg-accent px-4 py-3 rounded-2xl text-sm leading-relaxed text-white/85">
+          <MarkdownContent content={message.content} isUser />
         </div>
       </div>
     )
   }
   return (
-    <div className="flex items-end gap-3">
+    <div className="flex items-start gap-3">
       <AssistantAvatar />
-      <div className="max-w-[85%] sm:max-w-[78%]">
-        <div className="bg-[#262626] border border-white/[0.08] rounded-2xl rounded-bl-sm px-4 py-3 text-sm leading-relaxed text-white/85">
-          <MarkdownContent content={message.content} isUser={false} />
-        </div>
+      <div className="max-w-[85%] sm:max-w-[78%] text-sm leading-relaxed text-white/75">
+        <MarkdownContent content={message.content} isUser={false} />
       </div>
     </div>
   )
@@ -425,11 +421,19 @@ export function ChatInterface({
   const [messages, setMessages] = useState<Message[]>(initialMessages)
   const [input, setInput] = useState('')
   const [isTyping, setIsTyping] = useState(false)
+  const [toast, setToast] = useState<{ message: string; id: number } | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const bottomInputRef = useRef<HTMLTextAreaElement>(null)
   const activeChatId = useRef<string | null>(chatId)
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => { activeChatId.current = chatId }, [chatId])
+
+  const showToast = useCallback((message: string) => {
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current)
+    setToast({ message, id: Date.now() })
+    toastTimerRef.current = setTimeout(() => setToast(null), 4500)
+  }, [])
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -499,26 +503,53 @@ export function ChatInterface({
 
           for (const line of lines) {
             if (!line.startsWith('data:')) continue
-            const raw = line.slice(5).trimStart()
+            // trim() removes both leading spaces AND trailing \r (CRLF responses)
+            const raw = line.slice(5).trim()
+            if (!raw || raw === '[DONE]') continue
 
+            let token = ''
             try {
               const parsed = JSON.parse(raw)
-              if (parsed.event === 'end') break
-              if (parsed.event !== 'token') continue
-              const token: string = typeof parsed.data === 'string' ? parsed.data : ''
-              if (token === '') continue
-
-              if (!placeholderAdded) {
-                placeholderAdded = true
-                setIsTyping(false)
-                setMessages((prev) => [...prev, { id: assistantId, role: 'assistant', content: token }])
+              if (parsed.event === 'end') {
+                // Use end-event data as fallback only if it's real content (not a sentinel)
+                if (
+                  !placeholderAdded &&
+                  typeof parsed.data === 'string' &&
+                  parsed.data &&
+                  parsed.data !== '[DONE]'
+                ) {
+                  token = parsed.data
+                } else {
+                  break
+                }
+              } else if (parsed.event !== 'token') {
+                continue
               } else {
-                setMessages((prev) =>
-                  prev.map((m) => m.id === assistantId ? { ...m, content: m.content + token } : m),
-                )
+                token = typeof parsed.data === 'string' ? parsed.data : ''
               }
-            } catch { /* ignore malformed SSE lines */ }
+            } catch {
+              // Old Flowise format: data: plain text token
+              token = raw
+            }
+
+            // Skip sentinels however they arrive
+            if (!token || token.trim() === '[DONE]') continue
+
+            if (!placeholderAdded) {
+              placeholderAdded = true
+              setIsTyping(false)
+              setMessages((prev) => [...prev, { id: assistantId, role: 'assistant', content: token }])
+            } else {
+              setMessages((prev) =>
+                prev.map((m) => m.id === assistantId ? { ...m, content: m.content + token } : m),
+              )
+            }
           }
+        }
+
+        // Stream ended with no tokens
+        if (!placeholderAdded) {
+          showToast('No response received. Please try again.')
         }
 
         // Navigate only after session exists in DB to avoid the server redirect on [id]/page.tsx
@@ -529,13 +560,9 @@ export function ChatInterface({
         }
       } catch {
         if (placeholderAdded) {
-          setMessages((prev) =>
-            prev.map((m) =>
-              m.id === assistantId ? { ...m, content: 'Sorry, something went wrong. Please try again.' } : m,
-            ),
-          )
+          showToast('The response was cut short. Please try again.')
         } else {
-          setMessages((prev) => [...prev, { id: `error-${Date.now()}`, role: 'assistant', content: 'Sorry, something went wrong. Please try again.' }])
+          showToast('Something went wrong. Please try again.')
         }
       } finally {
         setIsTyping(false)
@@ -559,6 +586,30 @@ export function ChatInterface({
 
   return (
     <div className="flex flex-col h-dvh bg-[#1a1a1a]">
+      {/* Toast */}
+      {toast && (
+        <div
+          key={toast.id}
+          className="fixed top-4 right-4 z-50 flex items-center gap-3 bg-[#2a2a2a] border border-white/[0.12] text-sm text-white/85 px-4 py-3 rounded-xl shadow-2xl animate-fade-in max-w-xs w-[calc(100%-2rem)] sm:w-auto sm:max-w-sm pointer-events-auto"
+          role="alert"
+        >
+          <svg className="shrink-0 text-red-400" width="15" height="15" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="7" stroke="currentColor" strokeWidth="1.4" />
+            <path d="M8 5v3.5M8 11h.01" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+          <span className="flex-1 leading-snug">{toast.message}</span>
+          <button
+            onClick={() => setToast(null)}
+            className="shrink-0 text-white/30 hover:text-white/70 transition-colors ml-1"
+            aria-label="Dismiss"
+          >
+            <svg width="13" height="13" viewBox="0 0 12 12" fill="none">
+              <path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
+      )}
+
       {/* Mobile hamburger — only visible when sidebar is closed on small screens */}
       <div className="lg:hidden shrink-0 px-4 pt-3">
         <button
