@@ -31,7 +31,7 @@ export default function CasesPage(): ReactElement {
         {CASES.map((c, index) => (
           <Link
             key={c.slug}
-            href={`/cases/${c.slug}`}
+            href={`/portfolio/cases/${c.slug}`}
             className="group relative overflow-hidden flex flex-col lg:flex-row lg:items-start gap-6 lg:gap-12 py-10 lg:py-14 hover:bg-gradient-secondary transition-colors duration-300 -mx-6 lg:-mx-12 px-6 lg:px-12 reveal"
             style={{ transitionDelay: `${index * 60}ms` }}
           >

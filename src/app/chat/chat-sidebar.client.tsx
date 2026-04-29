@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect, useCallback } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import type { ReactElement, KeyboardEvent } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -224,10 +224,6 @@ export function ChatSidebar({
                 </div>
                 <div className="min-w-0">
                   <p className="text-sm font-semibold text-white/85 leading-none group-hover:text-white transition-colors">AI Portfolio Assistant</p>
-                  <div className="flex items-center gap-1.5 mt-0.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                    <p className="text-2xs text-white/30">Online</p>
-                  </div>
                 </div>
               </Link>
               <button
