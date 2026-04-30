@@ -20,11 +20,12 @@ const config: Config = {
         'dark-secondary': '#2A2A27',
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        serif: ['var(--font-playfair)', 'Georgia', 'serif'],
+        sans: ['var(--font-body)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-display)', 'Georgia', 'serif'],
       },
       fontSize: {
-        '2xs': ['0.6875rem', { lineHeight: '1rem' }],
+        'micro': ['0.5625rem', { lineHeight: '0.875rem' }],
+        '2xs':   ['0.625rem',  { lineHeight: '1rem' }],
       },
       maxWidth: {
         prose: '68ch',
@@ -32,6 +33,7 @@ const config: Config = {
       },
       letterSpacing: {
         widest: '0.2em',
+        label:  '0.13em',
       },
       keyframes: {
         'fade-up': {
@@ -54,6 +56,14 @@ const config: Config = {
           '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
         },
+        'marquee': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        },
+        'breathe': {
+          '0%, 100%': { opacity: '0.7', transform: 'scale(1)' },
+          '50%': { opacity: '1', transform: 'scale(1.08)' },
+        },
       },
       animation: {
         'fade-up': 'fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both',
@@ -61,6 +71,8 @@ const config: Config = {
         'count-in': 'count-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) both',
         'gradient-breathe': 'gradient-breathe 12s ease-in-out infinite',
         'gradient-breathe-dark': 'gradient-breathe-dark 16s ease-in-out infinite',
+        'marquee': 'marquee 40s linear infinite',
+        'breathe': 'breathe 6s ease-in-out infinite',
       },
       boxShadow: {
         'card-hover': '0 4px 24px -4px rgba(102, 103, 171, 0.18), 0 1px 4px -1px rgba(102, 103, 171, 0.10)',

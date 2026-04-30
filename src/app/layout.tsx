@@ -1,19 +1,22 @@
 import type { ReactElement } from 'react'
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Plus_Jakarta_Sans, Cormorant_Garamond } from 'next/font/google'
 import { Cursor } from '~/components/cursor.client'
 import { ScrollProgress } from '~/components/scroll-progress.client'
 import './globals.css'
 
-const inter = Inter({
+const jakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-body',
+  weight: ['300', '400', '500', '600'],
   display: 'swap',
 })
 
-const playfair = Playfair_Display({
+const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  variable: '--font-display',
+  weight: ['300', '400', '500', '600'],
+  style: ['normal', 'italic'],
   display: 'swap',
 })
 
@@ -56,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode
 }): ReactElement {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${jakartaSans.variable} ${cormorant.variable}`}>
       <body suppressHydrationWarning className="font-sans min-h-screen flex flex-col">
         <Cursor />
         <ScrollProgress />
