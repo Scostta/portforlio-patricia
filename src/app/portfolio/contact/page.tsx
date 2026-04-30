@@ -134,7 +134,7 @@ export default function ContactPage(): ReactElement {
 
               <a
                 href="tel:+34687983052"
-                className="group w-full flex items-center gap-4 p-4 bg-white border border-border rounded-xl hover:border-accent/35 sm:hover:-translate-y-0.5 sm:hover:shadow-[0_4px_16px_rgba(102,103,171,0.1)] transition-all duration-200"
+                className="group flex items-center gap-4 p-4 bg-white border border-border rounded-xl hover:border-accent/35 sm:hover:-translate-y-0.5 sm:hover:shadow-[0_4px_16px_rgba(102,103,171,0.1)] transition-all duration-200"
               >
                 <div className="w-9 h-9 rounded-[10px] bg-accent/10 flex items-center justify-center flex-shrink-0">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -156,7 +156,7 @@ export default function ContactPage(): ReactElement {
                 href="https://linkedin.com/in/patriciabayonabulto"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group w-full flex items-center gap-4 p-4 bg-white border border-border rounded-xl hover:border-accent/35 sm:hover:-translate-y-0.5 sm:hover:shadow-[0_4px_16px_rgba(102,103,171,0.1)] transition-all duration-200"
+                className="group flex items-center gap-4 p-4 bg-white border border-border rounded-xl hover:border-accent/35 sm:hover:-translate-y-0.5 sm:hover:shadow-[0_4px_16px_rgba(102,103,171,0.1)] transition-all duration-200"
               >
                 <div className="w-9 h-9 rounded-[10px] bg-blue-50 flex items-center justify-center flex-shrink-0">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
