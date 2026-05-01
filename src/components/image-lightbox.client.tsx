@@ -173,7 +173,7 @@ function Lightbox({ images, initialIndex = 0, onClose }: LightboxProps) {
           className="max-w-full max-h-full object-contain select-none"
           style={{
             transform: `scale(${scale}) translate(${offset.x / scale}px, ${offset.y / scale}px)`,
-            cursor: scale > 1 ? 'grab' : 'default',
+            cursor: 'default',
             transition: dragStart.current ? 'none' : 'transform 0.15s ease',
             userSelect: 'none',
           }}
