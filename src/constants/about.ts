@@ -107,3 +107,25 @@ export const EDUCATION = [
     note: '',
   },
 ]
+
+export const ABOUT_STATS = [
+  { target: 12900, suffix: '+',   useLocale: true,  label: 'Portal users',      sub: 'across 6 European markets'      },
+  { target: 300,   suffix: '+',   useLocale: false, label: 'User interviews',    sub: 'conducted across both roles'     },
+  { target: 80,    suffix: '%',   useLocale: false, label: 'Customer retention', sub: 'at Alqua over 4 years'          },
+  { target: 2,     suffix: 'M€+', useLocale: false, label: 'Capital raised',     sub: 'ENISA, ICO & private investors' },
+] as const
+
+export const LANGUAGES = [
+  { name: 'English', level: 'C2 · Cambridge CPE' },
+  { name: 'Spanish', level: 'Native' },
+  { name: 'French',  level: 'Professional' },
+] as const
+
+export const PERSONAL_FACTS = [
+  { label: 'Location',      value: 'Madrid, Spain',              detail: 'Open to full remote across Europe' },
+  { label: 'Availability',  value: 'Open to hire',               detail: 'PM · Product Lead · UX Lead' },
+  { label: 'Academic',      value: 'ESSEC MIM — ranked #3',      detail: 'International Management, Paris · Pursued in English' },
+  { label: 'International', value: 'Paris · Copenhagen · Oslo',  detail: 'Studied, exchanged and worked across Europe' },
+  { label: 'Certification', value: 'Cambridge CPE',              detail: 'C2 English proficiency · Cambridge University Press' },
+  { label: 'Career path',   value: 'Finance → Startup → VP',     detail: 'Business degree to Co-Founder to VP at enterprise' },
+] as const

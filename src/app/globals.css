@@ -7,6 +7,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
@@ -31,7 +32,7 @@
 
 @layer components {
   .section-label {
-    @apply text-2xs font-medium tracking-widest uppercase text-ink-tertiary;
+    @apply text-2xs font-semibold tracking-widest uppercase text-ink-tertiary;
   }
 
   .hero-gradient-bg {
@@ -296,7 +297,7 @@
 
 @keyframes land-orb-from-tr {
   from {
-    translate: 500px -500px;
+    translate: 220px -220px;
   }
 
   to {
@@ -306,7 +307,7 @@
 
 @keyframes land-orb-from-bl {
   from {
-    translate: -500px 500px;
+    translate: -220px 220px;
   }
 
   to {
@@ -335,7 +336,7 @@
   opacity: 0.3;
   animation:
     orb-drift-1 8s ease-in-out infinite alternate,
-    land-orb-from-tr 900ms 1500ms both cubic-bezier(.34, 1.56, .64, 1);
+    land-orb-from-tr 600ms 200ms both cubic-bezier(.34, 1.56, .64, 1);
   pointer-events: none;
 }
 
@@ -350,8 +351,23 @@
   opacity: 0.3;
   animation:
     orb-drift-2 11s ease-in-out infinite alternate,
-    land-orb-from-bl 900ms 1700ms both cubic-bezier(.34, 1.56, .64, 1);
+    land-orb-from-bl 600ms 400ms both cubic-bezier(.34, 1.56, .64, 1);
   pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .landing-orb-1 {
+    width: 280px;
+    height: 280px;
+    top: -100px;
+    right: -80px;
+  }
+  .landing-orb-2 {
+    width: 180px;
+    height: 180px;
+    bottom: -60px;
+    left: -50px;
+  }
 }
 
 /* ─── Split-screen landing ──────────────────────────────────── */
@@ -386,7 +402,7 @@
 /* Mobile: stack vertically */
 @media (max-width: 767px) {
   .split-container { flex-direction: column; }
-  .split-panel { flex: 1; width: 100%; }
+  .split-panel { flex: none; min-height: 50svh; width: 100%; overflow: visible; align-items: center; }
 }
 
 /* Icon circles */
