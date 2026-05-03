@@ -261,10 +261,10 @@ export default async function CasePage({ params }: Props): Promise<ReactElement>
             {c.approach.map((step, i) => (
               <div
                 key={i}
-                className="grid grid-cols-[2.5rem_1fr] lg:grid-cols-[3.5rem_1fr] gap-4 lg:gap-6 items-start reveal"
+                className="grid grid-cols-1 lg:grid-cols-[3.5rem_1fr] gap-2 lg:gap-6 items-start reveal"
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
-                <span className="font-serif text-2xl lg:text-3xl xl:text-4xl font-bold text-accent opacity-20 leading-none pt-[0.1em] tracking-tight">
+                <span className="font-serif text-2xl lg:text-3xl xl:text-4xl font-bold text-accent opacity-20 leading-none tracking-tight">
                   {String(i + 1).padStart(2, '0')}
                 </span>
                 <div className="approach-step-line pl-4 lg:pl-5">
