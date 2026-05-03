@@ -126,9 +126,11 @@ export async function POST(req: Request) {
       // completes within the request lifecycle (required in serverless environments)
       if (chatId) {
         try {
+          const userCreatedAt = new Date()
+          const assistantCreatedAt = new Date(userCreatedAt.getTime() + 1)
           const messagesToInsert = [
-            { chat_id: chatId, role: 'user', content: question },
-            ...(fullText ? [{ chat_id: chatId, role: 'assistant', content: fullText }] : []),
+            { chat_id: chatId, role: 'user', content: question, created_at: userCreatedAt.toISOString() },
+            ...(fullText ? [{ chat_id: chatId, role: 'assistant', content: fullText, created_at: assistantCreatedAt.toISOString() }] : []),
           ]
           const { error } = await supabase.from('chat_messages').insert(messagesToInsert)
           if (error) console.error('[supabase] save messages:', error.message)

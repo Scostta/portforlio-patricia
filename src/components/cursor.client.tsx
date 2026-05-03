@@ -37,6 +37,13 @@ export function Cursor(): ReactElement {
       rafRef.current = requestAnimationFrame(loop)
     }
 
+    const resetDot = () => {
+      dot.style.width = '10px'
+      dot.style.height = '10px'
+      dot.style.backgroundColor = '#6667ab'
+      dot.style.border = '0px solid transparent'
+    }
+
     const onOver = (e: MouseEvent) => {
       if ((e.target as HTMLElement).closest('a, button')) {
         dot.style.width = '24px'
@@ -48,22 +55,31 @@ export function Cursor(): ReactElement {
 
     const onOut = (e: MouseEvent) => {
       if ((e.target as HTMLElement).closest('a, button')) {
-        dot.style.width = '10px'
-        dot.style.height = '10px'
-        dot.style.backgroundColor = '#6667ab'
-        dot.style.border = '0px solid transparent'
+        resetDot()
+      }
+    }
+
+    const onClick = (e: MouseEvent) => {
+      if ((e.target as HTMLElement).closest('.lightbox-root')) {
+        // After React flushes the modal unmount, re-check what's under the cursor
+        setTimeout(() => {
+          const el = document.elementFromPoint(posRef.current.x, posRef.current.y)
+          if (!el?.closest('a, button')) resetDot()
+        }, 0)
       }
     }
 
     window.addEventListener('mousemove', onMove)
     document.addEventListener('mouseover', onOver)
     document.addEventListener('mouseout', onOut)
+    document.addEventListener('click', onClick)
     rafRef.current = requestAnimationFrame(loop)
 
     return () => {
       window.removeEventListener('mousemove', onMove)
       document.removeEventListener('mouseover', onOver)
       document.removeEventListener('mouseout', onOut)
+      document.removeEventListener('click', onClick)
       cancelAnimationFrame(rafRef.current)
     }
   }, [])

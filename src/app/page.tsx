@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function LandingPage(): ReactElement {
   return (
-    <div className="h-screen overflow-hidden flex flex-col">
+    <div className="min-h-screen md:h-screen md:overflow-hidden flex flex-col">
       {/* ── Split panels ─────────────────────────────────────────── */}
       <div className="split-container flex-1 min-h-0">
 
