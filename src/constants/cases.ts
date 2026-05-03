@@ -11,6 +11,11 @@ export type Result = {
   context: string
 }
 
+export type SituationBlock =
+  | { type: 'paragraph'; content: string }
+  | { type: 'subsection'; heading: string; col1: string[]; col2: string[] }
+  | { type: 'callout'; content: string }
+
 export type Case = {
   slug: string
   number: string
@@ -21,7 +26,9 @@ export type Case = {
   role: string
   timeline: string
   intro: string
+  roleScopeIntro?: string
   roleScope?: string[]
+  situationBlocks?: SituationBlock[]
   situation: string[]
   approach: ApproachSection[]
   results: Result[]
@@ -49,6 +56,42 @@ export const CASES: Case[] = [
       'Design system ownership',
       'Stakeholder management from local market teams to C-1 level',
       'Making organisational change happen in an environment where it had been tried before and failed',
+    ],
+    roleScopeIntro:
+      'I was hired as Product Manager for what would become MyLINK Portal — the unified entry point for all of LINK\'s products and services. Within a year I was promoted to VP of UX for the group, which meant I was simultaneously building the product and building the team and processes that would design it.',
+    situationBlocks: [
+      {
+        type: 'subsection',
+        heading: 'What customers experienced',
+        col1: [
+          'Products were frozen in time. Many had lost their original engineering teams when companies were acquired, leaving no one to build new features or fix bugs. Clients were effectively paying for stagnation.',
+          'When a customer needed functionality available in a different LINK product, the solution was to give them access to that product too — resulting in multiple logins, multiple interfaces, no coherent experience.',
+          'Developer experience was non-existent. There were no clear personas, no documentation designed for technical users, and the value delivered rarely matched the price paid.',
+        ],
+        col2: [
+          'Use cases that could genuinely transform how clients communicate with their end users either didn\'t exist or were so hard to adopt that uptake was negligible.',
+          'Revenue per customer was low. Upselling was structurally impossible — there was no unified surface to show clients what else existed, or to make them want it.',
+        ],
+      },
+      {
+        type: 'subsection',
+        heading: 'What was broken internally',
+        col1: [
+          'Many products depended on a single large client to sustain their entire P&L. One contract loss could make a product financially unviable overnight.',
+          'Multiple engineering teams across the company were independently building the same features. The same problems were being solved in parallel, with no knowledge sharing and no strategic alignment.',
+          'Billing was chaotic. With every product running on a different provisioning system, invoices frequently didn\'t match — and some simply went unpaid. Finance teams were managing exceptions, not processes.',
+        ],
+        col2: [
+          'Every support ticket had an enormous cost. Teams had to learn multiple legacy systems, often depending on a single person who remembered how a product worked. Many tickets were never resolved.',
+          'Creating client accounts and configuring access varied dramatically between products, making consistent metrics, market expansion, and client migration nearly impossible to manage at scale.',
+          'A group of managers had been pushing for change for years. But local market managers resisted — each protecting their product, their team, their slice of the organisation. Change had been promised before. Nobody believed it would happen this time either.',
+          'The engineering organisation, based primarily in Bulgaria, operated with significant autonomy — resistant to product management involvement and openly skeptical of UX as a discipline.',
+        ],
+      },
+      {
+        type: 'callout',
+        content: 'The people who most needed this change were the most exhausted by the fact that it hadn\'t happened yet. That was the environment I walked into.',
+      },
     ],
     situation: [
       'When I joined in 2021, the situation was more complex than the strategy documents suggested. The problems were structural, human, and deeply political. Products were frozen in time — many had lost their original engineering teams when companies were acquired, leaving no one to build new features or fix bugs. Clients were effectively paying for stagnation. When a customer needed functionality available in a different LINK product, the solution was to give them access to that product too — resulting in multiple logins, multiple interfaces, no coherent experience.',

@@ -31,7 +31,7 @@ function PdfModal({ href, label, onClose }: { href: string; label: string; onClo
 
   return createPortal(
     <div
-      className="fixed inset-0 flex flex-col overflow-hidden"
+      className="lightbox-root fixed inset-0 flex flex-col overflow-hidden"
       style={{ zIndex: 9999, background: 'rgba(19,19,16,0.97)' }}
       role="dialog"
       aria-modal="true"

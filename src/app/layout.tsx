@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans, Cormorant_Garamond } from 'next/font/google'
 import { Cursor } from '~/components/cursor.client'
 import { ScrollProgress } from '~/components/scroll-progress.client'
+import { TopBanner } from '~/components/top-banner.client'
 import './globals.css'
 
 const jakartaSans = Plus_Jakarta_Sans({
@@ -61,6 +62,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jakartaSans.variable} ${cormorant.variable}`}>
       <body suppressHydrationWarning className="font-sans min-h-screen flex flex-col">
+        <TopBanner />
         <Cursor />
         <ScrollProgress />
         {children}

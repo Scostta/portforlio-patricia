@@ -112,7 +112,7 @@ function Lightbox({ images, initialIndex = 0, onClose }: LightboxProps) {
 
   return createPortal(
     <div
-      className="fixed inset-0 flex flex-col overflow-hidden"
+      className="lightbox-root fixed inset-0 flex flex-col overflow-hidden"
       style={{ zIndex: 9999, background: 'rgba(19,19,16,0.97)' }}
       role="dialog"
       aria-modal="true"
@@ -173,7 +173,6 @@ function Lightbox({ images, initialIndex = 0, onClose }: LightboxProps) {
           className="max-w-full max-h-full object-contain select-none"
           style={{
             transform: `scale(${scale}) translate(${offset.x / scale}px, ${offset.y / scale}px)`,
-            cursor: 'default',
             transition: dragStart.current ? 'none' : 'transform 0.15s ease',
             userSelect: 'none',
           }}

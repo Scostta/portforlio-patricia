@@ -7,6 +7,7 @@ import { cn } from '~/utils/cn'
 import { Button } from '~/components/ui/button'
 
 const NAV_LINKS = [
+  { href: '/portfolio', label: 'Home' },
   { href: '/portfolio/cases', label: 'Cases' },
   { href: '/portfolio/about', label: 'About' },
   { href: '/portfolio/contact', label: 'Contact' },
@@ -43,13 +44,16 @@ export function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const isActive = (href: string) =>
-    mounted && (pathname === href || pathname.startsWith(href + '/'))
+  const isActive = (href: string) => {
+    if (!mounted) return false
+    if (href === '/portfolio') return pathname === '/portfolio'
+    return pathname === href || pathname.startsWith(href + '/')
+  }
 
   return (
     <>
       <header className={cn(
-        'fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border',
+        'fixed top-10 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border',
         'transition-transform duration-300',
         visible || menuOpen ? 'translate-y-0' : '-translate-y-full',
       )}>

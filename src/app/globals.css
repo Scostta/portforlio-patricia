@@ -27,6 +27,13 @@
     button {
       cursor: none;
     }
+
+    .lightbox-root,
+    .lightbox-root a,
+    .lightbox-root button,
+    .lightbox-root img {
+      cursor: default;
+    }
   }
 }
 

@@ -143,18 +143,40 @@ export default async function CasePage({ params }: Props): Promise<ReactElement>
               <span className="section-label">Role & Scope</span>
               <div className="flex-1 h-px bg-border reveal-expand" />
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {c.roleScope.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-3 p-4 lg:p-5 bg-white border border-border rounded-xl reveal"
-                  style={{ transitionDelay: `${i * 50}ms` }}
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent mt-[0.45em] flex-shrink-0" aria-hidden="true" />
-                  <p className="text-sm leading-relaxed text-ink-secondary">{item}</p>
+            {c.roleScopeIntro ? (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
+                <div className="reveal">
+                  <p className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary">{c.roleScopeIntro}</p>
                 </div>
-              ))}
-            </div>
+                <ol className="space-y-3">
+                  {c.roleScope.map((item, i) => (
+                    <li
+                      key={i}
+                      className="flex items-start gap-4 reveal"
+                      style={{ transitionDelay: `${i * 50}ms` }}
+                    >
+                      <span className="flex-shrink-0 w-7 h-7 rounded-full border border-accent/30 bg-accent/[0.07] flex items-center justify-center text-2xs font-bold text-accent">
+                        {i + 1}
+                      </span>
+                      <p className="text-sm leading-relaxed text-ink-secondary pt-[0.35em]">{item}</p>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {c.roleScope.map((item, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 p-4 lg:p-5 bg-white border border-border rounded-xl reveal"
+                    style={{ transitionDelay: `${i * 50}ms` }}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-accent mt-[0.45em] flex-shrink-0" aria-hidden="true" />
+                    <p className="text-sm leading-relaxed text-ink-secondary">{item}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       )}
@@ -166,17 +188,65 @@ export default async function CasePage({ params }: Props): Promise<ReactElement>
             <span className="section-label">The Situation</span>
             <div className="flex-1 h-px bg-border reveal-expand" />
           </div>
-          <div className="max-w-reading mx-auto">
-            {c.situation.map((paragraph, i) => (
-              <p
-                key={i}
-                className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary mb-6 last:mb-0 reveal"
-                style={{ transitionDelay: `${i * 60}ms` }}
-              >
-                {paragraph}
-              </p>
-            ))}
-          </div>
+          {c.situationBlocks ? (
+            <div className="space-y-12">
+              {c.situationBlocks.map((block, i) => {
+                if (block.type === 'paragraph') {
+                  return (
+                    <p
+                      key={i}
+                      className="max-w-reading text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary reveal"
+                      style={{ transitionDelay: `${i * 60}ms` }}
+                    >
+                      {block.content}
+                    </p>
+                  )
+                }
+                if (block.type === 'callout') {
+                  return (
+                    <div key={i} className="quote-callout reveal" style={{ transitionDelay: `${i * 60}ms` }}>
+                      <p className="font-serif italic text-base lg:text-lg leading-relaxed text-ink">{block.content}</p>
+                    </div>
+                  )
+                }
+                return (
+                  <div key={i} className="reveal" style={{ transitionDelay: `${i * 60}ms` }}>
+                    <h3 className="text-2xs font-bold tracking-label uppercase text-ink-tertiary mb-6">{block.heading}</h3>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-4">
+                      <ul className="space-y-4">
+                        {block.col1.map((item, j) => (
+                          <li key={j} className="flex items-start gap-3">
+                            <span className="w-1.5 h-1.5 rounded-full bg-accent mt-[0.6em] flex-shrink-0" aria-hidden="true" />
+                            <span className="text-[0.9375rem] leading-[1.8] text-ink-secondary">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      <ul className="space-y-4">
+                        {block.col2.map((item, j) => (
+                          <li key={j} className="flex items-start gap-3">
+                            <span className="w-1.5 h-1.5 rounded-full bg-accent mt-[0.6em] flex-shrink-0" aria-hidden="true" />
+                            <span className="text-[0.9375rem] leading-[1.8] text-ink-secondary">{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          ) : (
+            <div className="max-w-reading mx-auto">
+              {c.situation.map((paragraph, i) => (
+                <p
+                  key={i}
+                  className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary mb-6 last:mb-0 reveal"
+                  style={{ transitionDelay: `${i * 60}ms` }}
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
