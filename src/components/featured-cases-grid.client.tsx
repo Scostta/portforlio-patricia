@@ -2,11 +2,11 @@
 import { useRef } from 'react'
 import Link from 'next/link'
 import type { CSSProperties, ReactElement } from 'react'
-import type { Case } from '~/constants/cases'
+import type { CaseMeta } from '~/constants/cases'
 import { Tag } from '~/components/ui/tag'
 
 type FeaturedCasesGridProps = {
-  cases: Case[]
+  cases: CaseMeta[]
 }
 
 export function FeaturedCasesGrid({ cases }: FeaturedCasesGridProps): ReactElement {
