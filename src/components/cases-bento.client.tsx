@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { CASES } from '~/constants/cases'
+import { CASES_META } from '~/constants/cases'
 import { cn } from '~/utils/cn'
 
 const FILTERS = [
@@ -45,8 +45,8 @@ export function CasesBento() {
 
   const isFiltered = active !== 'all'
   const visibleCases = isFiltered
-    ? CASES.filter(c => (FILTER_MAP[c.slug] ?? []).includes(active))
-    : CASES
+    ? CASES_META.filter(c => (FILTER_MAP[c.slug] ?? []).includes(active))
+    : CASES_META
 
   return (
     <>
@@ -81,7 +81,7 @@ export function CasesBento() {
           )}
         >
           {visibleCases.map((c, i) => {
-            const originalIndex = CASES.indexOf(c)
+            const originalIndex = CASES_META.indexOf(c)
             const isFeatured = !isFiltered && i === 0
 
             return (

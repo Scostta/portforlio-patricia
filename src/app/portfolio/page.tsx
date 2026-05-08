@@ -1,6 +1,6 @@
 import type { ReactElement } from 'react'
 import Link from 'next/link'
-import { CASES } from '~/constants/cases'
+import { CASES_META } from '~/constants/cases'
 import { FEATURED_CASE_SLUGS } from '~/constants/home'
 import { MARQUEE_ITEMS, SKILLS_BENTO } from '~/constants/site'
 import { StatsStrip } from '~/components/stats-strip.client'
@@ -41,7 +41,7 @@ function ArrowIcon() {
 }
 
 export default function PortfolioPage(): ReactElement {
-  const featuredCases = CASES.filter((c) => FEATURED_CASE_SLUGS.includes(c.slug))
+  const featuredCases = CASES_META.filter((c) => FEATURED_CASE_SLUGS.includes(c.slug))
 
   return (
     <>

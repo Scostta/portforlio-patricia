@@ -212,6 +212,11 @@
   }
 }
 
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
 @layer base {
 
   a:focus-visible,
@@ -375,6 +380,36 @@
     bottom: -60px;
     left: -50px;
   }
+}
+
+/* ─── Case study mesh gradient hero ─────────────────────────────────────── */
+@keyframes mesh-drift-1 {
+  from { transform: translate(0, 0); }
+  to { transform: translate(40px, 30px); }
+}
+@keyframes mesh-drift-2 {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-30px, 40px); }
+}
+@keyframes mesh-drift-3 {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(20px, -20px) scale(1.1); }
+}
+@keyframes mesh-drift-4 {
+  from { transform: translate(0, 0); }
+  to { transform: translate(-40px, -30px); }
+}
+@keyframes case-grad-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes case-dark-pan {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+@keyframes bar-grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
 }
 
 /* ─── Split-screen landing ──────────────────────────────────── */
