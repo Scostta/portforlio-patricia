@@ -366,7 +366,7 @@ export default function UxSystemPage(): ReactElement {
       </section>
 
       {/* ── THE CUSTOMER PROGRAM ─────────────────────────────────────── */}
-      <section className="bg-surface border-b border-border py-20 lg:py-24">
+      <section className="bg-white border-b border-border py-20 lg:py-24">
         <div className="max-w-7xl mx-auto px-6 lg:px-12">
           <div className="flex items-center gap-4 mb-12">
             <span className="section-label">The Customer Program</span>
@@ -502,33 +502,22 @@ export default function UxSystemPage(): ReactElement {
             <span className="section-label">What the System Produced</span>
             <div className="flex-1 h-px bg-border reveal-expand" />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {[
-              { value: '4', label: 'Mandatory phases', context: 'Discover · Define · Develop · Deliver — all mandatory, no skipping' },
-              { value: '5+', label: 'Enterprise clients', context: 'In the Customer Program — including DNB and BAS' },
-              { value: '25+', label: 'External contacts', context: 'In the research database — DHL, NAV, Volvofinans Bank and others' },
-              { value: '1', label: 'Searchable knowledge base', context: 'All research stored in Dovetail, accessible to every PM' },
-              { value: '3', label: 'AI tracks', context: 'In the Learning Hub — product design, UX practice, PM awareness' },
-            ].map((result, i) => (
-              <div
-                key={i}
-                className="group relative flex flex-col justify-between overflow-hidden bg-white border border-border rounded-[14px] p-5 lg:p-8 min-h-[160px] lg:min-h-[200px] shadow-[0_2px_12px_rgba(19,19,16,0.06),0_1px_3px_rgba(19,19,16,0.04)] hover:border-accent/35 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-300 reveal"
-                style={{ transitionDelay: `${i * 70}ms` }}
-              >
-                <p className="font-serif text-3xl lg:text-4xl xl:text-5xl font-bold leading-none tracking-tight bg-gradient-primary bg-clip-text text-transparent mb-3">
-                  {result.value}
-                </p>
-                <p className="text-[0.9375rem] font-semibold text-ink leading-snug mb-1.5">{result.label}</p>
-                <p className="text-xs text-ink-tertiary leading-relaxed">{result.context}</p>
-                <span
-                  aria-hidden="true"
-                  className="absolute bottom-[-0.06em] right-[-0.01em] font-serif font-extrabold leading-none text-[clamp(4rem,8vw,8rem)] text-ink opacity-[0.025] group-hover:opacity-[0.05] transition-opacity duration-300 pointer-events-none select-none"
-                >
-                  {String(i + 1)}
-                </span>
-                <div aria-hidden className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
-              </div>
-            ))}
+          <div className="border border-border rounded-2xl overflow-hidden reveal">
+            <div className="flex flex-wrap lg:flex-nowrap divide-y lg:divide-y-0 lg:divide-x divide-border">
+              {[
+                { value: '4', label: 'Mandatory phases', context: 'Discover · Define · Develop · Deliver — all mandatory, no skipping' },
+                { value: '5+', label: 'Enterprise clients', context: 'In the Customer Program — including DNB and BAS' },
+                { value: '25+', label: 'External contacts', context: 'In the research database — DHL, NAV, Volvofinans Bank and others' },
+                { value: '1', label: 'Searchable knowledge base', context: 'All research stored in Dovetail, accessible to every PM' },
+                { value: '3', label: 'AI tracks', context: 'In the Learning Hub — product design, UX practice, PM awareness' },
+              ].map((result, i) => (
+                <div key={result.label} className="flex-1 min-w-[140px] px-6 py-6 flex flex-col gap-1" style={{ transitionDelay: `${i * 50}ms` }}>
+                  <div className="font-serif font-medium leading-none tracking-[-0.025em] bg-gradient-primary bg-clip-text text-transparent" style={{ fontSize: 'clamp(1.75rem,2.5vw,2.5rem)' }}>{result.value}</div>
+                  <div className="text-[0.8125rem] font-semibold text-ink leading-snug">{result.label}</div>
+                  {result.context && <div className="text-[0.75rem] text-ink-tertiary leading-relaxed">{result.context}</div>}
+                </div>
+              ))}
+            </div>
           </div>
           <div className="mt-12 max-w-reading space-y-5">
             <p className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary reveal">

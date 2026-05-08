@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CASES_META } from '~/constants/cases'
 import { CasePdfViewer } from '~/components/case-pdf-viewer.client'
-import { CaseImages } from '~/components/image-lightbox.client'
+import { StepCarousel } from '~/components/step-carousel.client'
 
 const TITLE = 'MyLINK Engage — Global GTM'
 const SUBTITLE = 'Taking a German product global — provisioning, politics, and the collaboration that made it work'
@@ -230,29 +230,26 @@ export default function EngageGtmPage(): ReactElement {
             <div className="flex-1 h-px bg-border reveal-expand" />
           </div>
 
-          <div className="space-y-16 max-w-reading">
+          <div className="divide-y divide-border">
 
             {/* Step 01 */}
-            <div className="grid grid-cols-1 lg:grid-cols-[3.5rem_1fr] gap-2 lg:gap-6 items-start reveal">
-              <span className="font-serif text-2xl lg:text-3xl xl:text-4xl font-bold text-accent opacity-20 leading-none tracking-tight">
-                01
-              </span>
-              <div className="approach-step-line pl-4 lg:pl-5">
-                <h3 className="font-serif text-base lg:text-[1.0625rem] font-semibold text-ink tracking-tight mb-4">
-                  Discovery first — understanding the as-is
-                </h3>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
+              <div>
+                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">01 — Discovery first</div>
                 <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary mb-4">
                   Before planning the launch, I ran a structured discovery across three dimensions: commercial (customer
                   lists, pricing, migration paths from legacy platforms), technical (provisioning process, integration
                   architecture with the MyLINK Portal, API dependencies, monitoring setup), and operational (support
                   requirements, security assessment, legal compliance across markets).
                 </p>
-                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary mb-6">
+                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary">
                   This discovery revealed that several legacy platforms — Turnpike, Fenix, Intouch, Silver Bullet among
                   others — had customers that would need to migrate to Engage. Each had its own pricing history, feature
                   usage, and contract status. The migration team didn&apos;t have complete visibility on all of them.
                   Building that picture took weeks.
                 </p>
+              </div>
+              <div className="lg:sticky lg:top-24">
                 <CasePdfViewer
                   href="/cases/04/GP-myLINK_Engage._WebSMS_as_is._Discovery._Commercial-080426-144855.pdf"
                   label="WebSMS As-Is Discovery — Commercial"
@@ -261,14 +258,9 @@ export default function EngageGtmPage(): ReactElement {
             </div>
 
             {/* Step 02 */}
-            <div className="grid grid-cols-1 lg:grid-cols-[3.5rem_1fr] gap-2 lg:gap-6 items-start reveal">
-              <span className="font-serif text-2xl lg:text-3xl xl:text-4xl font-bold text-accent opacity-20 leading-none tracking-tight">
-                02
-              </span>
-              <div className="approach-step-line pl-4 lg:pl-5">
-                <h3 className="font-serif text-base lg:text-[1.0625rem] font-semibold text-ink tracking-tight mb-4">
-                  Defining what &ldquo;group-ready&rdquo; meant
-                </h3>
+            <div className="py-16 reveal">
+              <div className="max-w-prose">
+                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">02 — Defining group-ready</div>
                 <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary mb-4">
                   One of my most important contributions was defining the criteria a product had to meet before it could
                   enter the group portal. For Engage, this meant: unified provisioning through Salesforce following
@@ -284,14 +276,9 @@ export default function EngageGtmPage(): ReactElement {
             </div>
 
             {/* Step 03 */}
-            <div className="grid grid-cols-1 lg:grid-cols-[3.5rem_1fr] gap-2 lg:gap-6 items-start reveal">
-              <span className="font-serif text-2xl lg:text-3xl xl:text-4xl font-bold text-accent opacity-20 leading-none tracking-tight">
-                03
-              </span>
-              <div className="approach-step-line pl-4 lg:pl-5">
-                <h3 className="font-serif text-base lg:text-[1.0625rem] font-semibold text-ink tracking-tight mb-4">
-                  Phased launch by market
-                </h3>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
+              <div>
+                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">03 — Phased launch by market</div>
                 <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary mb-4">
                   We launched in phases: Norway, Sweden and Denmark first, with each market requiring its own readiness
                   check — sales training, support onboarding, provisioning setup, and a validation with the local
@@ -305,37 +292,33 @@ export default function EngageGtmPage(): ReactElement {
                   solve every market&apos;s edge cases simultaneously — a coordination problem that would have been
                   unmanageable.
                 </p>
-                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary mb-6">
+                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary">
                   The 2024 roadmap focused on the core migration and operational readiness: mapping the customer base,
                   migrating from Turnpike and other legacy platforms, handling specific enterprise requirements like
                   DNB&apos;s security audit, SSO and reporting needs. The product ran independently — not yet connected
                   to MyLINK Portal.
                 </p>
-                <CaseImages
-                  images={[
-                    { src: '/cases/04/01_engage_roadmap_2024_2027.jpg', alt: 'MyLINK Engage roadmap 2024–2027' },
-                  ]}
-                  columns={1}
-                />
+              </div>
+              <div className="lg:sticky lg:top-24">
+                <StepCarousel images={[
+                  { src: '/cases/04/01_engage_roadmap_2024_2027.jpg', alt: 'MyLINK Engage roadmap 2024–2027' },
+                ]} />
               </div>
             </div>
 
             {/* Step 04 */}
-            <div className="grid grid-cols-1 lg:grid-cols-[3.5rem_1fr] gap-2 lg:gap-6 items-start reveal">
-              <span className="font-serif text-2xl lg:text-3xl xl:text-4xl font-bold text-accent opacity-20 leading-none tracking-tight">
-                04
-              </span>
-              <div className="approach-step-line pl-4 lg:pl-5">
-                <h3 className="font-serif text-base lg:text-[1.0625rem] font-semibold text-ink tracking-tight mb-4">
-                  Portal integration — Phase 2
-                </h3>
-                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary mb-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
+              <div>
+                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">04 — Portal integration</div>
+                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary">
                   The MyLINK Portal integration — making Engage statistics visible in the portal dashboard, surfacing
                   Engage in the navigation, and enabling upsell prompts for unprovisioned customers — was defined as a
                   separate phase, not part of the initial GTM. This was a deliberate decision: trying to do the portal
                   integration and the market launch simultaneously would have created too many dependencies and too much
                   risk. Prove the product works in the market first. Then connect it to the platform.
                 </p>
+              </div>
+              <div className="lg:sticky lg:top-24">
                 <CasePdfViewer
                   href="/cases/04/GP-myLINK_Engage._MyLINK_Portal_Integration-080426-144859.pdf"
                   label="MyLINK Engage Portal Integration"
@@ -355,33 +338,22 @@ export default function EngageGtmPage(): ReactElement {
             <div className="flex-1 h-px bg-border reveal-expand" />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {[
-              { value: '3+', label: 'Years active', context: 'Q1 2024 through 2027 and beyond' },
-              { value: '3', label: 'Markets launched', context: 'Norway, Sweden, Denmark — with phased approach' },
-              { value: '7+', label: 'Legacy platforms', context: 'Assessed for migration — Turnpike, Fenix, Intouch, Silver Bullet and others' },
-              { value: '8', label: 'Workstreams owned', context: 'Sell · Provisioning · Billing · Support · Monitoring · Security · Legal · Marketing' },
-              { value: '4', label: 'Roadmap phases', context: 'GTM as-is · migrations · portal integration · self-service expansion' },
-            ].map((result, i) => (
-              <div
-                key={i}
-                className="group relative flex flex-col justify-between overflow-hidden bg-white border border-border rounded-[14px] p-5 lg:p-8 min-h-[160px] lg:min-h-[200px] shadow-[0_2px_12px_rgba(19,19,16,0.06),0_1px_3px_rgba(19,19,16,0.04)] hover:border-accent/35 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-300 reveal"
-                style={{ transitionDelay: `${i * 70}ms` }}
-              >
-                <p className="font-serif text-3xl lg:text-4xl xl:text-5xl font-bold leading-none tracking-tight bg-gradient-primary bg-clip-text text-transparent mb-3">
-                  {result.value}
-                </p>
-                <p className="text-[0.9375rem] font-semibold text-ink leading-snug mb-1.5">{result.label}</p>
-                <p className="text-xs text-ink-tertiary leading-relaxed">{result.context}</p>
-                <span
-                  aria-hidden="true"
-                  className="absolute bottom-[-0.06em] right-[-0.01em] font-serif font-extrabold leading-none text-[clamp(4rem,8vw,8rem)] text-ink opacity-[0.025] group-hover:opacity-[0.05] transition-opacity duration-300 pointer-events-none select-none"
-                >
-                  {String(i + 1)}
-                </span>
-                <div aria-hidden className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
-              </div>
-            ))}
+          <div className="border border-border rounded-2xl overflow-hidden reveal">
+            <div className="flex flex-wrap lg:flex-nowrap divide-y lg:divide-y-0 lg:divide-x divide-border">
+              {[
+                { value: '3+', label: 'Years active', context: 'Q1 2024 through 2027 and beyond' },
+                { value: '3', label: 'Markets launched', context: 'Norway, Sweden, Denmark — with phased approach' },
+                { value: '7+', label: 'Legacy platforms', context: 'Assessed for migration — Turnpike, Fenix, Intouch, Silver Bullet and others' },
+                { value: '8', label: 'Workstreams owned', context: 'Sell · Provisioning · Billing · Support · Monitoring · Security · Legal · Marketing' },
+                { value: '4', label: 'Roadmap phases', context: 'GTM as-is · migrations · portal integration · self-service expansion' },
+              ].map((result, i) => (
+                <div key={result.label} className="flex-1 min-w-[140px] px-6 py-6 flex flex-col gap-1" style={{ transitionDelay: `${i * 50}ms` }}>
+                  <div className="font-serif font-medium leading-none tracking-[-0.025em] bg-gradient-primary bg-clip-text text-transparent" style={{ fontSize: 'clamp(1.75rem,2.5vw,2.5rem)' }}>{result.value}</div>
+                  <div className="text-[0.8125rem] font-semibold text-ink leading-snug">{result.label}</div>
+                  {result.context && <div className="text-[0.75rem] text-ink-tertiary leading-relaxed">{result.context}</div>}
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="mt-12 max-w-reading">

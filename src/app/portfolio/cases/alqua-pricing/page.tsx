@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CASES_META } from '~/constants/cases'
 import { CasePdfViewer } from '~/components/case-pdf-viewer.client'
-import { CaseImages } from '~/components/image-lightbox.client'
+import { StepCarousel } from '~/components/step-carousel.client'
 
 const TITLE = 'Reinventing the Business Model'
 const SUBTITLE = 'How changing how we charged — not what we built — unlocked a new growth curve at Alqua'
@@ -181,43 +181,32 @@ export default function AlquaPricingPage(): ReactElement {
             <div className="flex-1 h-px bg-border reveal-expand" />
           </div>
 
-          <div className="space-y-16 max-w-reading">
+          <div className="divide-y divide-border">
 
             {/* Step 01 */}
-            <div className="grid grid-cols-1 lg:grid-cols-[3.5rem_1fr] gap-2 lg:gap-6 items-start reveal">
-              <span className="font-serif text-2xl lg:text-3xl xl:text-4xl font-bold text-accent opacity-20 leading-none tracking-tight">
-                01
-              </span>
-              <div className="approach-step-line pl-4 lg:pl-5">
-                <h3 className="font-serif text-base lg:text-[1.0625rem] font-semibold text-ink tracking-tight mb-4">
-                  Studying the model before building it
-                </h3>
-                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary mb-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
+              <div>
+                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">01 — Studying the model</div>
+                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary">
                   Before changing anything in the product, we spent time understanding how Seedtag and similar
                   publishers had structured their offerings. What banner formats drove the most value? How did pricing
                   tiers work for publishers of different sizes? What did the upsell path look like? We weren&apos;t
                   copying — we were learning the logic of a model that worked and adapting it to a different context
                   and customer base.
                 </p>
-                <CaseImages
-                  images={[
-                    { src: '/cases/05/01_sticky_ad_format.jpg', alt: 'Sticky ad format example' },
-                    { src: '/cases/05/02_inimage_ad_format.jpg', alt: 'In-image ad format example' },
-                  ]}
-                  columns={2}
-                />
+              </div>
+              <div className="lg:sticky lg:top-24">
+                <StepCarousel images={[
+                  { src: '/cases/05/01_sticky_ad_format.jpg', alt: 'Sticky ad format example' },
+                  { src: '/cases/05/02_inimage_ad_format.jpg', alt: 'In-image ad format example' },
+                ]} />
               </div>
             </div>
 
             {/* Step 02 */}
-            <div className="grid grid-cols-1 lg:grid-cols-[3.5rem_1fr] gap-2 lg:gap-6 items-start reveal">
-              <span className="font-serif text-2xl lg:text-3xl xl:text-4xl font-bold text-accent opacity-20 leading-none tracking-tight">
-                02
-              </span>
-              <div className="approach-step-line pl-4 lg:pl-5">
-                <h3 className="font-serif text-base lg:text-[1.0625rem] font-semibold text-ink tracking-tight mb-4">
-                  Optimising the setup process
-                </h3>
+            <div className="py-16 reveal">
+              <div className="max-w-prose">
+                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">02 — Optimising the setup</div>
                 <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary">
                   One of our key design decisions was to make the entry point as frictionless as possible. The banner
                   setup process was engineered to be fast and mechanical — something that could be completed quickly
@@ -229,14 +218,9 @@ export default function AlquaPricingPage(): ReactElement {
             </div>
 
             {/* Step 03 */}
-            <div className="grid grid-cols-1 lg:grid-cols-[3.5rem_1fr] gap-2 lg:gap-6 items-start reveal">
-              <span className="font-serif text-2xl lg:text-3xl xl:text-4xl font-bold text-accent opacity-20 leading-none tracking-tight">
-                03
-              </span>
-              <div className="approach-step-line pl-4 lg:pl-5">
-                <h3 className="font-serif text-base lg:text-[1.0625rem] font-semibold text-ink tracking-tight mb-4">
-                  Testing in Spain first
-                </h3>
+            <div className="py-16 reveal">
+              <div className="max-w-prose">
+                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">03 — Testing in Spain first</div>
                 <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary mb-4">
                   The hybrid model — banner-based entry with optional monthly plans — worked well in the Spanish market,
                   where media budgets were tightest and SaaS resistance was highest. We validated the model there before
@@ -251,14 +235,9 @@ export default function AlquaPricingPage(): ReactElement {
             </div>
 
             {/* Step 04 */}
-            <div className="grid grid-cols-1 lg:grid-cols-[3.5rem_1fr] gap-2 lg:gap-6 items-start reveal">
-              <span className="font-serif text-2xl lg:text-3xl xl:text-4xl font-bold text-accent opacity-20 leading-none tracking-tight">
-                04
-              </span>
-              <div className="approach-step-line pl-4 lg:pl-5">
-                <h3 className="font-serif text-base lg:text-[1.0625rem] font-semibold text-ink tracking-tight mb-4">
-                  Making it tangible — the client demo
-                </h3>
+            <div className="py-16 reveal">
+              <div className="max-w-prose">
+                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">04 — Making it tangible</div>
                 <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary mb-4">
                   One of the most effective tools in the sales process was something deceptively simple: a personalised
                   demo showing exactly how the banners would look on the client&apos;s own website before they signed
@@ -293,31 +272,20 @@ export default function AlquaPricingPage(): ReactElement {
             <div className="flex-1 h-px bg-border reveal-expand" />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {[
-              { value: 'Weekly', label: 'Deal cadence', context: 'vs monthly before the model change' },
-              { value: '80%', label: 'Customer retention', context: 'Across the Alqua client base during this period' },
-              { value: '2', label: 'Commercial models', context: 'Spain (hybrid) and Latin America (SaaS) — calibrated to market' },
-            ].map((result, i) => (
-              <div
-                key={i}
-                className="group relative flex flex-col justify-between overflow-hidden bg-white border border-border rounded-[14px] p-5 lg:p-8 min-h-[160px] lg:min-h-[200px] shadow-[0_2px_12px_rgba(19,19,16,0.06),0_1px_3px_rgba(19,19,16,0.04)] hover:border-accent/35 hover:-translate-y-1 hover:shadow-card-hover transition-all duration-300 reveal"
-                style={{ transitionDelay: `${i * 70}ms` }}
-              >
-                <p className="font-serif text-3xl lg:text-4xl xl:text-5xl font-bold leading-none tracking-tight bg-gradient-primary bg-clip-text text-transparent mb-3">
-                  {result.value}
-                </p>
-                <p className="text-[0.9375rem] font-semibold text-ink leading-snug mb-1.5">{result.label}</p>
-                <p className="text-xs text-ink-tertiary leading-relaxed">{result.context}</p>
-                <span
-                  aria-hidden="true"
-                  className="absolute bottom-[-0.06em] right-[-0.01em] font-serif font-extrabold leading-none text-[clamp(4rem,8vw,8rem)] text-ink opacity-[0.025] group-hover:opacity-[0.05] transition-opacity duration-300 pointer-events-none select-none"
-                >
-                  {String(i + 1)}
-                </span>
-                <div aria-hidden className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
-              </div>
-            ))}
+          <div className="border border-border rounded-2xl overflow-hidden reveal">
+            <div className="flex flex-wrap lg:flex-nowrap divide-y lg:divide-y-0 lg:divide-x divide-border">
+              {[
+                { value: 'Weekly', label: 'Deal cadence', context: 'vs monthly before the model change' },
+                { value: '80%', label: 'Customer retention', context: 'Across the Alqua client base during this period' },
+                { value: '2', label: 'Commercial models', context: 'Spain (hybrid) and Latin America (SaaS) — calibrated to market' },
+              ].map((result, i) => (
+                <div key={result.label} className="flex-1 min-w-[140px] px-6 py-6 flex flex-col gap-1" style={{ transitionDelay: `${i * 50}ms` }}>
+                  <div className="font-serif font-medium leading-none tracking-[-0.025em] bg-gradient-primary bg-clip-text text-transparent" style={{ fontSize: 'clamp(1.75rem,2.5vw,2.5rem)' }}>{result.value}</div>
+                  <div className="text-[0.8125rem] font-semibold text-ink leading-snug">{result.label}</div>
+                  {result.context && <div className="text-[0.75rem] text-ink-tertiary leading-relaxed">{result.context}</div>}
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="mt-12 max-w-reading space-y-5">

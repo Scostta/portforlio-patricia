@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { CASES_META } from '~/constants/cases'
 import { SituationAccordion } from '~/components/situation-accordion.client'
 import { StepCarousel } from '~/components/step-carousel.client'
+import { ResultsStrip } from '~/components/results-strip.client'
 import type { SituationPanel } from '~/components/situation-accordion.client'
 
 const TITLE = 'MyLINK Portal'
@@ -178,14 +179,14 @@ function PortalMain() {
         <span className="w-4 h-4 rounded-full bg-gradient-to-br from-[#C3B9EB] to-[#8AC8E7]" />
       </div>
       <div className="p-3 flex-1">
-        <div className="text-[11px] font-semibold text-[#131310] mb-2.5" style={{ fontFamily: 'Georgia, serif' }}>
+        <div className="text-2xs font-semibold text-[#131310] mb-2.5" style={{ fontFamily: 'Georgia, serif' }}>
           Good morning, Anders
         </div>
         <div className="grid grid-cols-4 gap-1.5 mb-2.5">
           {statsData.map(([label, value, change]) => (
             <div key={label} className="bg-[#FAFAF7] border border-[#E0DFD7] rounded p-1.5">
               <div className="text-[7px] uppercase tracking-wide text-[#A09E96] mb-0.5">{label}</div>
-              <div className="text-[11px] font-semibold text-[#131310]">{value}</div>
+              <div className="text-2xs font-semibold text-[#131310]">{value}</div>
               <div className="text-[8px] text-[#2C8E5C]">{change}</div>
             </div>
           ))}
@@ -331,7 +332,7 @@ export default function MylinkPortalPage(): ReactElement {
 
             {/* Eyebrow */}
             <div className="flex items-center gap-3 mb-8 animate-fade-up [animation-delay:200ms]">
-              <span className="inline-flex items-center px-2.5 py-1 bg-white/70 border border-border rounded-full text-[11px] font-semibold tracking-[0.13em] uppercase text-accent-ink">
+              <span className="inline-flex items-center px-2.5 py-1 bg-white/70 border border-border rounded-full text-2xs font-semibold tracking-label uppercase text-accent-ink">
                 CASE STUDY
               </span>
               <span className="w-6 h-px bg-ink/20" aria-hidden />
@@ -420,9 +421,9 @@ export default function MylinkPortalPage(): ReactElement {
               ['Role', 'PM → VP of UX'],
               ['Markets', '6 (NO · DK · FI · SE · ES · Global)'],
               ['Team', '3 countries · 1 departure in 4y'],
-            ].map(([k, v]) => (
-              <div key={k}>
-                <div className="text-[11px] font-semibold tracking-[0.13em] uppercase text-ink-tertiary mb-1">{k}</div>
+            ].map(([k, v], i) => (
+              <div key={k} className="animate-fade-up" style={{ animationDelay: `${720 + i * 80}ms` }}>
+                <div className="text-2xs font-semibold tracking-label uppercase text-ink-tertiary mb-1">{k}</div>
                 <div className="text-sm font-medium text-ink">{v}</div>
               </div>
             ))}
@@ -434,7 +435,7 @@ export default function MylinkPortalPage(): ReactElement {
       <section className="py-24 bg-white border-t border-border">
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
-            <div className="text-[12px] font-semibold tracking-[0.13em] uppercase text-accent mb-4">01 — The situation</div>
+            <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">01 — The situation</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink" style={{ fontSize: 'clamp(2rem,3.6vw,3rem)' }}>
               A decade of acquisitions left LINK with dozens of products,{' '}
               <span className="text-ink-secondary font-normal">no shared infrastructure, and no shared experience.</span>
@@ -448,9 +449,9 @@ export default function MylinkPortalPage(): ReactElement {
       {/* ── CALLOUT ───────────────────────────────────────────────────── */}
       <section className="bg-ink py-16 lg:py-20">
         <div className="max-w-[1200px] mx-auto px-8 reveal">
-          <p className="font-serif text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.35]" style={{ color: '#6667AB' }}>
+          <p className="font-serif text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.35] text-paper">
             The people who most needed this change were the most exhausted by the fact that it hadn&apos;t happened yet.{' '}
-            <em style={{ color: 'rgba(102,103,171,0.65)' }}>That was the environment I walked into.</em>
+            <em style={{ color: 'rgba(246,245,240,0.5)' }}>That was the environment I walked into.</em>
           </p>
         </div>
       </section>
@@ -459,7 +460,7 @@ export default function MylinkPortalPage(): ReactElement {
       <section className="py-24 bg-white border-t border-border">
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
-            <div className="text-[12px] font-semibold tracking-[0.13em] uppercase text-accent mb-4">02 — My role &amp; scope</div>
+            <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">02 — My role &amp; scope</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink" style={{ fontSize: 'clamp(2rem,3.6vw,3rem)' }}>
               Hired as PM. Promoted to VP of UX within a year.{' '}
               <span className="text-ink-secondary font-normal">Building product, team, and process simultaneously.</span>
@@ -487,7 +488,7 @@ export default function MylinkPortalPage(): ReactElement {
       <section className="py-24 bg-white border-t border-border">
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="max-w-[800px] mx-auto mb-20 text-center reveal">
-            <div className="text-[12px] font-semibold tracking-[0.13em] uppercase text-accent mb-4">03 — How I approached it</div>
+            <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">03 — How I approached it</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink" style={{ fontSize: 'clamp(2rem,3.6vw,3rem)' }}>
               Six moves, in order.{' '}
               <span className="text-ink-secondary font-normal">Each one earned the next.</span>
@@ -499,7 +500,7 @@ export default function MylinkPortalPage(): ReactElement {
             {/* Step 1: Copenhagen */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
               <div>
-                <div className="text-[11px] font-semibold tracking-[0.13em] uppercase text-accent mb-5">A turning point</div>
+                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">A turning point</div>
                 <div className="space-y-4 text-[1rem] leading-[1.65] text-ink-secondary">
                   <p>
                     My first major test came early: a strategy workshop in Copenhagen with the company&apos;s senior managers. I was 30, the only PM in the room, surrounded by men in their 40s who had been debating these problems for years. The conversation was going in circles — arguments about what constituted a product versus a feature, about ownership and priorities.
@@ -526,7 +527,7 @@ export default function MylinkPortalPage(): ReactElement {
             {/* Step 2: Blueprint */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
               <div>
-                <div className="text-[11px] font-semibold tracking-[0.13em] uppercase text-accent mb-5">North star</div>
+                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">North star</div>
                 <div className="space-y-4 text-[1rem] leading-[1.65] text-ink-secondary">
                   <p>
                     Before touching any feature or sprint, I worked with the Head of Product to translate executive strategy into something the organisation could actually execute. The output was a product Blueprint — a document that defined what the portal was and was not, which legacy products would be migrated and which would be sunset, what the value proposition was for customers and for LINK internally, and how success would be measured.
@@ -543,7 +544,7 @@ export default function MylinkPortalPage(): ReactElement {
                 <div className="grid gap-px bg-border border border-border rounded-xl overflow-hidden shadow-[0_12px_40px_-12px_rgba(20,14,40,0.12)]" style={{ gridTemplateColumns: '1.4fr 1fr' }}>
                   <div className="bg-white p-7">
                     <div className="pb-5 mb-4 border-b border-border">
-                      <span className="inline-block text-[10px] font-semibold tracking-[0.13em] uppercase text-accent bg-[#F3EFFC] px-2 py-1 rounded mb-3">PRD · Confluence</span>
+                      <span className="inline-block text-[10px] font-semibold tracking-label uppercase text-accent bg-[#F3EFFC] px-2 py-1 rounded mb-3">PRD · Confluence</span>
                       <div className="font-serif text-[1.375rem] font-medium text-ink leading-snug tracking-[-0.01em] mb-1">CPaaS Portal &amp; APIs</div>
                       <div className="text-[13px] text-ink-secondary italic">The ultimate product offering for LINK&apos;s customers</div>
                     </div>
@@ -551,7 +552,7 @@ export default function MylinkPortalPage(): ReactElement {
                       {['1. Vision & principles','2. In scope · Out of scope','3. Migration & sunset map','4. Value proposition · customer','5. Value proposition · LINK','6. Success metrics','7. Provisioning & invoice rules'].map((item, i) => (
                         <div key={i} className="flex justify-between items-baseline py-2 border-b border-dashed border-border last:border-0">
                           <span className="text-[13px] text-ink">{item}</span>
-                          <span className="text-[12px] text-ink-tertiary tabular-nums">P{(i + 1) * 3}</span>
+                          <span className="text-xs text-ink-tertiary tabular-nums">P{(i + 1) * 3}</span>
                         </div>
                       ))}
                     </div>
@@ -563,7 +564,7 @@ export default function MylinkPortalPage(): ReactElement {
                       { label: 'Used in', value: 'Every roadmap review since 2022' },
                     ].map((row) => (
                       <div key={row.label} className="flex flex-col gap-1">
-                        <span className="text-[11px] font-semibold tracking-[0.13em] uppercase text-ink-tertiary">{row.label}</span>
+                        <span className="text-2xs font-semibold tracking-label uppercase text-ink-tertiary">{row.label}</span>
                         {row.live ? (
                           <span className="text-sm font-medium text-ink inline-flex items-center gap-2">
                             <span className="w-2 h-2 rounded-full bg-[#2C8E5C] shadow-[0_0_0_3px_rgba(44,142,92,0.18)] animate-pulse flex-shrink-0" />
@@ -582,7 +583,7 @@ export default function MylinkPortalPage(): ReactElement {
             {/* Step 3: Team */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
               <div>
-                <div className="text-[11px] font-semibold tracking-[0.13em] uppercase text-accent mb-5">Team first</div>
+                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">Team first</div>
                 <div className="space-y-4 text-[1rem] leading-[1.65] text-ink-secondary">
                   <p>
                     I was given a UX and frontend team assembled from a recently acquired company in Macedonia. They were talented but disconnected — from each other, from the product, from the broader organisation. Before we could design anything meaningful, we needed a shared way of working.
@@ -610,7 +611,7 @@ export default function MylinkPortalPage(): ReactElement {
             {/* Step 4: Research */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
               <div>
-                <div className="text-[11px] font-semibold tracking-[0.13em] uppercase text-accent mb-5">Research</div>
+                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">Research</div>
                 <div className="space-y-4 text-[1rem] leading-[1.65] text-ink-secondary">
                   <p>
                     Before a single wireframe was drawn, we ran an exhaustive discovery process. We interviewed internal support teams across multiple markets. We analysed existing products, mapped customer personas, spoke directly with clients, and ran a full competitive analysis. We mapped the entire portal architecture — coordinating with every product team to understand their use cases and integration requirements.
@@ -628,7 +629,7 @@ export default function MylinkPortalPage(): ReactElement {
             {/* Step 5: Migration */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
               <div>
-                <div className="text-[11px] font-semibold tracking-[0.13em] uppercase text-accent mb-5">Migration, reframed</div>
+                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">Migration, reframed</div>
                 <div className="space-y-4 text-[1rem] leading-[1.65] text-ink-secondary">
                   <p>
                     The prevailing assumption was that migrating clients between products caused churn — and that this was unavoidable. I disagreed with the diagnosis. The problem wasn&apos;t migration.{' '}
@@ -648,9 +649,9 @@ export default function MylinkPortalPage(): ReactElement {
                   ].map((step, i) => (
                     <div key={i} className="flex items-stretch gap-3 flex-1">
                       <div className="flex-1">
-                        <div className="text-[11px] font-semibold tracking-[0.13em] text-accent mb-1.5">0{i + 1}</div>
+                        <div className="text-2xs font-semibold tracking-label text-accent mb-1.5">0{i + 1}</div>
                         <div className="text-[13px] font-semibold text-ink mb-1">{step.label}</div>
-                        <div className="text-[11px] text-ink-secondary leading-[1.4]">{step.sub}</div>
+                        <div className="text-2xs text-ink-secondary leading-[1.4]">{step.sub}</div>
                       </div>
                       {i < 3 && (
                         <svg className="text-ink-tertiary flex-none self-center" width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden>
@@ -668,7 +669,7 @@ export default function MylinkPortalPage(): ReactElement {
                     </svg>
                   </div>
                   <div>
-                    <div className="text-[11px] font-semibold tracking-[0.13em] uppercase text-accent mb-1">The non-negotiable</div>
+                    <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-1">The non-negotiable</div>
                     <p className="text-[14px] text-ink leading-[1.55]">
                       No product could enter the portal without following the unified provisioning process and invoice structure. The billing chaos had to stop at the gate, not downstream.
                     </p>
@@ -681,37 +682,13 @@ export default function MylinkPortalPage(): ReactElement {
             </div>
 
             {/* Step 6: Trust */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
-              <div>
-                <div className="text-[11px] font-semibold tracking-[0.13em] uppercase text-accent mb-5">Trust</div>
-                <div className="grid gap-3.5 grid-cols-1">
-                  {[
-                    {
-                      tag: 'Local market managers',
-                      body: 'Always left conversations with a solution and a concrete action plan — never just a diagnosis.',
-                      bold: 'Speed of response built credibility that arguments couldn\'t.',
-                    },
-                    {
-                      tag: 'Engineering team',
-                      body: 'Showed them — incrementally, specifically — how structure in the roadmap made their work easier. Found allies inside that team and',
-                      bold: 'made those people visible.',
-                    },
-                    {
-                      tag: 'C-level stakeholders',
-                      body: 'Experimented constantly with format. Presentations, wireframes, metaphors, videos, journeys narrated in the client\'s voice.',
-                      bold: 'Whatever it took to make the abstract concrete.',
-                    },
-                  ].map((card) => (
-                    <div key={card.tag} className="bg-white border border-border rounded-xl p-5">
-                      <div className="text-[11px] font-semibold tracking-[0.13em] uppercase text-accent mb-2.5">{card.tag}</div>
-                      <p className="text-[13px] text-ink-secondary leading-[1.55]">
-                        {card.body} <strong className="text-ink font-medium">{card.bold}</strong>
-                      </p>
-                    </div>
-                  ))}
-                </div>
+            <div className="py-16 reveal">
+              <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">Trust</div>
+              <div className="max-w-prose space-y-4 text-[1rem] leading-[1.65] text-ink-secondary">
+                <p>With <strong className="text-ink font-medium">local market managers</strong>: always left conversations with a solution and a concrete action plan — never just a diagnosis. Speed of response built credibility that arguments couldn&apos;t.</p>
+                <p>With the <strong className="text-ink font-medium">engineering team</strong>: showed them — incrementally, specifically — how structure in the roadmap made their work easier. Found allies inside that team and made those people visible.</p>
+                <p>With <strong className="text-ink font-medium">C-level stakeholders</strong>: experimented constantly with format. Presentations, wireframes, metaphors, videos, journeys narrated in the client&apos;s voice. Whatever it took to make the abstract concrete.</p>
               </div>
-              <div />
             </div>
 
           </div>
@@ -720,39 +697,20 @@ export default function MylinkPortalPage(): ReactElement {
 
       {/* ── RESULTS ───────────────────────────────────────────────────── */}
       <section className="py-24 bg-white border-t border-border" id="results">
-        <div className="max-w-[1200px] mx-auto px-8">
-          <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
-            <div className="text-[12px] font-semibold tracking-[0.13em] uppercase text-accent mb-4">05 — Results</div>
+        <div className="max-w-[1200px] mx-auto px-8 mb-16">
+          <div className="max-w-[800px] mx-auto text-center reveal">
+            <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">05 — Results</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink" style={{ fontSize: 'clamp(2rem,3.6vw,3rem)' }}>
               The numbers tell part of the story.{' '}
               <span className="text-ink-secondary font-normal">The rest is organisational.</span>
             </h2>
           </div>
+        </div>
 
-          <div className="max-w-[1100px] mx-auto border border-border rounded-2xl overflow-hidden reveal">
-            <div className="flex flex-wrap lg:flex-nowrap divide-y lg:divide-y-0 lg:divide-x divide-border">
-              {RESULTS.map((result, i) => (
-                <div
-                  key={result.label}
-                  className="flex-1 min-w-[140px] px-6 py-6 flex flex-col gap-1"
-                  style={{ transitionDelay: `${i * 50}ms` }}
-                >
-                  <div
-                    className="font-serif font-medium leading-none tracking-[-0.025em] bg-gradient-primary bg-clip-text text-transparent"
-                    style={{ fontSize: 'clamp(1.75rem,2.5vw,2.5rem)' }}
-                  >
-                    {result.value}
-                  </div>
-                  <div className="text-[0.8125rem] font-semibold text-ink leading-snug">{result.label}</div>
-                  {result.context && (
-                    <div className="text-[0.75rem] text-ink-tertiary leading-relaxed">{result.context}</div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
+        <ResultsStrip results={RESULTS} />
 
-          <div className="max-w-[680px] mx-auto mt-16 space-y-5">
+        <div className="max-w-[1200px] mx-auto px-8">
+          <div className="max-w-[800px] mx-auto mt-16 space-y-5">
             <p className="text-[1.0625rem] leading-[1.65] text-ink-secondary reveal">
               Support teams now have a single surface to manage client issues — and have become advocates for the portal, not resistors. Product managers across the company have started embedding UX research into their own processes. The provisioning and invoice unification means billing exceptions are an anomaly rather than a daily fire.
             </p>
@@ -776,48 +734,26 @@ export default function MylinkPortalPage(): ReactElement {
       >
         <div className="max-w-[1200px] mx-auto px-8 relative z-10">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
-            <div className="text-[12px] font-semibold tracking-[0.13em] uppercase mb-4" style={{ color: '#6667ab' }}>06 — What I learned</div>
+            <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">06 — What I learned</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em]" style={{ fontSize: 'clamp(2rem,3.6vw,3rem)', color: '#F6F5F0' }}>
               Political rooms don&apos;t respond to arguments.{' '}
               <span style={{ color: 'rgba(246,245,240,0.55)', fontWeight: 400 }}>They respond to momentum.</span>
             </h2>
           </div>
 
-          <div className="grid gap-4 max-w-[1100px] mx-auto mb-16" style={{ gridTemplateColumns: 'repeat(3,1fr)' }}>
+          <div className="max-w-[760px] mx-auto space-y-6 mb-16">
             {LESSONS.map((lesson, i) => (
-              <div
-                key={i}
-                className="rounded-xl p-6 reveal"
-                style={{
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  backdropFilter: 'blur(10px)',
-                  transitionDelay: `${i * 60}ms`,
-                }}
-              >
-                <div className="font-serif italic text-[1.375rem] mb-3.5" style={{ color: 'rgba(195,185,235,0.9)' }}>
-                  {lesson.num}
-                </div>
-                <p className="text-[14px] leading-[1.6]" style={{ color: 'rgba(246,245,240,0.78)' }}>
-                  {lesson.body}{lesson.bold && <> <strong style={{ color: '#F6F5F0', fontWeight: 500 }}>{lesson.bold}</strong></>}
-                </p>
-              </div>
+              <p key={i} className="text-[1.0625rem] leading-[1.7] reveal" style={{ color: 'rgba(246,245,240,0.82)', transitionDelay: `${i * 60}ms` }}>
+                {lesson.body}{lesson.bold && <> <strong style={{ color: '#F6F5F0', fontWeight: 500 }}>{lesson.bold}</strong></>}
+              </p>
             ))}
           </div>
 
-          {/* What I'd do differently */}
-          <div
-            className="max-w-[720px] mx-auto p-7 rounded-lg reveal"
-            style={{
-              background: 'rgba(255,255,255,0.03)',
-              border: '1px solid rgba(195,185,235,0.25)',
-              borderLeft: '2px solid #C3B9EB',
-            }}
-          >
-            <div className="text-[11px] font-semibold tracking-[0.13em] uppercase mb-3" style={{ color: '#C3B9EB' }}>
+          <div className="max-w-[760px] mx-auto reveal">
+            <div className="text-2xs font-semibold tracking-label uppercase mb-4" style={{ color: '#C3B9EB' }}>
               What I&apos;d do differently
             </div>
-            <p className="font-serif italic text-[1.0625rem] leading-[1.55]" style={{ color: 'rgba(246,245,240,0.9)' }}>
+            <p className="font-serif italic text-[1.0625rem] leading-[1.6]" style={{ color: 'rgba(246,245,240,0.9)' }}>
               I was perhaps too trusting with certain stakeholders early on. I assumed good faith where there was none, and it cost time. I&apos;ve learned to read the room earlier — to distinguish between genuine resistance and political positioning — and to act on that difference sooner.
             </p>
           </div>
