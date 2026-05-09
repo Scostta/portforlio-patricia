@@ -339,7 +339,7 @@ function MarkdownContent({ content, isUser }: { content: string; isUser: boolean
               const trimmed = line.trim()
               if (!trimmed) return null
               if (/^\*\*[^*]+\*\*$/.test(trimmed)) {
-                return <p key={lIdx} className={cn('font-semibold text-[0.8125rem] tracking-wide', isUser ? 'opacity-80' : 'text-white/85', lIdx > 0 && 'mt-2')}>{trimmed.slice(2, -2)}</p>
+                return <p key={lIdx} className={cn('font-semibold text-fine tracking-wide', isUser ? 'opacity-80' : 'text-white/85', lIdx > 0 && 'mt-2')}>{trimmed.slice(2, -2)}</p>
               }
               if (/^[•\-]/.test(trimmed)) {
                 return (

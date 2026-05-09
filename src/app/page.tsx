@@ -40,12 +40,12 @@ export default function LandingPage(): ReactElement {
             </h2>
 
             {/* Description */}
-            <p className="text-[13px] leading-[1.65] mb-8 text-white/40">
+            <p className="text-fine leading-[1.65] mb-8 text-white/40">
               Chat with a version of me. Ask about my work, process or decisions.
             </p>
 
             {/* CTA */}
-            <Link href="/chat" className="split-btn-dark inline-flex items-center gap-1.5 px-5 py-2 text-[13px] font-medium rounded-full">
+            <Link href="/chat" className="split-btn-dark inline-flex items-center gap-1.5 px-5 py-2 text-fine font-medium rounded-full">
               Start chatting →
             </Link>
 
@@ -83,12 +83,12 @@ export default function LandingPage(): ReactElement {
             </h2>
 
             {/* Description */}
-            <p className="text-[13px] leading-[1.65] mb-8 text-black/40">
+            <p className="text-fine leading-[1.65] mb-8 text-black/40">
               Case studies, process and decisions — structured the traditional way.
             </p>
 
             {/* CTA */}
-            <Link href="/portfolio" className="split-btn-light inline-flex items-center gap-1.5 px-5 py-2 text-[13px] font-medium rounded-full">
+            <Link href="/portfolio" className="split-btn-light inline-flex items-center gap-1.5 px-5 py-2 text-fine font-medium rounded-full">
               View portfolio →
             </Link>
 

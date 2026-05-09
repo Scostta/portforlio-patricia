@@ -86,7 +86,7 @@ export function ResultsStrip({ results }: { results: ResultItem[] }): ReactEleme
             >
               {result.value}
             </div>
-            <p className="text-[0.8125rem] text-ink-tertiary leading-snug">
+            <p className="text-fine text-ink-tertiary leading-snug">
               {result.label}
               {result.context && <><br />{result.context}</>}
             </p>

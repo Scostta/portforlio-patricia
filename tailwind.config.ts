@@ -26,6 +26,18 @@ const config: Config = {
       fontSize: {
         'micro': ['0.5625rem', { lineHeight: '0.875rem' }],
         '2xs':   ['0.625rem',  { lineHeight: '1rem' }],
+        // Fixed sizes that fill gaps in the default Tailwind scale
+        'fine':  ['0.8125rem', { lineHeight: '1.5'  }],   // 13 px — small labels, context text
+        'mid':   ['0.9375rem', { lineHeight: '1.55' }],   // 15 px — medium-small text
+        'body':  ['1.0625rem', { lineHeight: '1.65' }],   // 17 px — prose body text
+        // Fluid sizes shared across case study pages
+        'fluid-xs':  ['clamp(1.1rem,1.8vw,1.35rem)',  { lineHeight: '1.35' }], // case nav card titles
+        'fluid-sm':  ['clamp(1.75rem,2.5vw,2.5rem)',  { lineHeight: '1.25' }], // case stat values / small section heads
+        'fluid-md':  ['clamp(2rem,3.6vw,3rem)',        { lineHeight: '1.1'  }], // section h2 in case pages
+        'fluid-lg':  ['clamp(2.5rem,5vw,4.25rem)',    { lineHeight: '1.02' }], // hero h1
+        'fluid-xl':  ['clamp(2rem,6vw,5.5rem)',        { lineHeight: '1.05' }], // large case hero title
+        'fluid-2xl': ['clamp(5rem,10vw,10rem)',         { lineHeight: '1'    }], // decorative case numbers
+        'fluid-3xl': ['clamp(10rem,28vw,22rem)',        { lineHeight: '1'    }], // super-large bg decoration
       },
       maxWidth: {
         prose: '68ch',
