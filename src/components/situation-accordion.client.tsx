@@ -53,7 +53,7 @@ export function SituationAccordion({ panels }: { panels: SituationPanel[] }): Re
                   </svg>
                 </div>
                 <div className="border-l-2 border-accent pl-3 mb-2">
-                  <div className="text-[0.9375rem] font-semibold text-ink">{item.title}</div>
+                  <div className="text-mid font-semibold text-ink">{item.title}</div>
                 </div>
                 <div className="text-sm text-ink-secondary leading-[1.7] pl-3">{item.body}</div>
               </div>

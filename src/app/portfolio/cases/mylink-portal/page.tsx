@@ -5,6 +5,7 @@ import { CASES_META } from '~/constants/cases'
 import { SituationAccordion } from '~/components/situation-accordion.client'
 import { StepCarousel } from '~/components/step-carousel.client'
 import { ResultsStrip } from '~/components/results-strip.client'
+import { CaseNav } from '~/components/case-nav'
 import type { SituationPanel } from '~/components/situation-accordion.client'
 
 const TITLE = 'MyLINK Portal'
@@ -336,13 +337,12 @@ export default function MylinkPortalPage(): ReactElement {
                 CASE STUDY
               </span>
               <span className="w-6 h-px bg-ink/20" aria-hidden />
-              <span className="text-[13px] text-ink-secondary">LINK Mobility · 2021 — Ongoing</span>
+              <span className="text-fine text-ink-secondary">LINK Mobility · 2021 — Ongoing</span>
             </div>
 
             {/* Title */}
             <h1
-              className="font-serif font-medium leading-[1.02] tracking-[-0.025em] mb-6 animate-fade-up [animation-delay:320ms]"
-              style={{ fontSize: 'clamp(2.5rem,5vw,4.25rem)' }}
+              className="font-serif font-medium leading-[1.02] tracking-[-0.025em] mb-6 animate-fade-up [animation-delay:320ms] text-fluid-lg"
             >
               Unifying a fragmented<br />
               CPaaS into a single<br />
@@ -362,7 +362,7 @@ export default function MylinkPortalPage(): ReactElement {
             </h1>
 
             {/* Deck */}
-            <p className="text-[1.0625rem] leading-[1.6] text-ink-secondary mb-8 max-w-[52ch] animate-fade-up [animation-delay:440ms]">
+            <p className="text-body leading-[1.6] text-ink-secondary mb-8 max-w-[52ch] animate-fade-up [animation-delay:440ms]">
               How I led the product strategy and UX rollout of <strong className="text-ink font-medium">MyLINK Portal</strong> across six European markets — and built the team, processes and political trust required to make organisational change actually happen.
             </p>
 
@@ -436,7 +436,7 @@ export default function MylinkPortalPage(): ReactElement {
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">01 — The situation</div>
-            <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink" style={{ fontSize: 'clamp(2rem,3.6vw,3rem)' }}>
+            <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
               A decade of acquisitions left LINK with dozens of products,{' '}
               <span className="text-ink-secondary font-normal">no shared infrastructure, and no shared experience.</span>
             </h2>
@@ -461,7 +461,7 @@ export default function MylinkPortalPage(): ReactElement {
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">02 — My role &amp; scope</div>
-            <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink" style={{ fontSize: 'clamp(2rem,3.6vw,3rem)' }}>
+            <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
               Hired as PM. Promoted to VP of UX within a year.{' '}
               <span className="text-ink-secondary font-normal">Building product, team, and process simultaneously.</span>
             </h2>
@@ -476,8 +476,8 @@ export default function MylinkPortalPage(): ReactElement {
                 <svg className="text-accent mb-3.5" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden>
                   <path d={card.icon} stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                <div className="text-[15px] font-semibold text-ink mb-1.5">{card.title}</div>
-                <div className="text-[13px] text-ink-secondary leading-[1.5]">{card.body}</div>
+                <div className="text-mid font-semibold text-ink mb-1.5">{card.title}</div>
+                <div className="text-fine text-ink-secondary leading-[1.5]">{card.body}</div>
               </div>
             ))}
           </div>
@@ -489,7 +489,7 @@ export default function MylinkPortalPage(): ReactElement {
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="max-w-[800px] mx-auto mb-20 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">03 — How I approached it</div>
-            <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink" style={{ fontSize: 'clamp(2rem,3.6vw,3rem)' }}>
+            <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
               Six moves, in order.{' '}
               <span className="text-ink-secondary font-normal">Each one earned the next.</span>
             </h2>
@@ -501,16 +501,16 @@ export default function MylinkPortalPage(): ReactElement {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
               <div>
                 <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">A turning point</div>
-                <div className="space-y-4 text-[1rem] leading-[1.65] text-ink-secondary">
+                <div className="space-y-4 text-base leading-[1.65] text-ink-secondary">
                   <p>
                     My first major test came early: a strategy workshop in Copenhagen with the company&apos;s senior managers. I was 30, the only PM in the room, surrounded by men in their 40s who had been debating these problems for years. The conversation was going in circles — arguments about what constituted a product versus a feature, about ownership and priorities.
                   </p>
                   <p>At some point, my manager and the Head of Commercial were stuck. A long silence. I asked one question:</p>
                 </div>
-                <blockquote className="font-serif italic text-[1.5rem] leading-[1.35] text-ink border-l-2 border-accent pl-5 my-6">
+                <blockquote className="font-serif italic text-2xl leading-[1.35] text-ink border-l-2 border-accent pl-5 my-6">
                   &ldquo;Would this be upsell or upgrade?&rdquo;
                 </blockquote>
-                <div className="space-y-4 text-[1rem] leading-[1.65] text-ink-secondary">
+                <div className="space-y-4 text-base leading-[1.65] text-ink-secondary">
                   <p>
                     The room changed. That distinction — between selling into an existing plan and moving a client to a new one — had been invisible in the conversation, but it unlocked an entirely different way of thinking about the product offering. We spent the next hour restructuring the map.
                   </p>
@@ -528,7 +528,7 @@ export default function MylinkPortalPage(): ReactElement {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
               <div>
                 <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">North star</div>
-                <div className="space-y-4 text-[1rem] leading-[1.65] text-ink-secondary">
+                <div className="space-y-4 text-base leading-[1.65] text-ink-secondary">
                   <p>
                     Before touching any feature or sprint, I worked with the Head of Product to translate executive strategy into something the organisation could actually execute. The output was a product Blueprint — a document that defined what the portal was and was not, which legacy products would be migrated and which would be sunset, what the value proposition was for customers and for LINK internally, and how success would be measured.
                   </p>
@@ -546,12 +546,12 @@ export default function MylinkPortalPage(): ReactElement {
                     <div className="pb-5 mb-4 border-b border-border">
                       <span className="inline-block text-[10px] font-semibold tracking-label uppercase text-accent bg-[#F3EFFC] px-2 py-1 rounded mb-3">PRD · Confluence</span>
                       <div className="font-serif text-[1.375rem] font-medium text-ink leading-snug tracking-[-0.01em] mb-1">CPaaS Portal &amp; APIs</div>
-                      <div className="text-[13px] text-ink-secondary italic">The ultimate product offering for LINK&apos;s customers</div>
+                      <div className="text-fine text-ink-secondary italic">The ultimate product offering for LINK&apos;s customers</div>
                     </div>
                     <div className="flex flex-col">
                       {['1. Vision & principles','2. In scope · Out of scope','3. Migration & sunset map','4. Value proposition · customer','5. Value proposition · LINK','6. Success metrics','7. Provisioning & invoice rules'].map((item, i) => (
                         <div key={i} className="flex justify-between items-baseline py-2 border-b border-dashed border-border last:border-0">
-                          <span className="text-[13px] text-ink">{item}</span>
+                          <span className="text-fine text-ink">{item}</span>
                           <span className="text-xs text-ink-tertiary tabular-nums">P{(i + 1) * 3}</span>
                         </div>
                       ))}
@@ -584,7 +584,7 @@ export default function MylinkPortalPage(): ReactElement {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
               <div>
                 <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">Team first</div>
-                <div className="space-y-4 text-[1rem] leading-[1.65] text-ink-secondary">
+                <div className="space-y-4 text-base leading-[1.65] text-ink-secondary">
                   <p>
                     I was given a UX and frontend team assembled from a recently acquired company in Macedonia. They were talented but disconnected — from each other, from the product, from the broader organisation. Before we could design anything meaningful, we needed a shared way of working.
                   </p>
@@ -612,7 +612,7 @@ export default function MylinkPortalPage(): ReactElement {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
               <div>
                 <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">Research</div>
-                <div className="space-y-4 text-[1rem] leading-[1.65] text-ink-secondary">
+                <div className="space-y-4 text-base leading-[1.65] text-ink-secondary">
                   <p>
                     Before a single wireframe was drawn, we ran an exhaustive discovery process. We interviewed internal support teams across multiple markets. We analysed existing products, mapped customer personas, spoke directly with clients, and ran a full competitive analysis. We mapped the entire portal architecture — coordinating with every product team to understand their use cases and integration requirements.
                   </p>
@@ -630,7 +630,7 @@ export default function MylinkPortalPage(): ReactElement {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
               <div>
                 <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">Migration, reframed</div>
-                <div className="space-y-4 text-[1rem] leading-[1.65] text-ink-secondary">
+                <div className="space-y-4 text-base leading-[1.65] text-ink-secondary">
                   <p>
                     The prevailing assumption was that migrating clients between products caused churn — and that this was unavoidable. I disagreed with the diagnosis. The problem wasn&apos;t migration.{' '}
                     <em className="text-accent-ink">It was forced migration.</em>
@@ -650,7 +650,7 @@ export default function MylinkPortalPage(): ReactElement {
                     <div key={i} className="flex items-stretch gap-3 flex-1">
                       <div className="flex-1">
                         <div className="text-2xs font-semibold tracking-label text-accent mb-1.5">0{i + 1}</div>
-                        <div className="text-[13px] font-semibold text-ink mb-1">{step.label}</div>
+                        <div className="text-fine font-semibold text-ink mb-1">{step.label}</div>
                         <div className="text-2xs text-ink-secondary leading-[1.4]">{step.sub}</div>
                       </div>
                       {i < 3 && (
@@ -670,7 +670,7 @@ export default function MylinkPortalPage(): ReactElement {
                   </div>
                   <div>
                     <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-1">The non-negotiable</div>
-                    <p className="text-[14px] text-ink leading-[1.55]">
+                    <p className="text-sm text-ink leading-[1.55]">
                       No product could enter the portal without following the unified provisioning process and invoice structure. The billing chaos had to stop at the gate, not downstream.
                     </p>
                   </div>
@@ -684,7 +684,7 @@ export default function MylinkPortalPage(): ReactElement {
             {/* Step 6: Trust */}
             <div className="py-16 reveal">
               <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">Trust</div>
-              <div className="max-w-prose space-y-4 text-[1rem] leading-[1.65] text-ink-secondary">
+              <div className="max-w-prose space-y-4 text-base leading-[1.65] text-ink-secondary">
                 <p>With <strong className="text-ink font-medium">local market managers</strong>: always left conversations with a solution and a concrete action plan — never just a diagnosis. Speed of response built credibility that arguments couldn&apos;t.</p>
                 <p>With the <strong className="text-ink font-medium">engineering team</strong>: showed them — incrementally, specifically — how structure in the roadmap made their work easier. Found allies inside that team and made those people visible.</p>
                 <p>With <strong className="text-ink font-medium">C-level stakeholders</strong>: experimented constantly with format. Presentations, wireframes, metaphors, videos, journeys narrated in the client&apos;s voice. Whatever it took to make the abstract concrete.</p>
@@ -700,7 +700,7 @@ export default function MylinkPortalPage(): ReactElement {
         <div className="max-w-[1200px] mx-auto px-8 mb-16">
           <div className="max-w-[800px] mx-auto text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">05 — Results</div>
-            <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink" style={{ fontSize: 'clamp(2rem,3.6vw,3rem)' }}>
+            <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
               The numbers tell part of the story.{' '}
               <span className="text-ink-secondary font-normal">The rest is organisational.</span>
             </h2>
@@ -711,10 +711,10 @@ export default function MylinkPortalPage(): ReactElement {
 
         <div className="max-w-[1200px] mx-auto px-8">
           <div className="max-w-[800px] mx-auto mt-16 space-y-5">
-            <p className="text-[1.0625rem] leading-[1.65] text-ink-secondary reveal">
+            <p className="text-body leading-[1.65] text-ink-secondary reveal">
               Support teams now have a single surface to manage client issues — and have become advocates for the portal, not resistors. Product managers across the company have started embedding UX research into their own processes. The provisioning and invoice unification means billing exceptions are an anomaly rather than a daily fire.
             </p>
-            <p className="text-[1.0625rem] leading-[1.65] text-ink-secondary reveal">
+            <p className="text-body leading-[1.65] text-ink-secondary reveal">
               This project is still in progress. There is more to build. But the foundation — the Blueprint, the team, the process, the trust — is solid enough that it can grow without me carrying it alone.{' '}
               <em>That might be the result I&apos;m most proud of.</em>
             </p>
@@ -735,7 +735,7 @@ export default function MylinkPortalPage(): ReactElement {
         <div className="max-w-[1200px] mx-auto px-8 relative z-10">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">06 — What I learned</div>
-            <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em]" style={{ fontSize: 'clamp(2rem,3.6vw,3rem)', color: '#F6F5F0' }}>
+            <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-fluid-md" style={{ color: '#F6F5F0' }}>
               Political rooms don&apos;t respond to arguments.{' '}
               <span style={{ color: 'rgba(246,245,240,0.55)', fontWeight: 400 }}>They respond to momentum.</span>
             </h2>
@@ -743,7 +743,7 @@ export default function MylinkPortalPage(): ReactElement {
 
           <div className="max-w-[760px] mx-auto space-y-6 mb-16">
             {LESSONS.map((lesson, i) => (
-              <p key={i} className="text-[1.0625rem] leading-[1.7] reveal" style={{ color: 'rgba(246,245,240,0.82)', transitionDelay: `${i * 60}ms` }}>
+              <p key={i} className="text-body leading-[1.7] reveal" style={{ color: 'rgba(246,245,240,0.82)', transitionDelay: `${i * 60}ms` }}>
                 {lesson.body}{lesson.bold && <> <strong style={{ color: '#F6F5F0', fontWeight: 500 }}>{lesson.bold}</strong></>}
               </p>
             ))}
@@ -753,7 +753,7 @@ export default function MylinkPortalPage(): ReactElement {
             <div className="text-2xs font-semibold tracking-label uppercase mb-4" style={{ color: '#C3B9EB' }}>
               What I&apos;d do differently
             </div>
-            <p className="font-serif italic text-[1.0625rem] leading-[1.6]" style={{ color: 'rgba(246,245,240,0.9)' }}>
+            <p className="font-serif italic text-body leading-[1.6]" style={{ color: 'rgba(246,245,240,0.9)' }}>
               I was perhaps too trusting with certain stakeholders early on. I assumed good faith where there was none, and it cost time. I&apos;ve learned to read the room earlier — to distinguish between genuine resistance and political positioning — and to act on that difference sooner.
             </p>
           </div>
@@ -761,103 +761,7 @@ export default function MylinkPortalPage(): ReactElement {
       </section>
 
       {/* ── PREV / NEXT NAV ───────────────────────────────────────────── */}
-      <nav className="bg-white border-t border-border py-16 lg:py-20" aria-label="Case navigation">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex items-center gap-4 mb-8">
-            <span className="section-label">More Cases</span>
-            <div className="flex-1 h-px bg-border reveal-expand" />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {prevCase ? (
-              <Link
-                href={`/portfolio/cases/${prevCase.slug}`}
-                aria-label={`Previous case: ${prevCase.title}`}
-                className="group relative flex flex-col justify-between overflow-hidden bg-white border border-border rounded-[14px] p-6 lg:p-7 min-h-[140px] shadow-[0_2px_12px_rgba(19,19,16,0.06),0_1px_3px_rgba(19,19,16,0.04)] hover:border-accent/35 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(19,19,16,0.08),0_4px_12px_rgba(102,103,171,0.10)] transition-all duration-300 reveal"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <span className="flex items-center gap-2 text-2xs font-bold tracking-label uppercase text-ink-tertiary">
-                    <svg className="transition-transform duration-200 group-hover:-translate-x-0.5 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
-                      <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    Previous
-                  </span>
-                  <span className="font-serif text-sm font-medium text-ink/[0.18] tracking-[0.05em] flex-shrink-0">{prevCase.number}</span>
-                </div>
-                <div className="flex-1 flex flex-col justify-end pt-3">
-                  <h3 className="font-serif font-medium leading-snug tracking-tight text-ink text-[clamp(1.1rem,1.8vw,1.35rem)] mb-1.5">
-                    {prevCase.title}
-                  </h3>
-                  <div className="flex flex-wrap gap-1.5 mt-2">
-                    {prevCase.tags.slice(0, 2).map((tag) => (
-                      <span key={tag} className="text-2xs font-semibold tracking-[0.06em] uppercase text-ink-tertiary border border-border bg-paper px-2 py-0.5 rounded group-hover:text-accent group-hover:border-accent/25 group-hover:bg-accent/[0.07] transition-all duration-200">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <span aria-hidden className="absolute bottom-[-0.06em] right-[-0.01em] font-serif font-extrabold leading-none text-[clamp(5rem,10vw,10rem)] text-ink opacity-[0.03] group-hover:opacity-[0.055] transition-opacity duration-300 pointer-events-none select-none">
-                  {prevCase.number}
-                </span>
-                <div aria-hidden className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
-              </Link>
-            ) : (
-              <Link
-                href="/portfolio/cases"
-                aria-label="View all cases"
-                className="group relative flex flex-col justify-between overflow-hidden bg-white border border-border rounded-[14px] p-6 lg:p-7 min-h-[140px] shadow-[0_2px_12px_rgba(19,19,16,0.06),0_1px_3px_rgba(19,19,16,0.04)] hover:border-accent/35 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(19,19,16,0.08),0_4px_12px_rgba(102,103,171,0.10)] transition-all duration-300 reveal"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <span className="flex items-center gap-2 text-2xs font-bold tracking-label uppercase text-ink-tertiary">
-                    <svg className="transition-transform duration-200 group-hover:-translate-x-0.5 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
-                      <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    All Cases
-                  </span>
-                </div>
-                <div className="flex-1 flex flex-col justify-end pt-3">
-                  <h3 className="font-serif font-medium leading-snug tracking-tight text-ink text-[clamp(1.1rem,1.8vw,1.35rem)] mb-1.5">All Case Studies</h3>
-                  <p className="text-sm text-ink-secondary leading-snug">Six problems. Six solutions.</p>
-                </div>
-                <div aria-hidden className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
-              </Link>
-            )}
-
-            {nextCase && (
-              <Link
-                href={`/portfolio/cases/${nextCase.slug}`}
-                aria-label={`Next case: ${nextCase.title}`}
-                className="group relative flex flex-col justify-between overflow-hidden bg-white border border-border rounded-[14px] p-6 lg:p-7 min-h-[140px] shadow-[0_2px_12px_rgba(19,19,16,0.06),0_1px_3px_rgba(19,19,16,0.04)] hover:border-accent/35 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(19,19,16,0.08),0_4px_12px_rgba(102,103,171,0.10)] transition-all duration-300 reveal [animation-delay:100ms]"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <span className="font-serif text-sm font-medium text-ink/[0.18] tracking-[0.05em] flex-shrink-0">{nextCase.number}</span>
-                  <span className="flex items-center gap-2 text-2xs font-bold tracking-label uppercase text-ink-tertiary">
-                    Next
-                    <svg className="transition-transform duration-200 group-hover:translate-x-0.5 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
-                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                </div>
-                <div className="flex-1 flex flex-col justify-end pt-3">
-                  <h3 className="font-serif font-medium leading-snug tracking-tight text-ink text-[clamp(1.1rem,1.8vw,1.35rem)] mb-1.5">
-                    {nextCase.title}
-                  </h3>
-                  <div className="flex flex-wrap gap-1.5 mt-2">
-                    {nextCase.tags.slice(0, 2).map((tag) => (
-                      <span key={tag} className="text-2xs font-semibold tracking-[0.06em] uppercase text-ink-tertiary border border-border bg-paper px-2 py-0.5 rounded group-hover:text-accent group-hover:border-accent/25 group-hover:bg-accent/[0.07] transition-all duration-200">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <span aria-hidden className="absolute bottom-[-0.06em] right-[-0.01em] font-serif font-extrabold leading-none text-[clamp(5rem,10vw,10rem)] text-ink opacity-[0.03] group-hover:opacity-[0.055] transition-opacity duration-300 pointer-events-none select-none">
-                  {nextCase.number}
-                </span>
-                <div aria-hidden className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
-              </Link>
-            )}
-          </div>
-        </div>
-      </nav>
+      <CaseNav prevCase={prevCase} nextCase={nextCase} />
     </>
   )
 }

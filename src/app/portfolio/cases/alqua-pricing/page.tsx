@@ -1,9 +1,12 @@
 import type { ReactElement } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { CASES_META } from '~/constants/cases'
 import { CasePdfViewer } from '~/components/case-pdf-viewer.client'
-import { StepCarousel } from '~/components/step-carousel.client'
+import { ResultsStrip } from '~/components/results-strip.client'
+import { CaseNav } from '~/components/case-nav'
+import type { ResultItem } from '~/components/results-strip.client'
 
 const TITLE = 'Reinventing the Business Model'
 const SUBTITLE = 'How changing how we charged — not what we built — unlocked a new growth curve at Alqua'
@@ -27,6 +30,25 @@ export const metadata: Metadata = {
 
 const TAGS = ['Business Model Innovation', 'Pricing Strategy', 'Revenue Growth', 'Market Entry', 'Upselling']
 
+const RESULTS: ResultItem[] = [
+  { value: 'Weekly', label: 'Deal cadence', context: 'vs monthly before the model change', hero: true },
+  { value: '80%', label: 'Customer retention', context: 'Across the Alqua client base during this period', hero: false },
+  { value: '2', label: 'Commercial models', context: 'Spain (hybrid) and Latin America (SaaS) — calibrated to market', hero: false },
+]
+
+const LESSONS = [
+  {
+    body: 'This is the case I think about most when someone talks about product innovation. The instinct in most product teams is to solve growth problems by building more — more features, more integrations, more capabilities. Here, the growth problem was solved entirely by changing the commercial terms.',
+    bold: 'The product didn\'t change. The market didn\'t change. The contract changed.',
+  },
+  {
+    body: 'Pricing is a product decision, not a sales decision. How you charge shapes what customers value, how they engage, and what growth path is available to you. Moving from pure subscription to a hybrid revenue-share model didn\'t just change our conversion rate — it changed our relationship with clients. They came in as partners in the revenue, not as buyers of a service.',
+  },
+  {
+    body: 'The entry banner was never the destination — it was the door. Once a media company was live on the platform and seeing value, the plan structure became an obvious upsell. The goal over time was to shift the revenue mix toward higher fixed income per client, reducing our dependence on advertising performance while increasing the client\'s switching cost.',
+  },
+]
+
 export default function AlquaPricingPage(): ReactElement {
   const caseIndex = CASES_META.findIndex((x) => x.slug === 'alqua-pricing')
   const prevCase = caseIndex > 0 ? CASES_META[caseIndex - 1] : null
@@ -34,151 +56,245 @@ export default function AlquaPricingPage(): ReactElement {
 
   return (
     <>
-      {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <header className="bg-white pt-24 pb-16 lg:pt-32 lg:pb-24 relative overflow-hidden border-b border-border">
-        <span
-          aria-hidden="true"
-          className="absolute bottom-0 right-0 font-serif font-black leading-none text-ink pointer-events-none select-none"
-          style={{ fontSize: 'clamp(10rem,28vw,22rem)', opacity: 0.045, letterSpacing: '-0.04em' }}
+      {/* ── HERO ──────────────────────────────────────────────────────── */}
+      <header className="relative pt-20 pb-0 overflow-hidden bg-white isolate">
+        {/* Mesh gradient orbs */}
+        <div aria-hidden className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <div
+            className="absolute rounded-full"
+            style={{
+              top: '-200px', left: '-100px', width: '720px', height: '720px',
+              background: 'radial-gradient(circle at 35% 35%, #C3B9EB, transparent 70%)',
+              filter: 'blur(80px)', opacity: 0.5,
+              animation: 'mesh-drift-1 18s ease-in-out infinite alternate',
+            }}
+          />
+          <div
+            className="absolute rounded-full"
+            style={{
+              top: '-120px', right: '-120px', width: '620px', height: '620px',
+              background: 'radial-gradient(circle at 50% 50%, rgba(171,107,255,0.45), transparent 70%)',
+              filter: 'blur(80px)', opacity: 0.45,
+              animation: 'mesh-drift-2 22s ease-in-out infinite alternate',
+            }}
+          />
+          <div
+            className="absolute rounded-full"
+            style={{
+              top: '200px', left: '30%', width: '480px', height: '480px',
+              background: 'radial-gradient(circle at 50% 50%, #8AC8E7, transparent 70%)',
+              filter: 'blur(80px)', opacity: 0.55,
+              animation: 'mesh-drift-3 16s ease-in-out infinite alternate',
+            }}
+          />
+          <div
+            className="absolute rounded-full"
+            style={{
+              bottom: '-200px', right: '20%', width: '540px', height: '540px',
+              background: 'radial-gradient(circle at 50% 50%, #E8DFF7, transparent 70%)',
+              filter: 'blur(80px)', opacity: 0.5,
+              animation: 'mesh-drift-4 20s ease-in-out infinite alternate',
+            }}
+          />
+        </div>
+
+        {/* Two-column layout */}
+        <div
+          className="relative z-10 mx-auto px-8 grid items-center gap-10"
+          style={{ maxWidth: 1280, gridTemplateColumns: '1fr 1fr', minHeight: 540 }}
         >
-          05
-        </span>
-        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex items-center gap-3 mb-8 animate-fade-up [animation-delay:100ms]">
-            <div className="w-10 h-px bg-gradient-to-r from-accent to-transparent" aria-hidden="true" />
-            <Link
-              href="/portfolio/cases"
-              className="group flex items-center gap-2 text-2xs font-semibold tracking-widest uppercase text-ink-tertiary hover:text-accent transition-colors duration-200"
-            >
-              <svg
-                className="transition-transform duration-200 group-hover:-translate-x-0.5 flex-shrink-0"
-                width="12"
-                height="12"
-                viewBox="0 0 16 16"
-                fill="none"
-                aria-hidden="true"
+          {/* Left: text */}
+          <div>
+            {/* Breadcrumb */}
+            <div className="flex items-center gap-3 mb-8 animate-fade-up [animation-delay:100ms]">
+              <div className="w-8 h-px bg-gradient-to-r from-accent to-transparent" aria-hidden />
+              <Link
+                href="/portfolio/cases"
+                className="group flex items-center gap-2 text-2xs font-semibold tracking-widest uppercase text-ink-tertiary hover:text-accent transition-colors duration-200"
               >
-                <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              All cases
-            </Link>
-            <span className="text-ink-tertiary opacity-30 text-2xs" aria-hidden="true">/</span>
-            <span className="text-2xs font-semibold tracking-widest uppercase text-ink-tertiary">Case 05</span>
-          </div>
+                <svg className="transition-transform duration-200 group-hover:-translate-x-0.5 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden>
+                  <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                All cases
+              </Link>
+              <span className="text-ink-tertiary opacity-30 text-2xs" aria-hidden>/</span>
+              <span className="text-2xs font-semibold tracking-widest uppercase text-ink-tertiary">Case 05</span>
+            </div>
 
-          <div className="flex flex-wrap items-center gap-3 mb-6 animate-fade-up [animation-delay:300ms]">
-            <span className="text-2xs font-bold tracking-label uppercase text-ink-tertiary">Alqua</span>
-            <span className="w-[3px] h-[3px] rounded-full bg-ink-tertiary opacity-40" aria-hidden="true" />
-            <span className="text-2xs font-bold tracking-label uppercase text-ink-tertiary">Co-Founder &amp; COO / Product Lead</span>
-            <span className="w-[3px] h-[3px] rounded-full bg-ink-tertiary opacity-40" aria-hidden="true" />
-            <span className="text-2xs font-bold tracking-label uppercase text-ink-tertiary">2018 – 2021</span>
-          </div>
-
-          <h1 className="font-serif text-[clamp(2rem,6vw,5.5rem)] font-normal leading-[0.95] tracking-[-0.03em] text-ink mb-5 max-w-[820px]">
-            <span className="inline-block animate-fade-up [animation-delay:420ms]">Reinventing the Business Model</span>
-            <span className="block mt-[0.12em] animate-fade-up [animation-delay:560ms]">
-              <span className="text-[0.48em] font-normal italic font-serif bg-[linear-gradient(120deg,rgb(138_200_231)_0%,#6667AB_50%,rgb(171_107_255)_100%)] [background-size:200%_auto] bg-clip-text text-transparent animate-gradient-breathe tracking-[-0.01em]">
-                {SUBTITLE}
+            {/* Eyebrow */}
+            <div className="flex items-center gap-3 mb-8 animate-fade-up [animation-delay:200ms]">
+              <span className="inline-flex items-center px-2.5 py-1 bg-white/70 border border-border rounded-full text-2xs font-semibold tracking-label uppercase text-accent-ink">
+                CASE STUDY
               </span>
-            </span>
-          </h1>
+              <span className="w-6 h-px bg-ink/20" aria-hidden />
+              <span className="text-fine text-ink-secondary">Alqua · 2018 — 2021</span>
+            </div>
 
-          <div className="flex flex-wrap items-center gap-2 animate-fade-up [animation-delay:700ms]">
-            {TAGS.map((tag) => (
+            {/* Title */}
+            <h1 className="font-serif font-medium leading-[1.02] tracking-[-0.025em] mb-6 animate-fade-up [animation-delay:320ms] text-fluid-lg">
+              Changing how we charged,<br />
+              not what we built —<br />
               <span
-                key={tag}
-                className="text-2xs font-semibold tracking-[0.06em] uppercase text-ink-secondary border border-border bg-paper px-2.5 py-1 rounded"
+                className="italic"
+                style={{
+                  background: 'linear-gradient(120deg, #6667ab 0%, rgba(171,107,255,1) 50%, #6667ab 100%)',
+                  backgroundSize: '200% 100%',
+                  WebkitBackgroundClip: 'text',
+                  backgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  animation: 'case-grad-pan 8s ease-in-out infinite',
+                }}
               >
-                {tag}
+                unlocked a new growth curve.
               </span>
+            </h1>
+
+            {/* Deck */}
+            <p className="text-body leading-[1.6] text-ink-secondary mb-8 max-w-[52ch] animate-fade-up [animation-delay:440ms]">
+              How we stopped asking media companies to pay for a SaaS subscription upfront — and started{' '}
+              <strong className="text-ink font-medium">making it easy for them to say yes</strong> — turning a stalled pipeline
+              into a deal every week.
+            </p>
+
+            {/* Tags */}
+            <div className="flex flex-wrap gap-2 mb-8 animate-fade-up [animation-delay:560ms]">
+              {TAGS.map((tag) => (
+                <span key={tag} className="text-2xs font-semibold tracking-[0.06em] uppercase text-ink-secondary border border-border bg-white/70 px-2.5 py-1 rounded">
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            {/* CTAs */}
+            <div className="flex gap-3 flex-wrap animate-fade-up [animation-delay:640ms]">
+              <a
+                href="#approach"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-ink text-paper text-sm font-medium transition-all duration-300 hover:bg-accent hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(102,103,171,0.28)]"
+              >
+                Read the case
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                  <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+              <a
+                href="#results"
+                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-ink bg-white/60 border border-border text-sm font-medium transition-all duration-200 hover:bg-white/90 hover:border-ink/30"
+              >
+                Skip to results
+              </a>
+            </div>
+          </div>
+
+          {/* Right: ad format images stacked */}
+          <div className="animate-fade-up [animation-delay:300ms]">
+            <div
+              style={{
+                transform: 'rotate(-1.5deg)',
+                filter: 'drop-shadow(0 30px 60px rgba(20,14,40,0.18)) drop-shadow(0 12px 24px rgba(20,14,40,0.10))',
+                transition: 'transform 0.6s cubic-bezier(0.22,1,0.36,1)',
+              }}
+              className="hover:[transform:rotate(0deg)_translateY(-4px)]"
+            >
+              <div className="rounded-xl overflow-hidden border border-border bg-white">
+                <div className="px-4 py-2.5 bg-[#FAFAF7] border-b border-[#E0DFD7] flex items-center gap-2">
+                  <div className="w-5 h-5 rounded bg-accent/10 flex items-center justify-center flex-shrink-0">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden>
+                      <rect x="3" y="3" width="18" height="18" rx="2" stroke="#6667ab" strokeWidth="1.5"/>
+                      <path d="M3 9h18" stroke="#6667ab" strokeWidth="1.5"/>
+                    </svg>
+                  </div>
+                  <span className="text-[9px] font-semibold text-[#6A6960] tracking-wide uppercase">Alqua — Ad Formats for Media</span>
+                </div>
+                <div className="relative overflow-hidden" style={{ height: 300 }}>
+                  <Image
+                    src="/cases/05/01_sticky_ad_format.jpg"
+                    alt="Sticky ad format — Alqua media monetisation"
+                    fill
+                    className="object-cover object-top"
+                    quality={100}
+                    sizes="(max-width: 768px) 100vw, 640px"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Meta strip */}
+        <div className="relative z-10 mt-20 border-t border-border bg-white/50" style={{ backdropFilter: 'blur(10px)' }}>
+          <div className="max-w-[1200px] mx-auto px-8 py-6 grid gap-5" style={{ gridTemplateColumns: 'repeat(5,1fr)' }}>
+            {[
+              ['Client', 'Alqua'],
+              ['Sector', 'MarTech · SaaS'],
+              ['Role', 'Co-Founder & COO / Product Lead'],
+              ['Markets', 'Spain · Latin America'],
+              ['Timeline', '2018 – 2021'],
+            ].map(([k, v], i) => (
+              <div key={k} className="animate-fade-up" style={{ animationDelay: `${720 + i * 80}ms` }}>
+                <div className="text-2xs font-semibold tracking-label uppercase text-ink-tertiary mb-1">{k}</div>
+                <div className="text-sm font-medium text-ink">{v}</div>
+              </div>
             ))}
-            <span className="text-2xs font-semibold tracking-[0.06em] uppercase text-ink-tertiary border border-border bg-paper/60 px-2.5 py-1 rounded">
-              ~8 min read
-            </span>
           </div>
         </div>
       </header>
 
-      {/* ── THE CONTEXT ──────────────────────────────────────────────── */}
-      <section className="bg-white border-b border-border py-20 lg:py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <p className="text-lg lg:text-xl leading-[1.7] text-ink max-w-prose reveal">
-            Alqua was a MarTech SaaS platform — Big Data and Social Media intelligence for marketing and digital teams.
-            The original business model was straightforward: three monthly pricing plans, sell to whoever needed the
-            product, and grow through subscriptions.
-          </p>
-          <p className="text-lg lg:text-xl leading-[1.7] text-ink max-w-prose mt-6 reveal">
-            After a prolonged period managing the departure of founding partners — nine months of legal process and
-            complex agreements — we emerged with a clearer focus: media companies. Press, digital publishers, news
-            organisations. They had the data needs our platform addressed and the marketing challenges our tools could
-            solve.
-          </p>
-          <p className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary max-w-prose mt-6 reveal">
-            The problem was that media companies, particularly in Spain, were not flush with budget. Print media was in
-            structural decline. Getting a media company to commit to a monthly SaaS subscription required a procurement
-            process, multiple approval layers, competitive tenders, and months of sales effort. We were spending
-            enormous energy on deals that either didn&apos;t close or closed too slowly to sustain our growth.
-          </p>
-          <p className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary max-w-prose mt-6 reveal">
-            The product hadn&apos;t changed. The market hadn&apos;t changed. But the way we were trying to enter it was
-            fundamentally wrong for the customer&apos;s reality.
-          </p>
-          <div className="mt-10 reveal">
-            <CasePdfViewer href="/cases/05/AD_TECH_2020__Marzo_(1).pdf" label="Ad Tech 2020 — Presentation" />
-          </div>
-          <div className="mt-12 h-px bg-gradient-to-r from-transparent via-border to-transparent" aria-hidden="true" />
-        </div>
-      </section>
-
-      {/* ── THE INSIGHT ──────────────────────────────────────────────── */}
-      <section className="bg-white border-b border-border py-20 lg:py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex items-center gap-4 mb-12">
-            <span className="section-label">The Insight</span>
-            <div className="flex-1 h-px bg-border reveal-expand" />
+      {/* ── THE SITUATION ────────────────────────────────────────────── */}
+      <section className="bg-white border-t border-border py-20 lg:py-24">
+        <div className="max-w-[1200px] mx-auto px-8">
+          <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
+            <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">01 — The situation</div>
+            <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
+              The product hadn&apos;t changed. The market hadn&apos;t changed.{' '}
+              <span className="text-ink-secondary font-normal">But the way we were trying to enter it was fundamentally wrong.</span>
+            </h2>
           </div>
 
-          <div className="max-w-reading space-y-6">
-            <p className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary reveal">
-              The insight came from understanding how media companies actually made money — and what they were willing
-              to spend on versus what they weren&apos;t.
+          <div className="max-w-[800px] mx-auto space-y-6">
+            <p className="text-lg leading-[1.7] text-ink reveal">
+              Alqua was a MarTech SaaS platform — Big Data and Social Media intelligence for marketing and digital teams.
+              The original business model was straightforward: three monthly pricing plans, sell to whoever needed the
+              product, and grow through subscriptions.
             </p>
-            <p className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary reveal">
-              A media outlet struggling to justify a SaaS subscription would think differently about a banner placement
-              on their own website. Advertising inventory was a familiar concept. It had a direct revenue link. And if
-              we could help them monetise that inventory — through partnerships and our own commercial work — the cost
-              of the tool effectively paid for itself through what it generated.
+            <p className="text-body leading-[1.85] text-ink-secondary reveal">
+              After a prolonged period managing the departure of founding partners — nine months of legal process and
+              complex agreements — we emerged with a clearer focus: media companies. Press, digital publishers, news
+              organisations. They had the data needs our platform addressed and the marketing challenges our tools could
+              solve.
             </p>
-            <p className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary reveal">
-              We studied Seedtag — a contextual advertising platform that had built a sophisticated publisher offering
-              with multiple banner formats, creative options, and flexible commercial terms. They had solved a version
-              of the same problem: how do you build a relationship with a publisher that starts with value and grows
-              into dependency?
+            <p className="text-body leading-[1.85] text-ink-secondary reveal">
+              The problem was that media companies, particularly in Spain, were not flush with budget. Print media was in
+              structural decline. Getting a media company to commit to a monthly SaaS subscription required a procurement
+              process, multiple approval layers, competitive tenders, and months of sales effort. We were spending
+              enormous energy on deals that either didn&apos;t close or closed too slowly to sustain our growth.
             </p>
-            <p className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary reveal">
-              The model we designed took that logic and adapted it to our context. Instead of asking media companies
-              to pay for a subscription upfront, we would offer to place a banner on their site, monetise it through
-              our partner network and direct commercial efforts, and share the revenue. The platform access came with
-              the banner. The monthly fee was variable, tied to banner placement and type. Over time, as trust built
-              and the platform demonstrated value, we would convert clients toward higher fixed monthly fees and
-              additional plan features.
-            </p>
-            <div className="quote-callout reveal">
-              <p className="font-serif italic text-[0.9375rem] leading-relaxed text-ink">
-                Innovation doesn&apos;t always mean building something new. Sometimes it means changing the
-                contract — who pays, when, and for what.
-              </p>
+
+            <div className="mt-8 reveal">
+              <CasePdfViewer href="/cases/05/AD_TECH_2020__Marzo_(1).pdf" label="Ad Tech 2020 — Presentation" />
             </div>
           </div>
         </div>
       </section>
 
+      {/* ── CALLOUT ──────────────────────────────────────────────────── */}
+      <section className="bg-ink py-16 lg:py-20">
+        <div className="max-w-[1200px] mx-auto px-8 reveal">
+          <p className="font-serif text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.35] text-paper">
+            Innovation doesn&apos;t always mean building something new. Sometimes it means changing the contract —{' '}
+            <em style={{ color: 'rgba(246,245,240,0.5)' }}>who pays, when, and for what.</em>
+          </p>
+        </div>
+      </section>
+
       {/* ── HOW WE BUILT AND VALIDATED IT ────────────────────────────── */}
-      <section className="bg-white border-b border-border py-20 lg:py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex items-center gap-4 mb-12">
-            <span className="section-label">How We Built and Validated It</span>
-            <div className="flex-1 h-px bg-border reveal-expand" />
+      <section className="bg-white border-t border-border py-24" id="approach">
+        <div className="max-w-[1200px] mx-auto px-8">
+          <div className="max-w-[800px] mx-auto mb-20 text-center reveal">
+            <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">02 — How we built and validated it</div>
+            <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
+              A media company that couldn&apos;t afford a subscription{' '}
+              <span className="text-ink-secondary font-normal">could say yes to a banner. The banner was the door.</span>
+            </h2>
           </div>
 
           <div className="divide-y divide-border">
@@ -187,27 +303,56 @@ export default function AlquaPricingPage(): ReactElement {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
               <div>
                 <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">01 — Studying the model</div>
-                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary">
-                  Before changing anything in the product, we spent time understanding how Seedtag and similar
-                  publishers had structured their offerings. What banner formats drove the most value? How did pricing
-                  tiers work for publishers of different sizes? What did the upsell path look like? We weren&apos;t
-                  copying — we were learning the logic of a model that worked and adapting it to a different context
-                  and customer base.
-                </p>
+                <div className="space-y-4 text-mid leading-[1.85] text-ink-secondary">
+                  <p>
+                    The insight came from understanding how media companies actually made money — and what they were
+                    willing to spend on versus what they weren&apos;t. A media outlet struggling to justify a SaaS
+                    subscription would think differently about a banner placement on their own website. Advertising
+                    inventory was a familiar concept. It had a direct revenue link.
+                  </p>
+                  <p>
+                    We studied Seedtag — a contextual advertising platform that had built a sophisticated publisher
+                    offering with multiple banner formats, creative options, and flexible commercial terms. We
+                    weren&apos;t copying — we were learning the logic of a model that worked and adapting it to a
+                    different context and customer base.
+                  </p>
+                  <p>
+                    The model we designed: instead of asking media companies to pay for a subscription upfront, we
+                    would offer to place a banner on their site, monetise it through our partner network and direct
+                    commercial efforts, and share the revenue. The platform access came with the banner. The monthly fee
+                    was variable, tied to banner placement and type.
+                  </p>
+                </div>
               </div>
-              <div className="lg:sticky lg:top-24">
-                <StepCarousel images={[
-                  { src: '/cases/05/01_sticky_ad_format.jpg', alt: 'Sticky ad format example' },
-                  { src: '/cases/05/02_inimage_ad_format.jpg', alt: 'In-image ad format example' },
-                ]} />
+              <div className="lg:sticky lg:top-24 space-y-4">
+                <div className="rounded-xl overflow-hidden border border-border shadow-[0_8px_32px_-8px_rgba(19,19,16,0.10)]">
+                  <Image
+                    src="/cases/05/01_sticky_ad_format.jpg"
+                    alt="Sticky ad format example"
+                    width={640}
+                    height={300}
+                    className="w-full h-auto block"
+                    quality={100}
+                  />
+                </div>
+                <div className="rounded-xl overflow-hidden border border-border shadow-[0_8px_32px_-8px_rgba(19,19,16,0.10)]">
+                  <Image
+                    src="/cases/05/02_inimage_ad_format.jpg"
+                    alt="In-image ad format example"
+                    width={640}
+                    height={300}
+                    className="w-full h-auto block"
+                    quality={100}
+                  />
+                </div>
               </div>
             </div>
 
             {/* Step 02 */}
             <div className="py-16 reveal">
-              <div className="max-w-prose">
+              <div className="max-w-[800px] mx-auto">
                 <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">02 — Optimising the setup</div>
-                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary">
+                <p className="text-mid leading-[1.85] text-ink-secondary">
                   One of our key design decisions was to make the entry point as frictionless as possible. The banner
                   setup process was engineered to be fast and mechanical — something that could be completed quickly
                   without heavy involvement from the client&apos;s technical team. Speed of setup was a competitive
@@ -219,44 +364,41 @@ export default function AlquaPricingPage(): ReactElement {
 
             {/* Step 03 */}
             <div className="py-16 reveal">
-              <div className="max-w-prose">
+              <div className="max-w-[800px] mx-auto">
                 <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">03 — Testing in Spain first</div>
-                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary mb-4">
-                  The hybrid model — banner-based entry with optional monthly plans — worked well in the Spanish market,
-                  where media budgets were tightest and SaaS resistance was highest. We validated the model there before
-                  considering other markets.
-                </p>
-                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary">
-                  In Latin America, where media companies had different budget dynamics and less resistance to direct
-                  SaaS pricing, we continued selling monthly plans. The same product, two different commercial models,
-                  calibrated to market reality.
-                </p>
+                <div className="space-y-4 text-mid leading-[1.85] text-ink-secondary">
+                  <p>
+                    The hybrid model — banner-based entry with optional monthly plans — worked well in the Spanish
+                    market, where media budgets were tightest and SaaS resistance was highest. We validated the model
+                    there before considering other markets.
+                  </p>
+                  <p>
+                    In Latin America, where media companies had different budget dynamics and less resistance to direct
+                    SaaS pricing, we continued selling monthly plans. The same product, two different commercial models,
+                    calibrated to market reality.
+                  </p>
+                </div>
               </div>
             </div>
 
             {/* Step 04 */}
             <div className="py-16 reveal">
-              <div className="max-w-prose">
+              <div className="max-w-[800px] mx-auto">
                 <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">04 — Making it tangible</div>
-                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary mb-4">
-                  One of the most effective tools in the sales process was something deceptively simple: a personalised
-                  demo showing exactly how the banners would look on the client&apos;s own website before they signed
-                  anything. We would mock up the Sticky Ad and In-Image Ad formats in the client&apos;s actual site
-                  environment so they could see the placement, the visual weight, and — critically — how
-                  non-intrusive it was.
-                </p>
-                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary mb-4">
-                  This addressed the most common unspoken objection: that advertising would damage their editorial
-                  credibility or disrupt their readers. Seeing it rendered on their own pages, in context, removed that
-                  fear more effectively than any explanation could. The demo converted hesitation into commitment.
-                </p>
-                <p className="text-[0.9375rem] leading-[1.8] text-ink-secondary">
-                  The entry banner was never the destination — it was the door. Once a media company was live on the
-                  platform and seeing value, we introduced the plan structure as an upsell: more features, more data,
-                  more capabilities, at a higher fixed monthly fee. The banner remained as the variable component. The
-                  goal over time was to shift the revenue mix toward higher fixed income per client, reducing our
-                  dependence on advertising performance while increasing the client&apos;s switching cost.
-                </p>
+                <div className="space-y-4 text-mid leading-[1.85] text-ink-secondary">
+                  <p>
+                    One of the most effective tools in the sales process was something deceptively simple: a
+                    personalised demo showing exactly how the banners would look on the client&apos;s own website before
+                    they signed anything. We would mock up the Sticky Ad and In-Image Ad formats in the client&apos;s
+                    actual site environment so they could see the placement, the visual weight, and — critically — how
+                    non-intrusive it was.
+                  </p>
+                  <p>
+                    This addressed the most common unspoken objection: that advertising would damage their editorial
+                    credibility or disrupt their readers. Seeing it rendered on their own pages, in context, removed
+                    that fear more effectively than any explanation could. The demo converted hesitation into commitment.
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -265,41 +407,28 @@ export default function AlquaPricingPage(): ReactElement {
       </section>
 
       {/* ── RESULTS ──────────────────────────────────────────────────── */}
-      <section className="bg-white border-b border-border py-20 lg:py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex items-center gap-4 mb-12">
-            <span className="section-label">What Happened</span>
-            <div className="flex-1 h-px bg-border reveal-expand" />
+      <section className="py-24 bg-white border-t border-border" id="results">
+        <div className="max-w-[1200px] mx-auto px-8 mb-16">
+          <div className="max-w-[800px] mx-auto text-center reveal">
+            <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">03 — Results</div>
+            <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
+              A deal every week instead of every month.{' '}
+              <span className="text-ink-secondary font-normal">The barrier to entry had been the product all along.</span>
+            </h2>
           </div>
+        </div>
 
-          <div className="border border-border rounded-2xl overflow-hidden reveal">
-            <div className="flex flex-wrap lg:flex-nowrap divide-y lg:divide-y-0 lg:divide-x divide-border">
-              {[
-                { value: 'Weekly', label: 'Deal cadence', context: 'vs monthly before the model change' },
-                { value: '80%', label: 'Customer retention', context: 'Across the Alqua client base during this period' },
-                { value: '2', label: 'Commercial models', context: 'Spain (hybrid) and Latin America (SaaS) — calibrated to market' },
-              ].map((result, i) => (
-                <div key={result.label} className="flex-1 min-w-[140px] px-6 py-6 flex flex-col gap-1" style={{ transitionDelay: `${i * 50}ms` }}>
-                  <div className="font-serif font-medium leading-none tracking-[-0.025em] bg-gradient-primary bg-clip-text text-transparent" style={{ fontSize: 'clamp(1.75rem,2.5vw,2.5rem)' }}>{result.value}</div>
-                  <div className="text-[0.8125rem] font-semibold text-ink leading-snug">{result.label}</div>
-                  {result.context && <div className="text-[0.75rem] text-ink-tertiary leading-relaxed">{result.context}</div>}
-                </div>
-              ))}
-            </div>
-          </div>
+        <ResultsStrip results={RESULTS} />
 
-          <div className="mt-12 max-w-reading space-y-5">
-            <p className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary reveal">
-              The effect was immediate and visible. Before the model change, we were closing clients roughly once a
-              month — each deal the result of weeks or months of sales effort, procurement processes, and price
-              negotiations. After the model change, we were closing deals every week.
+        <div className="max-w-[1200px] mx-auto px-8">
+          <div className="max-w-[800px] mx-auto mt-16 space-y-5">
+            <p className="text-body leading-[1.65] text-ink-secondary reveal">
+              Before the model change, we were closing clients roughly once a month — each deal the result of weeks or
+              months of sales effort, procurement processes, and price negotiations. After the model change, we were
+              closing deals every week. The barrier to entry had been so high under the old model that most prospects
+              never became clients. Under the new model, the barrier was close to zero.
             </p>
-            <p className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary reveal">
-              The barrier to entry had been so high under the old model that most prospects never became clients. Under
-              the new model, the barrier was close to zero. Media companies could say yes to a banner placement with
-              almost no internal approval process. Once they were in, the platform sold itself.
-            </p>
-            <p className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary reveal">
+            <p className="text-body leading-[1.65] text-ink-secondary reveal">
               The 80% customer retention rate we achieved during this period was partly a product story — we had built
               something genuinely useful — but it was equally a model story. Clients who had entered through the banner
               were already integrated into our platform, already seeing value in their data, and already aware of what
@@ -310,137 +439,47 @@ export default function AlquaPricingPage(): ReactElement {
       </section>
 
       {/* ── WHAT I LEARNED ───────────────────────────────────────────── */}
-      <section className="bg-white border-b border-border py-20 lg:py-24">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex items-center gap-4 mb-12">
-            <span className="section-label">What I Learned</span>
-            <div className="flex-1 h-px bg-border reveal-expand" />
+      <section
+        className="py-24 border-t border-border relative"
+        style={{
+          background: 'linear-gradient(135deg, #111110 0%, #1a1425 70%, #111110 100%)',
+          backgroundSize: '200% 200%',
+          animation: 'case-dark-pan 18s ease-in-out infinite',
+          color: '#F6F5F0',
+        }}
+      >
+        <div className="max-w-[1200px] mx-auto px-8 relative z-10">
+          <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
+            <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">04 — What I learned</div>
+            <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-fluid-md" style={{ color: '#F6F5F0' }}>
+              Pricing is a product decision.{' '}
+              <span style={{ color: 'rgba(246,245,240,0.55)', fontWeight: 400 }}>How you charge shapes what customers value, how they engage, and what growth is possible.</span>
+            </h2>
           </div>
-          <div className="max-w-reading mx-auto">
-            <p className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary mb-5 reveal">
-              This is the case I think about most when someone talks about product innovation. The instinct in most
-              product teams is to solve growth problems by building more — more features, more integrations, more
-              capabilities. Here, the growth problem was solved entirely by changing the commercial terms. The product
-              didn&apos;t change. The market didn&apos;t change. The contract changed.
-            </p>
-            <p className="text-base lg:text-[1.0625rem] leading-[1.85] text-ink-secondary mb-5 reveal">
-              The lesson I carry is that pricing is a product decision, not a sales decision. How you charge shapes
-              what customers value, how they engage, and what growth path is available to you. In this case, moving
-              from pure subscription to a hybrid revenue-share model didn&apos;t just change our conversion rate — it
-              changed our relationship with clients. They came in as partners in the revenue, not as buyers of a
-              service. That&apos;s a fundamentally different starting point for a customer relationship.
-            </p>
-            <div className="quote-callout reveal-far mt-12" style={{ transitionDelay: '180ms' }}>
-              <p className="font-serif italic text-lg lg:text-xl leading-relaxed text-ink">
-                &ldquo;The fastest way to grow was not to improve the product — it was to remove the reason people
-                weren&apos;t buying it. Sometimes the barrier isn&apos;t what you build. It&apos;s what you ask for
-                in return.&rdquo;
+
+          <div className="max-w-[760px] mx-auto space-y-6 mb-16">
+            {LESSONS.map((lesson, i) => (
+              <p key={i} className="text-body leading-[1.7] reveal" style={{ color: 'rgba(246,245,240,0.82)', transitionDelay: `${i * 60}ms` }}>
+                {lesson.body}{lesson.bold && <> <strong style={{ color: '#F6F5F0', fontWeight: 500 }}>{lesson.bold}</strong></>}
               </p>
+            ))}
+          </div>
+
+          <div className="max-w-[760px] mx-auto reveal">
+            <div className="text-2xs font-semibold tracking-label uppercase mb-4" style={{ color: '#C3B9EB' }}>
+              The idea that stuck
             </div>
+            <p className="font-serif italic text-body leading-[1.6]" style={{ color: 'rgba(246,245,240,0.9)' }}>
+              &ldquo;The fastest way to grow was not to improve the product — it was to remove the reason people
+              weren&apos;t buying it. Sometimes the barrier isn&apos;t what you build. It&apos;s what you ask for
+              in return.&rdquo;
+            </p>
           </div>
         </div>
       </section>
 
       {/* ── PREV / NEXT NAV ──────────────────────────────────────────── */}
-      <nav className="bg-white border-t border-border py-16 lg:py-20" aria-label="Case navigation">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="flex items-center gap-4 mb-8">
-            <span className="section-label">More Cases</span>
-            <div className="flex-1 h-px bg-border reveal-expand" />
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {prevCase ? (
-              <Link
-                href={`/portfolio/cases/${prevCase.slug}`}
-                aria-label={`Previous case: ${prevCase.title}`}
-                className="group relative flex flex-col justify-between overflow-hidden bg-white border border-border rounded-[14px] p-6 lg:p-7 min-h-[140px] shadow-[0_2px_12px_rgba(19,19,16,0.06),0_1px_3px_rgba(19,19,16,0.04)] hover:border-accent/35 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(19,19,16,0.08),0_4px_12px_rgba(102,103,171,0.10)] transition-all duration-300 reveal"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <span className="flex items-center gap-2 text-2xs font-bold tracking-label uppercase text-ink-tertiary">
-                    <svg className="transition-transform duration-200 group-hover:-translate-x-0.5 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                      <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    Previous
-                  </span>
-                  <span className="font-serif text-sm font-medium text-ink/[0.18] tracking-[0.05em] flex-shrink-0">{prevCase.number}</span>
-                </div>
-                <div className="flex-1 flex flex-col justify-end pt-3">
-                  <h3 className="font-serif font-medium leading-snug tracking-tight text-ink text-[clamp(1.1rem,1.8vw,1.35rem)] mb-1.5">
-                    {prevCase.title}
-                  </h3>
-                  <div className="flex flex-wrap gap-1.5 mt-2">
-                    {prevCase.tags.slice(0, 2).map((tag) => (
-                      <span key={tag} className="text-2xs font-semibold tracking-[0.06em] uppercase text-ink-tertiary border border-border bg-paper px-2 py-0.5 rounded group-hover:text-accent group-hover:border-accent/25 group-hover:bg-accent/[0.07] transition-all duration-200">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <span aria-hidden className="absolute bottom-[-0.06em] right-[-0.01em] font-serif font-extrabold leading-none text-[clamp(5rem,10vw,10rem)] text-ink opacity-[0.03] group-hover:opacity-[0.055] transition-opacity duration-300 pointer-events-none select-none">
-                  {prevCase.number}
-                </span>
-                <div aria-hidden className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
-              </Link>
-            ) : (
-              <Link
-                href="/portfolio/cases"
-                aria-label="View all cases"
-                className="group relative flex flex-col justify-between overflow-hidden bg-white border border-border rounded-[14px] p-6 lg:p-7 min-h-[140px] shadow-[0_2px_12px_rgba(19,19,16,0.06),0_1px_3px_rgba(19,19,16,0.04)] hover:border-accent/35 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(19,19,16,0.08),0_4px_12px_rgba(102,103,171,0.10)] transition-all duration-300 reveal"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <span className="flex items-center gap-2 text-2xs font-bold tracking-label uppercase text-ink-tertiary">
-                    <svg className="transition-transform duration-200 group-hover:-translate-x-0.5 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                      <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    All Cases
-                  </span>
-                </div>
-                <div className="flex-1 flex flex-col justify-end pt-3">
-                  <h3 className="font-serif font-medium leading-snug tracking-tight text-ink text-[clamp(1.1rem,1.8vw,1.35rem)] mb-1.5">
-                    All Case Studies
-                  </h3>
-                  <p className="text-sm text-ink-secondary leading-snug">Six problems. Six solutions.</p>
-                </div>
-                <div aria-hidden className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
-              </Link>
-            )}
-
-            {nextCase && (
-              <Link
-                href={`/portfolio/cases/${nextCase.slug}`}
-                aria-label={`Next case: ${nextCase.title}`}
-                className="group relative flex flex-col justify-between overflow-hidden bg-white border border-border rounded-[14px] p-6 lg:p-7 min-h-[140px] shadow-[0_2px_12px_rgba(19,19,16,0.06),0_1px_3px_rgba(19,19,16,0.04)] hover:border-accent/35 hover:-translate-y-1 hover:shadow-[0_12px_40px_rgba(19,19,16,0.08),0_4px_12px_rgba(102,103,171,0.10)] transition-all duration-300 reveal [animation-delay:100ms]"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <span className="font-serif text-sm font-medium text-ink/[0.18] tracking-[0.05em] flex-shrink-0">{nextCase.number}</span>
-                  <span className="flex items-center gap-2 text-2xs font-bold tracking-label uppercase text-ink-tertiary">
-                    Next
-                    <svg className="transition-transform duration-200 group-hover:translate-x-0.5 flex-shrink-0" width="12" height="12" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                      <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                </div>
-                <div className="flex-1 flex flex-col justify-end pt-3">
-                  <h3 className="font-serif font-medium leading-snug tracking-tight text-ink text-[clamp(1.1rem,1.8vw,1.35rem)] mb-1.5">
-                    {nextCase.title}
-                  </h3>
-                  <div className="flex flex-wrap gap-1.5 mt-2">
-                    {nextCase.tags.slice(0, 2).map((tag) => (
-                      <span key={tag} className="text-2xs font-semibold tracking-[0.06em] uppercase text-ink-tertiary border border-border bg-paper px-2 py-0.5 rounded group-hover:text-accent group-hover:border-accent/25 group-hover:bg-accent/[0.07] transition-all duration-200">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <span aria-hidden className="absolute bottom-[-0.06em] right-[-0.01em] font-serif font-extrabold leading-none text-[clamp(5rem,10vw,10rem)] text-ink opacity-[0.03] group-hover:opacity-[0.055] transition-opacity duration-300 pointer-events-none select-none">
-                  {nextCase.number}
-                </span>
-                <div aria-hidden className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-primary scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300" />
-              </Link>
-            )}
-          </div>
-        </div>
-      </nav>
+      <CaseNav prevCase={prevCase} nextCase={nextCase} />
     </>
   )
 }
