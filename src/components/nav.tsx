@@ -53,9 +53,9 @@ export function Nav() {
   return (
     <>
       <header className={cn(
-        'fixed top-10 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border',
+        'fixed top-8 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-border',
         'transition-transform duration-300',
-        visible || menuOpen ? 'translate-y-0' : '-translate-y-full',
+        visible || menuOpen ? 'translate-y-0' : '-translate-y-[calc(100%+2rem)]',
       )}>
         <nav className="max-w-7xl mx-auto px-6 lg:px-12 h-16 flex items-center justify-between">
           <Link

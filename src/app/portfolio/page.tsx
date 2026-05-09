@@ -68,49 +68,132 @@ export default function PortfolioPage(): ReactElement {
       </div>
 
       {/* ── Hero ────────────────────────────────────────────────── */}
-      <div className="relative overflow-hidden">
-        <div aria-hidden className="landing-orb-1" />
-        <div aria-hidden className="landing-orb-2" />
-        <header className="relative z-10 px-6 lg:px-10 pt-20 pb-16 max-w-[1400px] mx-auto min-h-[calc(100vh-106px)] flex flex-col justify-center">
+      <header className="relative pt-20 pb-0 overflow-hidden bg-white isolate">
+        {/* Mesh gradient orbs */}
+        <div aria-hidden className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+          <div
+            className="absolute rounded-full"
+            style={{
+              top: '-200px', left: '-100px', width: '720px', height: '720px',
+              background: 'radial-gradient(circle at 35% 35%, #C3B9EB, transparent 70%)',
+              filter: 'blur(80px)', opacity: 0.55,
+              animation: 'mesh-drift-1 18s ease-in-out infinite alternate',
+            }}
+          />
+          <div
+            className="absolute rounded-full"
+            style={{
+              top: '-120px', right: '-120px', width: '620px', height: '620px',
+              background: 'radial-gradient(circle at 50% 50%, #8AC8E7, transparent 70%)',
+              filter: 'blur(80px)', opacity: 0.4,
+              animation: 'mesh-drift-2 22s ease-in-out infinite alternate',
+            }}
+          />
+          <div
+            className="absolute rounded-full"
+            style={{
+              top: '200px', left: '30%', width: '480px', height: '480px',
+              background: 'radial-gradient(circle at 50% 50%, #E8DFF7, transparent 70%)',
+              filter: 'blur(80px)', opacity: 0.7,
+              animation: 'mesh-drift-3 16s ease-in-out infinite alternate',
+            }}
+          />
+          <div
+            className="absolute rounded-full"
+            style={{
+              bottom: '-200px', right: '20%', width: '540px', height: '540px',
+              background: 'radial-gradient(circle at 50% 50%, rgba(171,107,255,0.35), transparent 70%)',
+              filter: 'blur(80px)', opacity: 0.5,
+              animation: 'mesh-drift-4 20s ease-in-out infinite alternate',
+            }}
+          />
+        </div>
 
+        {/* Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 pt-4 pb-20">
           {/* Eyebrow */}
-          <div className="flex items-center gap-3 mb-6 sm:mb-10 animate-fade-up [animation-delay:100ms]">
-            <div className="w-10 h-px bg-gradient-to-r from-accent to-transparent" />
+          <div className="flex items-center gap-3 mb-8 animate-fade-up [animation-delay:100ms]">
+            <div className="w-8 h-px bg-gradient-to-r from-accent to-transparent" aria-hidden />
             <span className="text-2xs font-semibold tracking-widest uppercase text-ink-tertiary">
               Product &amp; Design Leader · Available for hire
             </span>
           </div>
 
           {/* Title */}
-          <h1 className="font-serif text-[clamp(2.5rem,7vw,8.5rem)] font-normal leading-[0.93] tracking-[-0.04em] text-ink mb-8 sm:mb-10 relative z-10">
-            <span className="block animate-fade-up [animation-delay:150ms]">BUILDING</span>
-            <span className="block animate-fade-up [animation-delay:220ms]">PRODUCT</span>
-            <span className="block animate-fade-up [animation-delay:290ms]">SYSTEMS</span>
-            <span className="block animate-fade-up [animation-delay:360ms]">FROM SCRATCH</span>
-            <span className="block mt-3 animate-fade-up [animation-delay:500ms] font-light text-[0.57em] italic font-serif tracking-[-0.01em] bg-gradient-primary [background-size:200%_auto] bg-clip-text text-transparent animate-gradient-breathe">
+          <h1 className="font-serif font-medium leading-[1.02] tracking-[-0.025em] mb-6 animate-fade-up [animation-delay:320ms] text-fluid-lg">
+            Building product<br />
+            systems from scratch —<br />
+            <span
+              className="italic"
+              style={{
+                background: 'linear-gradient(120deg, #6667ab 0%, #8AC8E7 50%, #6667ab 100%)',
+                backgroundSize: '200% 100%',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                animation: 'case-grad-pan 8s ease-in-out infinite',
+              }}
+            >
               with a founder&apos;s instinct.
             </span>
           </h1>
 
-          {/* Footer: desc + actions */}
-          <div className="flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between animate-fade-up [animation-delay:700ms] relative z-10">
-            <p className="max-w-[480px] text-base leading-[1.7] text-ink-secondary font-light">
-              I connect strategy, design and technology into products that ship — with a business degree,
-              a founder&apos;s P&amp;L instinct, and a researcher&apos;s understanding of users. Formerly VP of UX at{' '}
-              <strong className="text-ink font-semibold">LINK Mobility</strong> and Co-Founder at{' '}
-              <strong className="text-ink font-semibold">Alqua</strong>.
-            </p>
-            <div className="flex items-center gap-3 flex-shrink-0">
-              <Button variant="primary" size="lg" href="/portfolio/cases" arrow>
-                See my work
-              </Button>
-              <Button variant="secondary" size="lg" href="/downloads/cv_patricia_bayona_en.pdf" download>
-                Download CV
-              </Button>
-            </div>
+          {/* Description */}
+          <p className="text-body leading-[1.6] text-ink-secondary mb-8 max-w-[52ch] animate-fade-up [animation-delay:440ms]">
+            I connect strategy, design and technology into products that ship — with a business degree,
+            a founder&apos;s P&amp;L instinct, and a researcher&apos;s understanding of users.
+            Formerly <strong className="text-ink font-medium">VP of UX at LINK Mobility</strong> and
+            Co-Founder at <strong className="text-ink font-medium">Alqua</strong>.
+          </p>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-2 mb-8 animate-fade-up [animation-delay:560ms]">
+            {['Product Strategy', 'UX Leadership', 'Go-to-Market', '0 → 1 Builder', 'Remote · Europe'].map((tag) => (
+              <span key={tag} className="text-2xs font-semibold tracking-[0.06em] uppercase text-ink-secondary border border-border bg-white/70 px-2.5 py-1 rounded">
+                {tag}
+              </span>
+            ))}
           </div>
-        </header>
-      </div>
+
+          {/* CTAs */}
+          <div className="flex gap-3 flex-wrap animate-fade-up [animation-delay:640ms]">
+            <Link
+              href="/portfolio/cases"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-ink text-paper text-sm font-medium transition-all duration-300 hover:bg-accent hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(102,103,171,0.28)]"
+            >
+              See my work
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
+            <a
+              href="/downloads/cv_patricia_bayona_en.pdf"
+              download
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-ink bg-white/60 border border-border text-sm font-medium transition-all duration-200 hover:bg-white/90 hover:border-ink/30"
+            >
+              Download CV
+            </a>
+          </div>
+        </div>
+
+        {/* Meta strip */}
+        <div className="relative z-10 border-t border-border bg-white/50" style={{ backdropFilter: 'blur(10px)' }}>
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 grid gap-5" style={{ gridTemplateColumns: 'repeat(5,1fr)' }}>
+            {[
+              ['Discipline', 'Product · UX · GTM'],
+              ['Industries', 'MarTech · SaaS · Telco'],
+              ['Scope', 'Strategy to delivery'],
+              ['Team scale', 'Solo to 25+ stakeholders'],
+              ['Geography', 'Spain · Nordics · LatAm'],
+            ].map(([k, v], i) => (
+              <div key={k} className="animate-fade-up" style={{ animationDelay: `${720 + i * 80}ms` }}>
+                <div className="text-2xs font-semibold tracking-label uppercase text-ink-tertiary mb-1">{k}</div>
+                <div className="text-sm font-medium text-ink">{v}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </header>
 
       {/* ── Stats strip ─────────────────────────────────────────── */}
       <StatsStrip />
