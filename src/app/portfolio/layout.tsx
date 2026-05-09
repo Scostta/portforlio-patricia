@@ -12,7 +12,7 @@ export default function MainLayout({
   return (
     <>
       <Nav />
-      <main className="flex-1 pt-[6.5rem]">
+      <main className="flex-1 pt-24">
         <RevealProvider>
           <PageTransition>{children}</PageTransition>
         </RevealProvider>

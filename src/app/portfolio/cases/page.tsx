@@ -18,6 +18,15 @@ const CASE_IMAGES = [
   { number: '06', src: '/cases/06/adi-tool-1.png',                   alt: 'Alqua Digital Index — ranking tool',              pos: 'object-top'    },
 ]
 
+const MOSAIC = [
+  { top:  -5, left:   0, width: 258, height: 192, rotate:  '-6deg', z: 3 },
+  { top:  40, left: 295, width: 145, height: 115, rotate:  '15deg', z: 4 },
+  { top: 178, left: -10, width: 182, height: 198, rotate: '-14deg', z: 2 },
+  { top: 138, left: 235, width: 252, height: 182, rotate:   '6deg', z: 5 },
+  { top: 378, left:  55, width: 175, height: 138, rotate: '-13deg', z: 3 },
+  { top: 315, left: 250, width: 225, height: 182, rotate:  '12deg', z: 4 },
+]
+
 export default function CasesPage(): ReactElement {
   return (
     <>
@@ -100,15 +109,6 @@ export default function CasesPage(): ReactElement {
               </span>
             </div>
 
-            {/* Eyebrow pill */}
-            <div className="flex items-center gap-3 mb-8 animate-fade-up [animation-delay:200ms]">
-              <span className="inline-flex items-center px-2.5 py-1 bg-white/70 border border-border rounded-full text-2xs font-semibold tracking-label uppercase text-accent-ink">
-                PORTFOLIO
-              </span>
-              <span className="w-6 h-px bg-ink/20" aria-hidden />
-              <span className="text-fine text-ink-secondary">Patricia Bayona · PM & UX Lead</span>
-            </div>
-
             {/* Title */}
             <h1 className="font-serif font-medium leading-[1.02] tracking-[-0.025em] mb-6 animate-fade-up [animation-delay:320ms] text-fluid-lg">
               Case Studies<br />
@@ -172,44 +172,38 @@ export default function CasesPage(): ReactElement {
             </div>
           </div>
 
-          {/* Right: 2×3 collage of all 6 case images */}
-          <div className="animate-fade-up [animation-delay:300ms]">
-            <div
-              style={{
-                transform: 'rotate(-1.5deg)',
-                filter: 'drop-shadow(0 32px 64px rgba(20,14,40,0.18)) drop-shadow(0 12px 24px rgba(20,14,40,0.10))',
-                transition: 'transform 0.6s cubic-bezier(0.22,1,0.36,1)',
-              }}
-              className="hover:[transform:rotate(0deg)_translateY(-4px)]"
-            >
-              <div
-                className="grid rounded-2xl overflow-hidden border border-border/50 bg-surface"
-                style={{
-                  gridTemplateColumns: '1fr 1fr',
-                  gridTemplateRows: 'repeat(3, 160px)',
-                  gap: '2px',
-                  height: 484,
-                }}
-              >
-                {CASE_IMAGES.map((img) => (
-                  <div key={img.number} className="relative overflow-hidden bg-surface group/cell">
-                    <Image
-                      src={img.src}
-                      alt={img.alt}
-                      fill
-                      className={`object-cover ${img.pos} transition-transform duration-700 group-hover/cell:scale-105`}
-                      quality={90}
-                      sizes="320px"
-                    />
-                    {/* Gradient vignette */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                    {/* Case number badge */}
-                    <span className="absolute bottom-2 left-2.5 text-[9px] font-bold tracking-widest uppercase text-white/90 bg-black/35 backdrop-blur-sm px-1.5 py-0.5 rounded">
-                      {img.number}
-                    </span>
+          {/* Right: scattered mosaic */}
+          <div className="hidden md:block animate-fade-up [animation-delay:300ms]">
+            <div className="relative" style={{ height: 540 }}>
+              {CASE_IMAGES.map((img, i) => {
+                const m = MOSAIC[i]
+                return (
+                  <div
+                    key={img.number}
+                    className="absolute group/card"
+                    style={{
+                      top: m.top, left: m.left, width: m.width, height: m.height,
+                      transform: `rotate(${m.rotate})`,
+                      zIndex: m.z,
+                    }}
+                  >
+                    <div className="relative w-full h-full overflow-hidden rounded-xl border-[3px] border-white shadow-[0_8px_28px_rgba(20,14,40,0.18),0_2px_8px_rgba(20,14,40,0.10)] transition-all duration-500 group-hover/card:scale-[1.06] group-hover/card:shadow-[0_16px_48px_rgba(20,14,40,0.26)]">
+                      <Image
+                        src={img.src}
+                        alt={img.alt}
+                        fill
+                        className={`object-cover ${img.pos} transition-transform duration-700 group-hover/card:scale-105`}
+                        quality={90}
+                        sizes="220px"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+                      <span className="absolute bottom-2 left-2.5 text-[9px] font-bold tracking-widest uppercase text-white/90 bg-black/35 backdrop-blur-sm px-1.5 py-0.5 rounded">
+                        {img.number}
+                      </span>
+                    </div>
                   </div>
-                ))}
-              </div>
+                )
+              })}
             </div>
           </div>
         </div>
