@@ -227,8 +227,7 @@ export default function UxSystemPage(): ReactElement {
 
         {/* Two-column layout */}
         <div
-          className="relative z-10 mx-auto px-8 grid items-center gap-10"
-          style={{ maxWidth: 1280, gridTemplateColumns: '1fr 1fr', minHeight: 540 }}
+          className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-10 lg:min-h-[540px]"
         >
           {/* Left: text */}
           <div>
@@ -328,7 +327,7 @@ export default function UxSystemPage(): ReactElement {
 
         {/* Meta strip */}
         <div className="relative z-10 mt-20 border-t border-border bg-white/50" style={{ backdropFilter: 'blur(10px)' }}>
-          <div className="max-w-[1200px] mx-auto px-8 py-6 grid gap-5" style={{ gridTemplateColumns: 'repeat(5,1fr)' }}>
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
             {[
               ['Client', 'LINK Mobility'],
               ['Sector', 'CPaaS · Enterprise messaging'],
@@ -347,7 +346,7 @@ export default function UxSystemPage(): ReactElement {
 
       {/* ── THE SITUATION ─────────────────────────────────────────────── */}
       <section id="story" className="py-24 bg-white border-t border-border">
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">01 — The situation</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -372,7 +371,7 @@ export default function UxSystemPage(): ReactElement {
 
       {/* ── CALLOUT ───────────────────────────────────────────────────── */}
       <section className="bg-ink py-16 lg:py-20">
-        <div className="max-w-[1200px] mx-auto px-8 reveal">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 reveal">
           <p className="font-serif text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.35] text-paper">
             The design team produced screens. The engineering team built features.{' '}
             <em style={{ color: 'rgba(246,245,240,0.5)' }}>Nobody had spoken to a customer first. That was the problem I was there to solve.</em>
@@ -382,7 +381,7 @@ export default function UxSystemPage(): ReactElement {
 
       {/* ── MY ROLE & SCOPE ───────────────────────────────────────────── */}
       <section className="py-24 bg-white border-t border-border">
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">02 — My role &amp; scope</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -390,7 +389,7 @@ export default function UxSystemPage(): ReactElement {
               <span className="text-ink-secondary font-normal">Not just the methodology — the tools, the team, the culture, and the buy-in.</span>
             </h2>
           </div>
-          <div className="grid gap-4 max-w-[1100px] mx-auto" style={{ gridTemplateColumns: 'repeat(3,1fr)' }}>
+          <div className="grid gap-4 max-w-[1100px] mx-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {ROLE_CARDS.map((card, i) => (
               <div
                 key={card.title}
@@ -410,7 +409,7 @@ export default function UxSystemPage(): ReactElement {
 
       {/* ── HOW I BUILT IT ────────────────────────────────────────────── */}
       <section className="py-24 bg-white border-t border-border">
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mb-20 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">03 — How I built it</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -580,7 +579,7 @@ export default function UxSystemPage(): ReactElement {
 
       {/* ── RESULTS ───────────────────────────────────────────────────── */}
       <section className="py-24 bg-white border-t border-border" id="results">
-        <div className="max-w-[1200px] mx-auto px-8 mb-16">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 mb-16">
           <div className="max-w-[800px] mx-auto text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">05 — Results</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -592,7 +591,7 @@ export default function UxSystemPage(): ReactElement {
 
         <ResultsStrip results={RESULTS} />
 
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mt-16 space-y-5">
             <p className="text-body leading-[1.65] text-ink-secondary reveal">
               Product managers who had never run a user interview now conduct research regularly. Engineering teams that were once sceptical of UX now ask for research before starting builds. The conversation between product, design and tech has changed — it starts with the problem, not the solution.
@@ -615,7 +614,7 @@ export default function UxSystemPage(): ReactElement {
           color: '#F6F5F0',
         }}
       >
-        <div className="max-w-[1200px] mx-auto px-8 relative z-10">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">06 — What I learned</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-fluid-md" style={{ color: '#F6F5F0' }}>

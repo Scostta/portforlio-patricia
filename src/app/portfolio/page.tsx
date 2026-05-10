@@ -178,7 +178,7 @@ export default function PortfolioPage(): ReactElement {
 
         {/* Meta strip */}
         <div className="relative z-10 border-t border-border bg-white/50" style={{ backdropFilter: 'blur(10px)' }}>
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 grid gap-5" style={{ gridTemplateColumns: 'repeat(5,1fr)' }}>
+          <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
             {[
               ['Discipline', 'Product · UX · GTM'],
               ['Industries', 'MarTech · SaaS · Telco'],

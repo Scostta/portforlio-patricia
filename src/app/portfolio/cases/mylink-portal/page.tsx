@@ -310,8 +310,7 @@ export default function MylinkPortalPage(): ReactElement {
 
         {/* Two-column layout */}
         <div
-          className="relative z-10 mx-auto px-8 grid items-center gap-10"
-          style={{ maxWidth: 1280, gridTemplateColumns: '1fr 1fr', minHeight: 540 }}
+          className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-10 lg:min-h-[540px]"
         >
           {/* Left: text */}
           <div>
@@ -414,7 +413,7 @@ export default function MylinkPortalPage(): ReactElement {
 
         {/* Meta strip */}
         <div className="relative z-10 mt-20 border-t border-border bg-white/50" style={{ backdropFilter: 'blur(10px)' }}>
-          <div className="max-w-[1200px] mx-auto px-8 py-6 grid gap-5" style={{ gridTemplateColumns: 'repeat(5,1fr)' }}>
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
             {[
               ['Client', 'LINK Mobility'],
               ['Sector', 'CPaaS · Enterprise messaging'],
@@ -433,7 +432,7 @@ export default function MylinkPortalPage(): ReactElement {
 
       {/* ── THE SITUATION ─────────────────────────────────────────────── */}
       <section className="py-24 bg-white border-t border-border">
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">01 — The situation</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -448,7 +447,7 @@ export default function MylinkPortalPage(): ReactElement {
 
       {/* ── CALLOUT ───────────────────────────────────────────────────── */}
       <section className="bg-ink py-16 lg:py-20">
-        <div className="max-w-[1200px] mx-auto px-8 reveal">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 reveal">
           <p className="font-serif text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.35] text-paper">
             The people who most needed this change were the most exhausted by the fact that it hadn&apos;t happened yet.{' '}
             <em style={{ color: 'rgba(246,245,240,0.5)' }}>That was the environment I walked into.</em>
@@ -458,7 +457,7 @@ export default function MylinkPortalPage(): ReactElement {
 
       {/* ── MY ROLE & SCOPE ───────────────────────────────────────────── */}
       <section className="py-24 bg-white border-t border-border">
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">02 — My role &amp; scope</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -466,7 +465,7 @@ export default function MylinkPortalPage(): ReactElement {
               <span className="text-ink-secondary font-normal">Building product, team, and process simultaneously.</span>
             </h2>
           </div>
-          <div className="grid gap-4 max-w-[1100px] mx-auto" style={{ gridTemplateColumns: 'repeat(3,1fr)' }}>
+          <div className="grid gap-4 max-w-[1100px] mx-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {ROLE_CARDS.map((card, i) => (
               <div
                 key={card.title}
@@ -486,7 +485,7 @@ export default function MylinkPortalPage(): ReactElement {
 
       {/* ── HOW I APPROACHED IT ───────────────────────────────────────── */}
       <section className="py-24 bg-white border-t border-border">
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mb-20 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">03 — How I approached it</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -541,8 +540,8 @@ export default function MylinkPortalPage(): ReactElement {
                 </div>
               </div>
               <div className="lg:sticky lg:top-24">
-                <div className="grid gap-px bg-border border border-border rounded-xl overflow-hidden shadow-[0_12px_40px_-12px_rgba(20,14,40,0.12)]" style={{ gridTemplateColumns: '1.4fr 1fr' }}>
-                  <div className="bg-white p-7">
+                <div className="grid gap-px bg-border border border-border rounded-xl overflow-hidden shadow-[0_12px_40px_-12px_rgba(20,14,40,0.12)] grid-cols-1 sm:grid-cols-[1.4fr_1fr]">
+                  <div className="bg-white p-5 sm:p-7">
                     <div className="pb-5 mb-4 border-b border-border">
                       <span className="inline-block text-[10px] font-semibold tracking-label uppercase text-accent bg-[#F3EFFC] px-2 py-1 rounded mb-3">PRD · Confluence</span>
                       <div className="font-serif text-[1.375rem] font-medium text-ink leading-snug tracking-[-0.01em] mb-1">CPaaS Portal &amp; APIs</div>
@@ -557,7 +556,7 @@ export default function MylinkPortalPage(): ReactElement {
                       ))}
                     </div>
                   </div>
-                  <div className="bg-[#FAFAF7] p-7 flex flex-col gap-5">
+                  <div className="bg-[#FAFAF7] p-5 sm:p-7 flex flex-col gap-5">
                     {[
                       { label: 'Owner', value: 'Patricia · Head of Product' },
                       { label: 'Status', value: 'Live · referenced', live: true },
@@ -640,7 +639,7 @@ export default function MylinkPortalPage(): ReactElement {
                     <strong className="text-ink font-medium">Clients began requesting it themselves.</strong>
                   </p>
                 </div>
-                <div className="mt-8 flex items-stretch gap-3 p-6 bg-white border border-border rounded-xl">
+                <div className="mt-8 flex flex-col sm:flex-row sm:items-stretch gap-4 sm:gap-3 p-5 sm:p-6 bg-white border border-border rounded-xl">
                   {[
                     { label: 'Connect data', sub: 'Existing data visible in portal' },
                     { label: 'Earn the login', sub: 'Daily access · familiar surface' },
@@ -654,7 +653,7 @@ export default function MylinkPortalPage(): ReactElement {
                         <div className="text-2xs text-ink-secondary leading-[1.4]">{step.sub}</div>
                       </div>
                       {i < 3 && (
-                        <svg className="text-ink-tertiary flex-none self-center" width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden>
+                        <svg className="text-ink-tertiary flex-none self-center hidden sm:block" width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden>
                           <path d="M1 7H18M18 7L13 2M18 7L13 12" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                       )}
@@ -697,7 +696,7 @@ export default function MylinkPortalPage(): ReactElement {
 
       {/* ── RESULTS ───────────────────────────────────────────────────── */}
       <section className="py-24 bg-white border-t border-border" id="results">
-        <div className="max-w-[1200px] mx-auto px-8 mb-16">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 mb-16">
           <div className="max-w-[800px] mx-auto text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">05 — Results</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -709,7 +708,7 @@ export default function MylinkPortalPage(): ReactElement {
 
         <ResultsStrip results={RESULTS} />
 
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mt-16 space-y-5">
             <p className="text-body leading-[1.65] text-ink-secondary reveal">
               Support teams now have a single surface to manage client issues — and have become advocates for the portal, not resistors. Product managers across the company have started embedding UX research into their own processes. The provisioning and invoice unification means billing exceptions are an anomaly rather than a daily fire.
@@ -732,7 +731,7 @@ export default function MylinkPortalPage(): ReactElement {
           color: '#F6F5F0',
         }}
       >
-        <div className="max-w-[1200px] mx-auto px-8 relative z-10">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">06 — What I learned</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-fluid-md" style={{ color: '#F6F5F0' }}>

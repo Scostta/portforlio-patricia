@@ -96,8 +96,7 @@ export default function CasesPage(): ReactElement {
 
         {/* Two-column layout */}
         <div
-          className="relative z-10 mx-auto px-8 grid items-center gap-10"
-          style={{ maxWidth: 1280, gridTemplateColumns: '1fr 1fr', minHeight: 540 }}
+          className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-10 lg:min-h-[540px]"
         >
           {/* Left: text */}
           <div>
@@ -173,7 +172,7 @@ export default function CasesPage(): ReactElement {
           </div>
 
           {/* Right: scattered mosaic */}
-          <div className="hidden md:block animate-fade-up [animation-delay:300ms]">
+          <div className="hidden lg:block animate-fade-up [animation-delay:300ms]">
             <div className="relative" style={{ height: 540 }}>
               {CASE_IMAGES.map((img, i) => {
                 const m = MOSAIC[i]
@@ -210,7 +209,7 @@ export default function CasesPage(): ReactElement {
 
         {/* Meta strip */}
         <div className="relative z-10 mt-20 border-t border-border bg-white/50" style={{ backdropFilter: 'blur(10px)' }}>
-          <div className="max-w-[1200px] mx-auto px-8 py-6 grid gap-5" style={{ gridTemplateColumns: 'repeat(5,1fr)' }}>
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
             {[
               ['Discipline', 'Product · UX · GTM'],
               ['Industries', 'MarTech · SaaS · Telco'],

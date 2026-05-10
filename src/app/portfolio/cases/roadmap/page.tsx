@@ -128,8 +128,7 @@ export default function RoadmapPage(): ReactElement {
 
         {/* Two-column layout */}
         <div
-          className="relative z-10 mx-auto px-8 grid items-center gap-10"
-          style={{ maxWidth: 1280, gridTemplateColumns: '1fr 1fr', minHeight: 540 }}
+          className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-10 lg:min-h-[540px]"
         >
           {/* Left: text */}
           <div>
@@ -240,7 +239,7 @@ export default function RoadmapPage(): ReactElement {
 
         {/* Meta strip */}
         <div className="relative z-10 mt-20 border-t border-border bg-white/50" style={{ backdropFilter: 'blur(10px)' }}>
-          <div className="max-w-[1200px] mx-auto px-8 py-6 grid gap-5" style={{ gridTemplateColumns: 'repeat(5,1fr)' }}>
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
             {[
               ['Client', 'LINK Mobility'],
               ['Product', 'MyLINK Portal'],
@@ -259,7 +258,7 @@ export default function RoadmapPage(): ReactElement {
 
       {/* ── THE SITUATION ────────────────────────────────────────────── */}
       <section className="bg-white border-t border-border py-20 lg:py-24">
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">01 — The situation</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -299,7 +298,7 @@ export default function RoadmapPage(): ReactElement {
 
       {/* ── CALLOUT ──────────────────────────────────────────────────── */}
       <section className="bg-ink py-16 lg:py-20">
-        <div className="max-w-[1200px] mx-auto px-8 reveal">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 reveal">
           <p className="font-serif text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.35] text-paper">
             The roadmap isn&apos;t just a planning document. It&apos;s an agreement.{' '}
             <em style={{ color: 'rgba(246,245,240,0.5)' }}>If two teams are looking at different documents, they&apos;ve made two different agreements — and they don&apos;t know it yet.</em>
@@ -309,7 +308,7 @@ export default function RoadmapPage(): ReactElement {
 
       {/* ── HOW I REBUILT IT ─────────────────────────────────────────── */}
       <section className="bg-white border-t border-border py-24" id="approach">
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mb-20 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">02 — How I rebuilt it</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -454,7 +453,7 @@ export default function RoadmapPage(): ReactElement {
 
       {/* ── RESULTS ──────────────────────────────────────────────────── */}
       <section className="py-24 bg-white border-t border-border" id="results">
-        <div className="max-w-[1200px] mx-auto px-8 mb-16">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 mb-16">
           <div className="max-w-[800px] mx-auto text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">03 — Results</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -466,7 +465,7 @@ export default function RoadmapPage(): ReactElement {
 
         <ResultsStrip results={RESULTS} />
 
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mt-16 space-y-5">
             <p className="text-body leading-[1.65] text-ink-secondary reveal">
               The current roadmap for MyLINK Portal runs quarterly in Product Plan with a full-year view, structured
@@ -490,7 +489,7 @@ export default function RoadmapPage(): ReactElement {
           color: '#F6F5F0',
         }}
       >
-        <div className="max-w-[1200px] mx-auto px-8 relative z-10">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">04 — What I learned</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-fluid-md" style={{ color: '#F6F5F0' }}>
