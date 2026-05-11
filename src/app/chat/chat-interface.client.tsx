@@ -439,7 +439,7 @@ export function ChatInterface({
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [])
 
-  useEffect(() => { scrollToBottom() }, [messages, isTyping, scrollToBottom])
+  useEffect(() => { scrollToBottom() }, [messages, isTyping, loadingMessages, scrollToBottom])
 
   // Focus bottom input after transition
   useEffect(() => {
@@ -585,7 +585,7 @@ export function ChatInterface({
   }
 
   return (
-    <div className="flex flex-col h-dvh bg-[#1a1a1a]">
+    <div className="flex flex-col h-full bg-[#1a1a1a]">
       {/* Toast */}
       {toast && (
         <div

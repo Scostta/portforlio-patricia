@@ -2,6 +2,7 @@ import type { ReactElement, ReactNode } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { CaseImages } from '~/components/image-lightbox.client'
 import { CASES_META } from '~/constants/cases'
 import { CasePdfViewer } from '~/components/case-pdf-viewer.client'
 import { ResultsStrip } from '~/components/results-strip.client'
@@ -128,8 +129,7 @@ export default function RoadmapPage(): ReactElement {
 
         {/* Two-column layout */}
         <div
-          className="relative z-10 mx-auto px-8 grid items-center gap-10"
-          style={{ maxWidth: 1280, gridTemplateColumns: '1fr 1fr', minHeight: 540 }}
+          className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-10 lg:min-h-[540px]"
         >
           {/* Left: text */}
           <div>
@@ -192,24 +192,6 @@ export default function RoadmapPage(): ReactElement {
               ))}
             </div>
 
-            {/* CTAs */}
-            <div className="flex gap-3 flex-wrap animate-fade-up [animation-delay:640ms]">
-              <a
-                href="#approach"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-ink text-paper text-sm font-medium transition-all duration-300 hover:bg-accent hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(102,103,171,0.28)]"
-              >
-                Read the case
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </a>
-              <a
-                href="#results"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-ink bg-white/60 border border-border text-sm font-medium transition-all duration-200 hover:bg-white/90 hover:border-ink/30"
-              >
-                Skip to results
-              </a>
-            </div>
           </div>
 
           {/* Right: Product Plan roadmap screenshot */}
@@ -240,7 +222,7 @@ export default function RoadmapPage(): ReactElement {
 
         {/* Meta strip */}
         <div className="relative z-10 mt-20 border-t border-border bg-white/50" style={{ backdropFilter: 'blur(10px)' }}>
-          <div className="max-w-[1200px] mx-auto px-8 py-6 grid gap-5" style={{ gridTemplateColumns: 'repeat(5,1fr)' }}>
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
             {[
               ['Client', 'LINK Mobility'],
               ['Product', 'MyLINK Portal'],
@@ -259,7 +241,7 @@ export default function RoadmapPage(): ReactElement {
 
       {/* ── THE SITUATION ────────────────────────────────────────────── */}
       <section className="bg-white border-t border-border py-20 lg:py-24">
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">01 — The situation</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -299,7 +281,7 @@ export default function RoadmapPage(): ReactElement {
 
       {/* ── CALLOUT ──────────────────────────────────────────────────── */}
       <section className="bg-ink py-16 lg:py-20">
-        <div className="max-w-[1200px] mx-auto px-8 reveal">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 reveal">
           <p className="font-serif text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.35] text-paper">
             The roadmap isn&apos;t just a planning document. It&apos;s an agreement.{' '}
             <em style={{ color: 'rgba(246,245,240,0.5)' }}>If two teams are looking at different documents, they&apos;ve made two different agreements — and they don&apos;t know it yet.</em>
@@ -309,7 +291,7 @@ export default function RoadmapPage(): ReactElement {
 
       {/* ── HOW I REBUILT IT ─────────────────────────────────────────── */}
       <section className="bg-white border-t border-border py-24" id="approach">
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mb-20 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">02 — How I rebuilt it</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -344,16 +326,7 @@ export default function RoadmapPage(): ReactElement {
                 </div>
               </div>
               <div className="lg:sticky lg:top-24">
-                <div className="rounded-xl overflow-hidden border border-border shadow-[0_8px_32px_-8px_rgba(19,19,16,0.10)]">
-                  <Image
-                    src="/cases/03/01_roadmap_2021_miro.jpg"
-                    alt="Version 1 roadmap in Miro, 2021"
-                    width={640}
-                    height={400}
-                    className="w-full h-auto block"
-                    quality={100}
-                  />
-                </div>
+                <CaseImages images={[{ src: '/cases/03/01_roadmap_2021_miro.jpg', alt: 'Version 1 roadmap in Miro, 2021' }]} />
               </div>
             </div>
 
@@ -380,16 +353,7 @@ export default function RoadmapPage(): ReactElement {
                 </div>
               </div>
               <div className="lg:sticky lg:top-24">
-                <div className="rounded-xl overflow-hidden border border-border shadow-[0_8px_32px_-8px_rgba(19,19,16,0.10)]">
-                  <Image
-                    src="/cases/03/02_roadmap_2026_productplan.jpg"
-                    alt="Version 2 roadmap in Product Plan, 2026"
-                    width={640}
-                    height={400}
-                    className="w-full h-auto block"
-                    quality={100}
-                  />
-                </div>
+                <CaseImages images={[{ src: '/cases/03/02_roadmap_2026_productplan.jpg', alt: 'Version 2 roadmap in Product Plan, 2026' }]} />
               </div>
             </div>
 
@@ -417,30 +381,23 @@ export default function RoadmapPage(): ReactElement {
                 </div>
               </div>
               <div className="lg:sticky lg:top-24">
-                <div className="rounded-xl overflow-hidden border border-border shadow-[0_8px_32px_-8px_rgba(19,19,16,0.10)]">
-                  <Image
-                    src="/cases/03/impact-value-matrix.png"
-                    alt="Impact Value Matrix scoring framework"
-                    width={640}
-                    height={400}
-                    className="w-full h-auto block"
-                    quality={100}
-                  />
-                </div>
+                <CaseImages images={[{ src: '/cases/03/impact-value-matrix.png', alt: 'Impact Value Matrix scoring framework' }]} />
               </div>
             </div>
 
             {/* Planning cycle PDF */}
-            <div className="py-16 reveal">
-              <div className="max-w-[800px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
+              <div>
                 <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">The planning cycle</div>
-                <p className="text-mid leading-[1.85] text-ink-secondary mb-8">
+                <p className="text-mid leading-[1.85] text-ink-secondary">
                   A system is only as good as the process that maintains it. I defined a roadmap planning cycle that
                   starts 6 weeks before the end of each quarter: global research across product, UX and tech;
                   negotiation between teams on priorities and resources; communication to stakeholders; triggering of
                   first sprint tasks; and ongoing follow-up. This rhythm meant the roadmap was always being prepared
                   for the next quarter while the current one was being executed.
                 </p>
+              </div>
+              <div className="lg:sticky lg:top-24">
                 <CasePdfViewer
                   href="/cases/03/GP-How_Product_Managers_do_roadmaps-080426-124208.pdf"
                   label="How Product Managers Do Roadmaps"
@@ -454,7 +411,7 @@ export default function RoadmapPage(): ReactElement {
 
       {/* ── RESULTS ──────────────────────────────────────────────────── */}
       <section className="py-24 bg-white border-t border-border" id="results">
-        <div className="max-w-[1200px] mx-auto px-8 mb-16">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 mb-16">
           <div className="max-w-[800px] mx-auto text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">03 — Results</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -464,9 +421,11 @@ export default function RoadmapPage(): ReactElement {
           </div>
         </div>
 
-        <ResultsStrip results={RESULTS} />
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <ResultsStrip results={RESULTS} />
+        </div>
 
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mt-16 space-y-5">
             <p className="text-body leading-[1.65] text-ink-secondary reveal">
               The current roadmap for MyLINK Portal runs quarterly in Product Plan with a full-year view, structured
@@ -490,7 +449,7 @@ export default function RoadmapPage(): ReactElement {
           color: '#F6F5F0',
         }}
       >
-        <div className="max-w-[1200px] mx-auto px-8 relative z-10">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">04 — What I learned</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-fluid-md" style={{ color: '#F6F5F0' }}>

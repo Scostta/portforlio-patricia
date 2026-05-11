@@ -35,7 +35,7 @@ function ChatsListView({
     : sessions
 
   return (
-    <div className="flex flex-col h-[calc(100dvh-2rem)] mt-8 bg-[#1a1a1a]">
+    <div className="flex flex-col h-full bg-[#1a1a1a]">
       <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:hidden" style={{ scrollbarWidth: 'none' }}>
         <div className="max-w-2xl mx-auto px-6 sm:px-8 py-10">
 

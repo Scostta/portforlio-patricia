@@ -2,6 +2,7 @@ import type { ReactElement } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { CaseImages } from '~/components/image-lightbox.client'
 import { CASES_META } from '~/constants/cases'
 import { CasePdfViewer } from '~/components/case-pdf-viewer.client'
 import { ResultsStrip } from '~/components/results-strip.client'
@@ -103,8 +104,7 @@ export default function EngageGtmPage(): ReactElement {
 
         {/* Two-column layout */}
         <div
-          className="relative z-10 mx-auto px-8 grid items-center gap-10"
-          style={{ maxWidth: 1280, gridTemplateColumns: '1fr 1fr', minHeight: 540 }}
+          className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-10 lg:min-h-[540px]"
         >
           {/* Left: text */}
           <div>
@@ -167,24 +167,6 @@ export default function EngageGtmPage(): ReactElement {
               ))}
             </div>
 
-            {/* CTAs */}
-            <div className="flex gap-3 flex-wrap animate-fade-up [animation-delay:640ms]">
-              <a
-                href="#approach"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-ink text-paper text-sm font-medium transition-all duration-300 hover:bg-accent hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(102,103,171,0.28)]"
-              >
-                Read the case
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </a>
-              <a
-                href="#results"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-ink bg-white/60 border border-border text-sm font-medium transition-all duration-200 hover:bg-white/90 hover:border-ink/30"
-              >
-                Skip to results
-              </a>
-            </div>
           </div>
 
           {/* Right: Engage roadmap image */}
@@ -224,7 +206,7 @@ export default function EngageGtmPage(): ReactElement {
 
         {/* Meta strip */}
         <div className="relative z-10 mt-20 border-t border-border bg-white/50" style={{ backdropFilter: 'blur(10px)' }}>
-          <div className="max-w-[1200px] mx-auto px-8 py-6 grid gap-5" style={{ gridTemplateColumns: 'repeat(5,1fr)' }}>
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
             {[
               ['Client', 'LINK Mobility'],
               ['Product', 'MyLINK Engage'],
@@ -243,7 +225,7 @@ export default function EngageGtmPage(): ReactElement {
 
       {/* ── THE SITUATION ────────────────────────────────────────────── */}
       <section className="bg-white border-t border-border py-20 lg:py-24">
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">01 — The situation</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -276,8 +258,8 @@ export default function EngageGtmPage(): ReactElement {
                   { head: 'Support', body: 'Nordic support teams had no knowledge of the product — they needed training, documentation, escalation paths, and a clear split between what they could resolve vs. what required Germany.' },
                   { head: 'Features', body: 'Some capabilities that existed in the German product were not available or relevant for Nordic customers. Understanding which was which required deep collaboration with the German PM.' },
                 ].map((item) => (
-                  <li key={item.head} className="flex items-start gap-4 p-4 rounded-xl border border-border bg-paper/40">
-                    <span className="text-2xs font-bold tracking-widest uppercase text-accent mt-0.5 min-w-[80px]">{item.head}</span>
+                  <li key={item.head} className="flex flex-col sm:flex-row sm:items-start gap-2 sm:gap-4 p-4 rounded-xl border border-accent/20 bg-accent/[0.05]">
+                    <span className="text-2xs font-bold tracking-widest uppercase text-accent sm:min-w-[90px] flex-shrink-0 pt-0.5">{item.head}</span>
                     <span className="text-mid leading-[1.75] text-ink-secondary">{item.body}</span>
                   </li>
                 ))}
@@ -301,7 +283,7 @@ export default function EngageGtmPage(): ReactElement {
 
       {/* ── CALLOUT ──────────────────────────────────────────────────── */}
       <section className="bg-ink py-16 lg:py-20">
-        <div className="max-w-[1200px] mx-auto px-8 reveal">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 reveal">
           <p className="font-serif text-[clamp(1.5rem,2.6vw,2.25rem)] leading-[1.35] text-paper">
             The best collaboration I had on this project happened when I stopped being &ldquo;the group PM&rdquo; and
             started being a colleague with the same problems.{' '}
@@ -312,7 +294,7 @@ export default function EngageGtmPage(): ReactElement {
 
       {/* ── HOW WE EXECUTED THE GTM ──────────────────────────────────── */}
       <section className="bg-white border-t border-border py-24" id="approach">
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mb-20 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">02 — How we executed the GTM</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -341,20 +323,8 @@ export default function EngageGtmPage(): ReactElement {
                     before they could become launch failures.
                   </p>
                 </div>
-              </div>
-              <div className="lg:sticky lg:top-24">
-                <CasePdfViewer
-                  href="/cases/04/GP-myLINK_Engage._WebSMS_as_is._Discovery._Commercial-080426-144855.pdf"
-                  label="WebSMS As-Is Discovery — Commercial"
-                />
-              </div>
-            </div>
-
-            {/* Step 02 */}
-            <div className="py-16 reveal">
-              <div className="max-w-[800px] mx-auto">
-                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">02 — Defining group-ready</div>
-                <div className="space-y-4 text-mid leading-[1.85] text-ink-secondary">
+                <div className="mt-8 space-y-4 text-mid leading-[1.85] text-ink-secondary">
+                  <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">02 — Defining group-ready</div>
                   <p>
                     One of my most important contributions was defining the criteria a product had to meet before it
                     could enter the group portal. For Engage, this meant: unified provisioning through Salesforce
@@ -368,6 +338,12 @@ export default function EngageGtmPage(): ReactElement {
                     the same bar as everything else.
                   </p>
                 </div>
+              </div>
+              <div className="lg:sticky lg:top-24">
+                <CasePdfViewer
+                  href="/cases/04/GP-myLINK_Engage._WebSMS_as_is._Discovery._Commercial-080426-144855.pdf"
+                  label="WebSMS As-Is Discovery — Commercial"
+                />
               </div>
             </div>
 
@@ -396,16 +372,7 @@ export default function EngageGtmPage(): ReactElement {
                 </div>
               </div>
               <div className="lg:sticky lg:top-24">
-                <div className="rounded-xl overflow-hidden border border-border shadow-[0_8px_32px_-8px_rgba(19,19,16,0.10)]">
-                  <Image
-                    src="/cases/04/01_engage_roadmap_2024_2027.jpg"
-                    alt="MyLINK Engage roadmap 2024–2027"
-                    width={640}
-                    height={400}
-                    className="w-full h-auto block"
-                    quality={100}
-                  />
-                </div>
+                <CaseImages images={[{ src: '/cases/04/01_engage_roadmap_2024_2027.jpg', alt: 'MyLINK Engage roadmap 2024–2027' }]} />
               </div>
             </div>
 
@@ -435,7 +402,7 @@ export default function EngageGtmPage(): ReactElement {
 
       {/* ── RESULTS ──────────────────────────────────────────────────── */}
       <section className="py-24 bg-white border-t border-border" id="results">
-        <div className="max-w-[1200px] mx-auto px-8 mb-16">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 mb-16">
           <div className="max-w-[800px] mx-auto text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">03 — Results</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-ink text-fluid-md">
@@ -445,9 +412,11 @@ export default function EngageGtmPage(): ReactElement {
           </div>
         </div>
 
-        <ResultsStrip results={RESULTS} />
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <ResultsStrip results={RESULTS} />
+        </div>
 
-        <div className="max-w-[1200px] mx-auto px-8">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mt-16 space-y-5">
             <p className="text-body leading-[1.65] text-ink-secondary reveal">
               The GTM I led in 2024 was the foundation, not the finish line. The roadmap that followed — NEXT migration,
@@ -469,7 +438,7 @@ export default function EngageGtmPage(): ReactElement {
           color: '#F6F5F0',
         }}
       >
-        <div className="max-w-[1200px] mx-auto px-8 relative z-10">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-[800px] mx-auto mb-16 text-center reveal">
             <div className="text-xs font-semibold tracking-label uppercase text-accent mb-4">04 — What I learned</div>
             <h2 className="font-serif font-medium leading-[1.1] tracking-[-0.02em] text-fluid-md" style={{ color: '#F6F5F0' }}>

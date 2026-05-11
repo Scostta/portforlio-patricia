@@ -1,3 +1,4 @@
+import React from 'react'
 import type { ReactElement } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -18,13 +19,15 @@ const CASE_IMAGES = [
   { number: '06', src: '/cases/06/adi-tool-1.png',                   alt: 'Alqua Digital Index — ranking tool',              pos: 'object-top'    },
 ]
 
-const MOSAIC = [
-  { top:  -5, left:   0, width: 258, height: 192, rotate:  '-6deg', z: 3 },
-  { top:  40, left: 295, width: 145, height: 115, rotate:  '15deg', z: 4 },
-  { top: 178, left: -10, width: 182, height: 198, rotate: '-14deg', z: 2 },
-  { top: 138, left: 235, width: 252, height: 182, rotate:   '6deg', z: 5 },
-  { top: 378, left:  55, width: 175, height: 138, rotate: '-13deg', z: 3 },
-  { top: 315, left: 250, width: 225, height: 182, rotate:  '12deg', z: 4 },
+const Z_OFFSETS = [14, 4, 20, 2, 10, 16]
+// delay and duration per card — non-sequential order so they don't arrive as a pack
+const CARD_ANIMS = [
+  { delay: 360, dur: 920 },   // card 0: third wave
+  { delay: 600, dur: 860 },   // card 1: fifth
+  { delay: 80,  dur: 1000 },  // card 2: first
+  { delay: 740, dur: 880 },   // card 3: sixth
+  { delay: 210, dur: 950 },   // card 4: second
+  { delay: 490, dur: 900 },   // card 5: fourth
 ]
 
 export default function CasesPage(): ReactElement {
@@ -53,7 +56,7 @@ export default function CasesPage(): ReactElement {
       </div>
 
       {/* ── HERO ──────────────────────────────────────────────────────── */}
-      <header className="relative pt-20 pb-0 overflow-hidden bg-white isolate">
+      <header className="relative pt-8 pb-0 overflow-hidden bg-white isolate">
         {/* Mesh gradient orbs */}
         <div aria-hidden className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <div
@@ -96,8 +99,7 @@ export default function CasesPage(): ReactElement {
 
         {/* Two-column layout */}
         <div
-          className="relative z-10 mx-auto px-8 grid items-center gap-10"
-          style={{ maxWidth: 1280, gridTemplateColumns: '1fr 1fr', minHeight: 540 }}
+          className="relative z-10 mx-auto px-4 sm:px-6 lg:px-8 max-w-[1280px] grid grid-cols-1 lg:grid-cols-2 items-center gap-8 lg:gap-10 lg:min-h-[540px]"
         >
           {/* Left: text */}
           <div>
@@ -172,45 +174,48 @@ export default function CasesPage(): ReactElement {
             </div>
           </div>
 
-          {/* Right: scattered mosaic */}
-          <div className="hidden md:block animate-fade-up [animation-delay:300ms]">
-            <div className="relative" style={{ height: 540 }}>
-              {CASE_IMAGES.map((img, i) => {
-                const m = MOSAIC[i]
-                return (
-                  <div
-                    key={img.number}
-                    className="absolute group/card"
-                    style={{
-                      top: m.top, left: m.left, width: m.width, height: m.height,
-                      transform: `rotate(${m.rotate})`,
-                      zIndex: m.z,
-                    }}
-                  >
-                    <div className="relative w-full h-full overflow-hidden rounded-xl border-[3px] border-white shadow-[0_8px_28px_rgba(20,14,40,0.18),0_2px_8px_rgba(20,14,40,0.10)] transition-all duration-500 group-hover/card:scale-[1.06] group-hover/card:shadow-[0_16px_48px_rgba(20,14,40,0.26)]">
-                      <Image
-                        src={img.src}
-                        alt={img.alt}
-                        fill
-                        className={`object-cover ${img.pos} transition-transform duration-700 group-hover/card:scale-105`}
-                        quality={90}
-                        sizes="220px"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                      <span className="absolute bottom-2 left-2.5 text-[9px] font-bold tracking-widest uppercase text-white/90 bg-black/35 backdrop-blur-sm px-1.5 py-0.5 rounded">
-                        {img.number}
-                      </span>
-                    </div>
-                  </div>
-                )
-              })}
+          {/* Right: 3D perspective grid */}
+          <div
+            className="hidden lg:flex items-center justify-center animate-fade-up [animation-delay:300ms]"
+            style={{ perspective: '1100px', perspectiveOrigin: '55% 45%' }}
+          >
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 186px)',
+                gridTemplateRows: 'repeat(2, 166px)',
+                gap: '14px',
+                transformStyle: 'preserve-3d',
+                animation: 'mosaic-float 10s ease-in-out infinite',
+              }}
+            >
+              {CASE_IMAGES.map((img, i) => (
+                <div
+                  key={img.src}
+                  className="mosaic-card relative overflow-hidden rounded-xl border-[3px] border-white shadow-[0_8px_28px_rgba(20,14,40,0.20),0_2px_8px_rgba(20,14,40,0.10)]"
+                  style={{
+                    '--tz': `${Z_OFFSETS[i]}px`,
+                    animation: `mosaic-card-in ${CARD_ANIMS[i].dur}ms cubic-bezier(0.16,1,0.3,1) ${CARD_ANIMS[i].delay}ms backwards`,
+                  } as React.CSSProperties}
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    className={`object-cover ${img.pos}`}
+                    quality={90}
+                    sizes="186px"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" />
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
         {/* Meta strip */}
         <div className="relative z-10 mt-20 border-t border-border bg-white/50" style={{ backdropFilter: 'blur(10px)' }}>
-          <div className="max-w-[1200px] mx-auto px-8 py-6 grid gap-5" style={{ gridTemplateColumns: 'repeat(5,1fr)' }}>
+          <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
             {[
               ['Discipline', 'Product · UX · GTM'],
               ['Industries', 'MarTech · SaaS · Telco'],
@@ -231,6 +236,30 @@ export default function CasesPage(): ReactElement {
       <div id="cases">
         <CasesBento />
       </div>
+
+      {/* ── AI Portfolio Assistant ────────────────────────────────────── */}
+      <section className="bg-[#0f0f0f] py-16 lg:py-20">
+        <div className="max-w-[860px] mx-auto px-6 text-center">
+          <p className="text-[10px] font-semibold tracking-[0.18em] uppercase text-white/30 mb-5">
+            AI Portfolio Assistant
+          </p>
+          <h2 className="font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-normal leading-[1.1] tracking-[-0.03em] text-white mb-4">
+            Ask AI about the cases
+          </h2>
+          <p className="text-sm text-white/45 leading-[1.65] mb-8 max-w-[44ch] mx-auto">
+            Ask the AI Portfolio&apos;s Assistant about the cases, process, decisions and background.
+          </p>
+          <Link
+            href="/chat"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/10 text-white text-sm font-medium border border-white/15 transition-all duration-300 hover:bg-white/15 hover:border-white/25 hover:-translate-y-0.5"
+          >
+            Start chatting
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+              <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
+        </div>
+      </section>
     </>
   )
 }
