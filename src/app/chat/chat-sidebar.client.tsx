@@ -191,9 +191,9 @@ export function ChatSidebar({
 
       <aside
         className={cn(
-          'fixed top-0 left-0 h-full bg-[#161616] border-r border-white/[0.06] flex flex-col z-40',
+          'fixed top-8 left-0 h-[calc(100dvh-2rem)] bg-[#161616] border-r border-white/[0.06] flex flex-col z-40',
           'transition-[width,transform] duration-300 ease-out-expo',
-          'lg:relative lg:translate-x-0 lg:z-auto lg:shrink-0',
+          'lg:relative lg:top-auto lg:left-auto lg:h-full lg:translate-x-0 lg:z-auto lg:shrink-0',
           isOpen ? 'translate-x-0' : '-translate-x-full',
           isCollapsed ? 'w-14' : 'w-60',
         )}
@@ -305,23 +305,6 @@ export function ChatSidebar({
         {/* Spacer when collapsed so footer stays at bottom */}
         {isCollapsed && <div className="flex-1" />}
 
-        {/* Footer */}
-        <div className={cn('shrink-0 pb-5 pt-2 border-t border-white/[0.06]', isCollapsed ? 'px-2' : 'px-3')}>
-          <Link
-            href="/"
-            title={isCollapsed ? 'Home' : undefined}
-            className={cn(
-              'flex items-center rounded-lg text-sm text-white/50 hover:text-white/70 hover:bg-white/[0.07] transition-all duration-150',
-              isCollapsed ? 'justify-center p-2' : 'gap-2 px-3 py-2',
-            )}
-          >
-            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" className="shrink-0">
-              <path d="M2 6.5L8 2l6 4.5V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6.5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-              <path d="M6 15v-5h4v5" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-            </svg>
-            {!isCollapsed && 'Home'}
-          </Link>
-        </div>
       </aside>
     </>
   )

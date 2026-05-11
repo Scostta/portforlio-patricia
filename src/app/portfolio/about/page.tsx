@@ -23,7 +23,7 @@ export default function AboutPage(): ReactElement {
       {/* ── Hero ────────────────────────────────────────────────── */}
       <section className="border-b border-border">
         <div className="px-6 lg:px-10 pt-14 pb-14 max-w-[1400px] mx-auto">
-          <div className="grid lg:grid-cols-[1fr_340px] gap-12 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-[minmax(0,750px)_340px] gap-12 lg:gap-16 items-start">
 
             {/* Left: text content */}
             <div>
@@ -44,9 +44,7 @@ export default function AboutPage(): ReactElement {
 
               {/* Bio */}
               <p className="text-sm leading-relaxed font-light text-ink-secondary max-w-[560px] mb-7 animate-fade-up [animation-delay:280ms]">
-                I'm a Product & Design Leader who builds systems, not just features. Over the past nine years I've worked at the intersection of product strategy, UX, and business — first as co-founder and COO of Alqua, a MarTech startup I helped grow from two people to 40, and since 2021 as VP of UX and Product Manager at LINK Mobility, one of Europe's largest CPaaS platforms.
-                I came to product through business, not design school. My background is in finance and management — which means I've always thought about product decisions in terms of what they cost, what they generate, and what they make possible. That lens shapes everything I do: from a roadmap to a research session to a conversation with a stakeholder who doesn't yet see the value of what we're building.
-                What I enjoy most is the moment when a complex, chaotic situation starts to have a shape. When the team understands the problem they're actually solving. When the process stops feeling like overhead and starts feeling like clarity. That's what I try to create — and it's what the work in this portfolio is really about.
+                I&apos;m a Product &amp; Design Leader with 10+ years at the intersection of strategy, UX and business. Formerly Co-Founder &amp; COO of Alqua — a MarTech startup I helped grow from two people to 40 — and VP of UX at LINK Mobility, one of Europe&apos;s largest CPaaS platforms. I came to product through business, not design school, which means I think about every decision in terms of what it costs, generates, and makes possible.
               </p>
 
               {/* Contact pills */}
@@ -114,48 +112,50 @@ export default function AboutPage(): ReactElement {
         <div className="grid lg:grid-cols-[280px_1fr] gap-10 lg:gap-14 items-start">
 
           {/* ── Sidebar ─────────────────── */}
-          <aside className="flex flex-col gap-2.5">
+          <div className="flex flex-col gap-5">
 
-            <SectionLabel>Skills &amp; Tools</SectionLabel>
+            <aside className="flex flex-col gap-2.5 bg-gradient-secondary rounded-2xl p-5">
+              <SectionLabel>Skills &amp; Tools</SectionLabel>
 
-            {ABOUT_SKILLS.map((skill, i) => (
-              <div
-                key={skill.area}
-                className="bg-white border border-border rounded-[10px] px-4 py-3.5 hover:border-accent/25 hover:shadow-card-hover transition-all duration-200 reveal"
-                style={{ transitionDelay: `${i * 60}ms` }}
-              >
-                <p className="text-micro font-semibold tracking-widest uppercase text-accent mb-2.5">{skill.area}</p>
-                <div className="flex flex-wrap gap-1">
-                  {skill.items.split(' · ').map((tag) => (
-                    <span key={tag} className="text-2xs font-medium text-ink-tertiary border border-border px-1.5 py-0.5 rounded">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-
-            <div className="mt-3">
-              <SectionLabel>Education</SectionLabel>
-            </div>
-            <div className="bg-white border border-border rounded-[10px] overflow-hidden reveal">
-              {EDUCATION.map((edu, i) => (
+              {ABOUT_SKILLS.map((skill, i) => (
                 <div
-                  key={edu.degree}
-                  className={cn('px-4 py-3.5', i > 0 && 'border-t border-border')}
+                  key={skill.area}
+                  className="bg-white border border-border rounded-[10px] px-4 py-3.5 hover:border-accent/25 hover:shadow-card-hover transition-all duration-200 reveal"
+                  style={{ transitionDelay: `${i * 60}ms` }}
                 >
-                  <p className="text-xs font-light text-ink leading-[1.35] mb-1">{edu.degree}</p>
-                  <p className="text-2xs text-ink-tertiary mb-0.5">{edu.school}</p>
-                  <p className="text-2xs text-ink-tertiary/70">{edu.period}{edu.note ? ` · ${edu.note}` : ''}</p>
+                  <p className="text-micro font-semibold tracking-widest uppercase text-accent mb-2.5">{skill.area}</p>
+                  <div className="flex flex-wrap gap-1">
+                    {skill.items.split(' · ').map((tag) => (
+                      <span key={tag} className="text-2xs font-medium text-ink-tertiary border border-border px-1.5 py-0.5 rounded">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               ))}
-            </div>
+            </aside>
 
-          </aside>
+            <aside className="flex flex-col gap-2.5 bg-gradient-secondary rounded-2xl p-5 reveal">
+              <SectionLabel>Background</SectionLabel>
+
+              {PERSONAL_FACTS.map(({ label, value, detail }, i) => (
+                <div
+                  key={label}
+                  className="bg-white border border-border rounded-[10px] px-4 py-3.5 hover:border-accent/25 hover:shadow-card-hover transition-all duration-200"
+                  style={{ transitionDelay: `${(ABOUT_SKILLS.length + i) * 60}ms` }}
+                >
+                  <p className="text-micro font-semibold tracking-widest uppercase text-accent mb-1">{label}</p>
+                  <p className="text-2xs font-medium text-ink leading-snug">{value}</p>
+                  {detail && <p className="text-2xs text-ink-tertiary mt-0.5">{detail}</p>}
+                </div>
+              ))}
+            </aside>
+
+          </div>
 
           {/* ── Experience column ─────────── */}
           <div>
-            <div className="flex items-center gap-4 mb-10">
+            <div className="flex items-center gap-4 mb-8">
               <span className="text-2xs font-semibold tracking-widest uppercase text-ink-tertiary flex-shrink-0">
                 Experience
               </span>
@@ -235,20 +235,14 @@ export default function AboutPage(): ReactElement {
                 )
               })}
             </div>
+
           </div>
         </div>
       </section>
 
       {/* ── Personal ────────────────────────────────────────────── */}
-      <section className="border-t border-border px-6 lg:px-10 py-14 max-w-[1400px] mx-auto">
+      <section className="px-6 lg:px-10 py-14 max-w-[1400px] mx-auto">
 
-        {/* Section header */}
-        <div className="flex items-center gap-4 mb-10">
-          <span className="text-2xs font-semibold tracking-widest uppercase text-ink-tertiary flex-shrink-0">
-            Personal
-          </span>
-          <div className="flex-1 h-px bg-border" />
-        </div>
 
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
 
@@ -276,19 +270,17 @@ export default function AboutPage(): ReactElement {
             </div>
           </div>
 
-          {/* Background & facts */}
+          {/* Education */}
           <div className="reveal [transition-delay:100ms]">
             <p className="text-2xs font-semibold tracking-widest uppercase text-ink-tertiary pb-2.5 border-b border-border mb-5">
-              Background &amp; facts
+              Education
             </p>
-            <div className="flex flex-col gap-4">
-              {PERSONAL_FACTS.map(({ label, value, detail }) => (
-                <div key={label} className="flex items-start gap-4">
-                  <span className="text-micro font-semibold tracking-widest uppercase text-accent w-[96px] flex-shrink-0 pt-0.5">{label}</span>
-                  <div>
-                    <p className="text-sm font-light text-ink leading-snug">{value}</p>
-                    {detail && <p className="text-xs text-ink-tertiary mt-0.5">{detail}</p>}
-                  </div>
+            <div className="flex flex-col gap-6">
+              {EDUCATION.map((edu) => (
+                <div key={edu.degree}>
+                  <p className="text-sm font-medium text-ink leading-snug mb-0.5">{edu.degree}</p>
+                  <p className="text-xs text-ink-secondary mb-0.5">{edu.school}</p>
+                  <p className="text-xs text-ink-tertiary/70">{edu.period}{edu.note ? ` · ${edu.note}` : ''}</p>
                 </div>
               ))}
             </div>
@@ -309,7 +301,7 @@ export default function AboutPage(): ReactElement {
               I&apos;m a kitesurfer based in Tarifa, in the south of Spain — one of the windiest places in
               Europe, which suits me fine. I also paint, abstract work that I sell through my own small
               online business. And occasionally I advise early-stage startups through{' '}
-              <span className="font-medium text-ink">Borkenleg</span>.
+              Borkenleg.
             </p>
           </div>
           <div className="reveal [transition-delay:150ms]">

@@ -2,7 +2,9 @@ import type { ReactElement, ReactNode } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { CaseImages } from '~/components/image-lightbox.client'
 import { CASES_META } from '~/constants/cases'
+import { CasePdfViewer } from '~/components/case-pdf-viewer.client'
 import { ResultsStrip } from '~/components/results-strip.client'
 import { CaseNav } from '~/components/case-nav'
 import type { ResultItem } from '~/components/results-strip.client'
@@ -187,24 +189,6 @@ export default function AlquaDigitalIndexPage(): ReactElement {
               ))}
             </div>
 
-            {/* CTAs */}
-            <div className="flex gap-3 flex-wrap animate-fade-up [animation-delay:640ms]">
-              <a
-                href="#approach"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-ink text-paper text-sm font-medium transition-all duration-300 hover:bg-accent hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(102,103,171,0.28)]"
-              >
-                Read the case
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </a>
-              <a
-                href="#results"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-ink bg-white/60 border border-border text-sm font-medium transition-all duration-200 hover:bg-white/90 hover:border-ink/30"
-              >
-                Skip to results
-              </a>
-            </div>
           </div>
 
           {/* Right: ADI tool screenshot — constrained height to avoid pixelation */}
@@ -279,18 +263,7 @@ export default function AlquaDigitalIndexPage(): ReactElement {
             </p>
 
             {/* Image inline between paragraphs */}
-            <figure className="my-8 reveal">
-              <div className="rounded-xl overflow-hidden border border-border shadow-[0_8px_32px_-8px_rgba(19,19,16,0.12)]">
-                <Image
-                  src="/cases/06/PANTALLAZO_16.png"
-                  alt="Alqua Digital Index — overview screenshot"
-                  width={800}
-                  height={480}
-                  className="w-full h-auto block"
-                  quality={100}
-                />
-              </div>
-            </figure>
+            <CaseImages images={[{ src: '/cases/06/PANTALLAZO_16.png', alt: 'Alqua Digital Index — overview screenshot' }]} />
 
             <p className="text-body leading-[1.85] text-ink-secondary reveal">
               The question we started asking was simple: what if this data didn&apos;t just live inside the product? What
@@ -342,36 +315,35 @@ export default function AlquaDigitalIndexPage(): ReactElement {
                 </div>
               </div>
               <div className="lg:sticky lg:top-24">
-                <div className="rounded-xl overflow-hidden border border-border shadow-[0_8px_32px_-8px_rgba(19,19,16,0.10)]">
-                  <Image
-                    src="/cases/06/adi-tool-1.png"
-                    alt="Alqua Digital Index ranking interface"
-                    width={640}
-                    height={400}
-                    className="w-full h-auto block"
-                    quality={100}
-                  />
-                </div>
+                <CaseImages images={[{ src: '/cases/06/adi-tool-1.png', alt: 'Alqua Digital Index ranking interface' }]} />
               </div>
             </div>
 
             {/* Step 02 — Phase 1: automated report */}
-            <div className="py-16 reveal">
-              <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">02 — Phase 1: the automated report</div>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
-                <p className="text-mid leading-[1.85] text-ink-secondary">
-                  The first version of the ADI was a downloadable report: a designed, data-rich PDF ranking the top
-                  brands in a given industry for a given period. We produced reports by sector — Beauty was one of
-                  the first, analysing 2,650 brands and ranking the Top 200.
-                </p>
-                <div className="border-l-2 border-accent/30 pl-6">
-                  <p className="text-mid leading-[1.85] text-ink-secondary">
-                    The reports were marketed through a landing page with a single conversion wall: to download the full
-                    report, you had to provide your contact details. The content was the incentive. The registration was
-                    the cost. This gave us a qualified list of people who cared about digital brand performance in a
-                    specific industry — exactly the profile of our ideal customer.
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
+              <div>
+                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">02 — Phase 1: the automated report</div>
+                <div className="space-y-4 text-mid leading-[1.85] text-ink-secondary">
+                  <p>
+                    The first version of the ADI was a downloadable report: a designed, data-rich PDF ranking the top
+                    brands in a given industry for a given period. We produced reports by sector — Beauty was one of
+                    the first, analysing 2,650 brands and ranking the Top 200.
                   </p>
+                  <div className="border-l-2 border-accent/30 pl-6">
+                    <p>
+                      The reports were marketed through a landing page with a single conversion wall: to download the full
+                      report, you had to provide your contact details. The content was the incentive. The registration was
+                      the cost. This gave us a qualified list of people who cared about digital brand performance in a
+                      specific industry — exactly the profile of our ideal customer.
+                    </p>
+                  </div>
                 </div>
+              </div>
+              <div className="lg:sticky lg:top-24">
+                <CasePdfViewer
+                  href="/cases/06/Report_Beauty_2020_Q1_Q2.pdf"
+                  label="Alqua Digital Index — Beauty Report Q1/Q2 2020"
+                />
               </div>
             </div>
 
@@ -470,18 +442,7 @@ export default function AlquaDigitalIndexPage(): ReactElement {
             </p>
 
             {/* Image inline between paragraphs */}
-            <figure className="my-8 reveal">
-              <div className="rounded-xl overflow-hidden border border-border shadow-[0_8px_32px_-8px_rgba(19,19,16,0.12)]">
-                <Image
-                  src="/cases/06/adi-tool-2.png"
-                  alt="Alqua Digital Index — live tool with conversion layers"
-                  width={800}
-                  height={480}
-                  className="w-full h-auto block"
-                  quality={100}
-                />
-              </div>
-            </figure>
+            <CaseImages images={[{ src: '/cases/06/adi-tool-2.png', alt: 'Alqua Digital Index — live tool with conversion layers' }]} />
 
             <p className="text-body leading-[1.85] text-ink-secondary reveal">
               This framing came directly from reading about product-led growth and the concept of using the product as
@@ -510,7 +471,9 @@ export default function AlquaDigitalIndexPage(): ReactElement {
           </div>
         </div>
 
-        <ResultsStrip results={RESULTS} />
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <ResultsStrip results={RESULTS} />
+        </div>
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mt-16 space-y-5">

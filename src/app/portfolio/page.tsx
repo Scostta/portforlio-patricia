@@ -68,7 +68,7 @@ export default function PortfolioPage(): ReactElement {
       </div>
 
       {/* ── Hero ────────────────────────────────────────────────── */}
-      <header className="relative pt-20 pb-0 overflow-hidden bg-white isolate">
+      <header className="relative pt-8 pb-0 overflow-hidden bg-white isolate">
         {/* Mesh gradient orbs */}
         <div aria-hidden className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
           <div
@@ -176,23 +176,6 @@ export default function PortfolioPage(): ReactElement {
           </div>
         </div>
 
-        {/* Meta strip */}
-        <div className="relative z-10 border-t border-border bg-white/50" style={{ backdropFilter: 'blur(10px)' }}>
-          <div className="max-w-7xl mx-auto px-6 lg:px-12 py-6 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-5">
-            {[
-              ['Discipline', 'Product · UX · GTM'],
-              ['Industries', 'MarTech · SaaS · Telco'],
-              ['Scope', 'Strategy to delivery'],
-              ['Team scale', 'Solo to 25+ stakeholders'],
-              ['Geography', 'Spain · Nordics · LatAm'],
-            ].map(([k, v], i) => (
-              <div key={k} className="animate-fade-up" style={{ animationDelay: `${720 + i * 80}ms` }}>
-                <div className="text-2xs font-semibold tracking-label uppercase text-ink-tertiary mb-1">{k}</div>
-                <div className="text-sm font-medium text-ink">{v}</div>
-              </div>
-            ))}
-          </div>
-        </div>
       </header>
 
       {/* ── Stats strip ─────────────────────────────────────────── */}

@@ -2,6 +2,7 @@ import type { ReactElement } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { CaseImages } from '~/components/image-lightbox.client'
 import { CASES_META } from '~/constants/cases'
 import { CasePdfViewer } from '~/components/case-pdf-viewer.client'
 import { ResultsStrip } from '~/components/results-strip.client'
@@ -164,24 +165,6 @@ export default function AlquaPricingPage(): ReactElement {
               ))}
             </div>
 
-            {/* CTAs */}
-            <div className="flex gap-3 flex-wrap animate-fade-up [animation-delay:640ms]">
-              <a
-                href="#approach"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-ink text-paper text-sm font-medium transition-all duration-300 hover:bg-accent hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(102,103,171,0.28)]"
-              >
-                Read the case
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </a>
-              <a
-                href="#results"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-ink bg-white/60 border border-border text-sm font-medium transition-all duration-200 hover:bg-white/90 hover:border-ink/30"
-              >
-                Skip to results
-              </a>
-            </div>
           </div>
 
           {/* Right: ad format images stacked */}
@@ -323,33 +306,14 @@ export default function AlquaPricingPage(): ReactElement {
                   </p>
                 </div>
               </div>
-              <div className="lg:sticky lg:top-24 space-y-4">
-                <div className="rounded-xl overflow-hidden border border-border shadow-[0_8px_32px_-8px_rgba(19,19,16,0.10)]">
-                  <Image
-                    src="/cases/05/01_sticky_ad_format.jpg"
-                    alt="Sticky ad format example"
-                    width={640}
-                    height={300}
-                    className="w-full h-auto block"
-                    quality={100}
-                  />
-                </div>
-                <div className="rounded-xl overflow-hidden border border-border shadow-[0_8px_32px_-8px_rgba(19,19,16,0.10)]">
-                  <Image
-                    src="/cases/05/02_inimage_ad_format.jpg"
-                    alt="In-image ad format example"
-                    width={640}
-                    height={300}
-                    className="w-full h-auto block"
-                    quality={100}
-                  />
-                </div>
+              <div className="lg:sticky lg:top-24">
+                <CaseImages images={[{ src: '/cases/05/01_sticky_ad_format.jpg', alt: 'Sticky ad format example' }]} />
               </div>
             </div>
 
             {/* Step 02 */}
-            <div className="py-16 reveal">
-              <div className="max-w-[800px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
+              <div>
                 <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">02 — Optimising the setup</div>
                 <p className="text-mid leading-[1.85] text-ink-secondary">
                   One of our key design decisions was to make the entry point as frictionless as possible. The banner
@@ -358,6 +322,9 @@ export default function AlquaPricingPage(): ReactElement {
                   advantage: if we could go from signature to live placement faster than anyone else, we reduced the
                   risk of deals dying between contract and activation.
                 </p>
+              </div>
+              <div className="lg:sticky lg:top-24">
+                <CaseImages images={[{ src: '/cases/05/02_inimage_ad_format.jpg', alt: 'In-image ad format example' }]} />
               </div>
             </div>
 
@@ -417,7 +384,9 @@ export default function AlquaPricingPage(): ReactElement {
           </div>
         </div>
 
-        <ResultsStrip results={RESULTS} />
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <ResultsStrip results={RESULTS} />
+        </div>
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mt-16 space-y-5">

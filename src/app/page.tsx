@@ -41,7 +41,7 @@ export default function LandingPage(): ReactElement {
 
             {/* Description */}
             <p className="text-fine leading-[1.65] mb-8 text-white/40">
-              Chat with a version of me. Ask about my work, process or decisions.
+              Use AI to learn about my work, process and background.
             </p>
 
             {/* CTA */}
@@ -78,24 +78,19 @@ export default function LandingPage(): ReactElement {
             </p>
 
             {/* Title */}
-            <h2 className="font-serif text-[2.25rem] font-bold leading-tight mb-4" style={{ color: '#131310' }}>
-              Human experience
+            <h2 className="font-serif text-[2.25rem] font-bold leading-tight mb-4 whitespace-nowrap" style={{ color: '#131310' }}>
+              Read the Portfolio
             </h2>
 
             {/* Description */}
             <p className="text-fine leading-[1.65] mb-8 text-black/40">
-              Case studies, process and decisions — structured the traditional way.
+              Read about my work, case studies and more.
             </p>
 
             {/* CTA */}
             <Link href="/portfolio" className="split-btn-light inline-flex items-center gap-1.5 px-5 py-2 text-fine font-medium rounded-full">
               View portfolio →
             </Link>
-
-            {/* Badge */}
-            <p className="split-badge-light mt-5 text-[11px] rounded-full px-3 py-1">
-              6 case studies
-            </p>
           </div>
         </div>
 

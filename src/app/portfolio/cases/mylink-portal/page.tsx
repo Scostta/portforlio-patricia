@@ -6,6 +6,7 @@ import { SituationAccordion } from '~/components/situation-accordion.client'
 import { StepCarousel } from '~/components/step-carousel.client'
 import { ResultsStrip } from '~/components/results-strip.client'
 import { CaseNav } from '~/components/case-nav'
+import { CaseImages } from '~/components/image-lightbox.client'
 import type { SituationPanel } from '~/components/situation-accordion.client'
 
 const TITLE = 'MyLINK Portal'
@@ -374,24 +375,6 @@ export default function MylinkPortalPage(): ReactElement {
               ))}
             </div>
 
-            {/* CTAs */}
-            <div className="flex gap-3 flex-wrap animate-fade-up [animation-delay:640ms]">
-              <a
-                href="#story"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-ink text-paper text-sm font-medium transition-all duration-300 hover:bg-accent hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(102,103,171,0.28)]"
-              >
-                Read the case
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </a>
-              <a
-                href="#results"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-ink bg-white/60 border border-border text-sm font-medium transition-all duration-200 hover:bg-white/90 hover:border-ink/30"
-              >
-                Skip to results
-              </a>
-            </div>
           </div>
 
           {/* Right: portal mockup */}
@@ -519,7 +502,7 @@ export default function MylinkPortalPage(): ReactElement {
                 </div>
               </div>
               <div className="lg:sticky lg:top-24">
-                <StepCarousel images={[{ src: '/cases/01/Commercial_Product_Structure_-_Frame_10.jpg', alt: 'Commercial product structure mapping workshop' }]} />
+                <CaseImages images={[{ src: '/cases/01/Commercial_Product_Structure_-_Frame_10.jpg', alt: 'Commercial product structure mapping workshop' }]} />
               </div>
             </div>
 
@@ -548,7 +531,7 @@ export default function MylinkPortalPage(): ReactElement {
                       <div className="text-fine text-ink-secondary italic">The ultimate product offering for LINK&apos;s customers</div>
                     </div>
                     <div className="flex flex-col">
-                      {['1. Vision & principles','2. In scope · Out of scope','3. Migration & sunset map','4. Value proposition · customer','5. Value proposition · LINK','6. Success metrics','7. Provisioning & invoice rules'].map((item, i) => (
+                      {['1. Vision & principles', '2. In scope · Out of scope', '3. Migration & sunset map', '4. Value proposition · customer', '5. Value proposition · LINK', '6. Success metrics', '7. Provisioning & invoice rules'].map((item, i) => (
                         <div key={i} className="flex justify-between items-baseline py-2 border-b border-dashed border-border last:border-0">
                           <span className="text-fine text-ink">{item}</span>
                           <span className="text-xs text-ink-tertiary tabular-nums">P{(i + 1) * 3}</span>
@@ -621,7 +604,7 @@ export default function MylinkPortalPage(): ReactElement {
                 </div>
               </div>
               <div className="lg:sticky lg:top-24">
-                <StepCarousel images={[{ src: '/cases/01/Commercial_Product_Structure_-_Frame_11.jpg', alt: 'Portal product architecture diagram' }]} />
+                <CaseImages images={[{ src: '/cases/01/Commercial_Product_Structure_-_Frame_11.jpg', alt: 'Portal product architecture diagram' }]} />
               </div>
             </div>
 
@@ -676,14 +659,14 @@ export default function MylinkPortalPage(): ReactElement {
                 </div>
               </div>
               <div className="lg:sticky lg:top-24">
-                <StepCarousel images={[{ src: '/cases/01/portal-architecture.png', alt: 'MyLINK Portal architecture overview' }]} />
+                <CaseImages images={[{ src: '/cases/01/portal-architecture.png', alt: 'MyLINK Portal architecture overview' }]} />
               </div>
             </div>
 
             {/* Step 6: Trust */}
             <div className="py-16 reveal">
               <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">Trust</div>
-              <div className="max-w-prose space-y-4 text-base leading-[1.65] text-ink-secondary">
+              <div className="space-y-4 text-base leading-[1.65] text-ink-secondary">
                 <p>With <strong className="text-ink font-medium">local market managers</strong>: always left conversations with a solution and a concrete action plan — never just a diagnosis. Speed of response built credibility that arguments couldn&apos;t.</p>
                 <p>With the <strong className="text-ink font-medium">engineering team</strong>: showed them — incrementally, specifically — how structure in the roadmap made their work easier. Found allies inside that team and made those people visible.</p>
                 <p>With <strong className="text-ink font-medium">C-level stakeholders</strong>: experimented constantly with format. Presentations, wireframes, metaphors, videos, journeys narrated in the client&apos;s voice. Whatever it took to make the abstract concrete.</p>
@@ -706,7 +689,9 @@ export default function MylinkPortalPage(): ReactElement {
           </div>
         </div>
 
-        <ResultsStrip results={RESULTS} />
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <ResultsStrip results={RESULTS} />
+        </div>
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mt-16 space-y-5">

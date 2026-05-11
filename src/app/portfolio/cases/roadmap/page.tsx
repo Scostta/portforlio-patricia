@@ -2,6 +2,7 @@ import type { ReactElement, ReactNode } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
+import { CaseImages } from '~/components/image-lightbox.client'
 import { CASES_META } from '~/constants/cases'
 import { CasePdfViewer } from '~/components/case-pdf-viewer.client'
 import { ResultsStrip } from '~/components/results-strip.client'
@@ -191,24 +192,6 @@ export default function RoadmapPage(): ReactElement {
               ))}
             </div>
 
-            {/* CTAs */}
-            <div className="flex gap-3 flex-wrap animate-fade-up [animation-delay:640ms]">
-              <a
-                href="#approach"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-ink text-paper text-sm font-medium transition-all duration-300 hover:bg-accent hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(102,103,171,0.28)]"
-              >
-                Read the case
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </a>
-              <a
-                href="#results"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-ink bg-white/60 border border-border text-sm font-medium transition-all duration-200 hover:bg-white/90 hover:border-ink/30"
-              >
-                Skip to results
-              </a>
-            </div>
           </div>
 
           {/* Right: Product Plan roadmap screenshot */}
@@ -343,16 +326,7 @@ export default function RoadmapPage(): ReactElement {
                 </div>
               </div>
               <div className="lg:sticky lg:top-24">
-                <div className="rounded-xl overflow-hidden border border-border shadow-[0_8px_32px_-8px_rgba(19,19,16,0.10)]">
-                  <Image
-                    src="/cases/03/01_roadmap_2021_miro.jpg"
-                    alt="Version 1 roadmap in Miro, 2021"
-                    width={640}
-                    height={400}
-                    className="w-full h-auto block"
-                    quality={100}
-                  />
-                </div>
+                <CaseImages images={[{ src: '/cases/03/01_roadmap_2021_miro.jpg', alt: 'Version 1 roadmap in Miro, 2021' }]} />
               </div>
             </div>
 
@@ -379,16 +353,7 @@ export default function RoadmapPage(): ReactElement {
                 </div>
               </div>
               <div className="lg:sticky lg:top-24">
-                <div className="rounded-xl overflow-hidden border border-border shadow-[0_8px_32px_-8px_rgba(19,19,16,0.10)]">
-                  <Image
-                    src="/cases/03/02_roadmap_2026_productplan.jpg"
-                    alt="Version 2 roadmap in Product Plan, 2026"
-                    width={640}
-                    height={400}
-                    className="w-full h-auto block"
-                    quality={100}
-                  />
-                </div>
+                <CaseImages images={[{ src: '/cases/03/02_roadmap_2026_productplan.jpg', alt: 'Version 2 roadmap in Product Plan, 2026' }]} />
               </div>
             </div>
 
@@ -416,30 +381,23 @@ export default function RoadmapPage(): ReactElement {
                 </div>
               </div>
               <div className="lg:sticky lg:top-24">
-                <div className="rounded-xl overflow-hidden border border-border shadow-[0_8px_32px_-8px_rgba(19,19,16,0.10)]">
-                  <Image
-                    src="/cases/03/impact-value-matrix.png"
-                    alt="Impact Value Matrix scoring framework"
-                    width={640}
-                    height={400}
-                    className="w-full h-auto block"
-                    quality={100}
-                  />
-                </div>
+                <CaseImages images={[{ src: '/cases/03/impact-value-matrix.png', alt: 'Impact Value Matrix scoring framework' }]} />
               </div>
             </div>
 
             {/* Planning cycle PDF */}
-            <div className="py-16 reveal">
-              <div className="max-w-[800px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
+              <div>
                 <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">The planning cycle</div>
-                <p className="text-mid leading-[1.85] text-ink-secondary mb-8">
+                <p className="text-mid leading-[1.85] text-ink-secondary">
                   A system is only as good as the process that maintains it. I defined a roadmap planning cycle that
                   starts 6 weeks before the end of each quarter: global research across product, UX and tech;
                   negotiation between teams on priorities and resources; communication to stakeholders; triggering of
                   first sprint tasks; and ongoing follow-up. This rhythm meant the roadmap was always being prepared
                   for the next quarter while the current one was being executed.
                 </p>
+              </div>
+              <div className="lg:sticky lg:top-24">
                 <CasePdfViewer
                   href="/cases/03/GP-How_Product_Managers_do_roadmaps-080426-124208.pdf"
                   label="How Product Managers Do Roadmaps"
@@ -463,7 +421,9 @@ export default function RoadmapPage(): ReactElement {
           </div>
         </div>
 
-        <ResultsStrip results={RESULTS} />
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <ResultsStrip results={RESULTS} />
+        </div>
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mt-16 space-y-5">

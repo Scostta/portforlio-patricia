@@ -1,9 +1,10 @@
 import type { ReactElement } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { CaseImages } from '~/components/image-lightbox.client'
 import { CASES_META } from '~/constants/cases'
 import { CasePdfViewer } from '~/components/case-pdf-viewer.client'
-import { CaseImages } from '~/components/image-lightbox.client'
+import { CasePdfModal } from '~/components/case-pdf-modal.client'
 import { ResultsStrip } from '~/components/results-strip.client'
 import { CaseNav } from '~/components/case-nav'
 import type { ResultItem } from '~/components/results-strip.client'
@@ -290,24 +291,6 @@ export default function UxSystemPage(): ReactElement {
               ))}
             </div>
 
-            {/* CTAs */}
-            <div className="flex gap-3 flex-wrap animate-fade-up [animation-delay:640ms]">
-              <a
-                href="#story"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-ink text-paper text-sm font-medium transition-all duration-300 hover:bg-accent hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(102,103,171,0.28)]"
-              >
-                Read the case
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-                  <path d="M3 7H11M11 7L7.5 3.5M11 7L7.5 10.5" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </a>
-              <a
-                href="#results"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-full text-ink bg-white/60 border border-border text-sm font-medium transition-all duration-200 hover:bg-white/90 hover:border-ink/30"
-              >
-                Skip to results
-              </a>
-            </div>
           </div>
 
           {/* Right: methodology card */}
@@ -435,86 +418,63 @@ export default function UxSystemPage(): ReactElement {
                     The non-negotiable rule: no phase starts until the previous one is complete. No wireframes during research. The pressure to skip ahead was constant. The rule never moved.
                   </p>
                 </div>
-                <div className="mt-8 grid gap-3">
-                  {[
-                    { num: '01', name: 'Discover', desc: 'Primary research — interviews, support data, analytics, competitive analysis' },
-                    { num: '02', name: 'Define', desc: 'Synthesis, HMW questions, problem framing — a research presentation before any design begins' },
-                    { num: '03', name: 'Develop', desc: 'Ideation, wireframes, Figma templates — exploring solutions before committing to one' },
-                    { num: '04', name: 'Deliver', desc: 'Prototype, validate in Dovetail, hand off to engineering with full specification' },
-                  ].map((phase, i) => (
-                    <div key={phase.num} className="flex items-start gap-4 p-4 bg-white border border-border rounded-lg hover:border-accent/30 transition-colors duration-200">
-                      <div className="text-2xs font-bold tracking-label text-accent flex-shrink-0 w-5 pt-px">{phase.num}</div>
-                      <div>
-                        <div className="text-fine font-semibold text-ink mb-0.5">{phase.name}</div>
-                        <div className="text-2xs text-ink-secondary leading-[1.4]">{phase.desc}</div>
-                      </div>
-                      {i < 3 && (
-                        <div className="ml-auto self-center opacity-20 flex-shrink-0">
-                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
-                            <path d="M6 2v8M2 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                          </svg>
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                <div className="mt-8 space-y-2.5">
+                  <CasePdfModal
+                    href="/cases/02/GP-Solution_Building_and_Validation_Methodology-080426-123922.pdf"
+                    label="Solution Building & Validation"
+                  />
+                  <CasePdfModal
+                    href="/cases/02/GP-Template._Product_Requirements._Documentation.-080426-122712.pdf"
+                    label="Product Requirements Template"
+                  />
                 </div>
               </div>
-              <div className="lg:sticky lg:top-24 space-y-3">
+              <div className="lg:sticky lg:top-24">
                 <CasePdfViewer
                   href="/cases/02/GP-UX_and_Design_Methodology-080426-123509.pdf"
                   label="UX & Design Methodology"
-                />
-                <CasePdfViewer
-                  href="/cases/02/GP-Research_Methodology-080426-123554.pdf"
-                  label="Research Methodology"
-                />
-                <CasePdfViewer
-                  href="/cases/02/GP-Solution_Building_and_Validation_Methodology-080426-123922.pdf"
-                  label="Solution Building & Validation"
-                />
-                <CasePdfViewer
-                  href="/cases/02/GP-Template._Product_Requirements._Documentation.-080426-122712.pdf"
-                  label="Product Requirements Template"
                 />
               </div>
             </div>
 
             {/* Step 2: Research Infrastructure */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
-              <div>
-                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">The infrastructure</div>
-                <div className="space-y-4 text-base leading-[1.65] text-ink-secondary">
-                  <p>
-                    The methodology was only valuable if the team had the tools and contacts to execute it. I built the infrastructure that made research operationally possible at scale.
-                  </p>
-                  <p>
-                    For qualitative internal research: structured interviews with sales and support teams across Northern Europe, internal workshops to surface tacit knowledge, and legacy platform analysis to understand what customers actually used.
-                  </p>
-                  <p>
-                    For qualitative external research: customer interviews using Think Aloud methodology, validation workshops at multiple fidelity levels, and all sessions recorded, transcribed, and synthesised in <strong className="text-ink font-medium">Dovetail</strong> — creating a growing institutional knowledge base rather than one-off insights.
-                  </p>
-                  <p>
-                    For quantitative research: product analytics tracking in the portal from day one (something that required sustained internal advocacy), and systematic Salesforce ticket analysis to surface patterns that individual interviews couldn&apos;t reach.
-                  </p>
+            <div className="py-16 reveal">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+                <div>
+                  <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">The infrastructure</div>
+                  <div className="space-y-4 text-base leading-[1.65] text-ink-secondary mb-8">
+                    <p>
+                      The methodology was only valuable if the team had the tools and contacts to execute it. I built the infrastructure that made research operationally possible at scale.
+                    </p>
+                    <p>
+                      For qualitative internal research: structured interviews with sales and support teams across Northern Europe, internal workshops to surface tacit knowledge, and legacy platform analysis to understand what customers actually used.
+                    </p>
+                    <p>
+                      For qualitative external research: customer interviews using Think Aloud methodology, validation workshops at multiple fidelity levels, and all sessions recorded, transcribed, and synthesised in <strong className="text-ink font-medium">Dovetail</strong> — creating a growing institutional knowledge base rather than one-off insights.
+                    </p>
+                    <p>
+                      For quantitative research: product analytics tracking in the portal from day one (something that required sustained internal advocacy), and systematic Salesforce ticket analysis to surface patterns that individual interviews couldn&apos;t reach.
+                    </p>
+                  </div>
+                  <div className="space-y-2.5">
+                    <CasePdfModal
+                      href="/cases/02/GP-Interviews_and_Workshops_guide._Research_Methodology-080426-123655.pdf"
+                      label="Interviews & Workshop Guides"
+                    />
+                    <CasePdfModal
+                      href="/cases/02/GP-Support_tickets._Research_Methodology-080426-123740.pdf"
+                      label="Support Tickets Research Methodology"
+                    />
+                    <CasePdfModal
+                      href="/cases/02/GP-Validation_workshops._Building_and_Validation_Methodology-080426-124042.pdf"
+                      label="Validation Workshop Guide"
+                    />
+                  </div>
                 </div>
-              </div>
-              <div className="lg:sticky lg:top-24 space-y-3">
-                <CasePdfViewer
-                  href="/cases/02/GP-Interviews_and_Workshops_guide._Research_Methodology-080426-123655.pdf"
-                  label="Interviews & Workshops Guide"
-                />
-                <CasePdfViewer
-                  href="/cases/02/GP-Support_tickets._Research_Methodology-080426-123740.pdf"
-                  label="Support Tickets Research Methodology"
-                />
-                <CasePdfViewer
-                  href="/cases/02/GP-Validation_workshops._Building_and_Validation_Methodology-080426-124042.pdf"
-                  label="Validation Workshops Guide"
-                />
-                <div className="mt-3">
-                  <CaseImages
-                    images={[{ src: '/cases/02/double-diamond.png', alt: 'Adapted Double Diamond — four-phase UX methodology overview' }]}
-                    columns={1}
+                <div className="lg:sticky lg:top-24">
+                  <CasePdfViewer
+                    href="/cases/02/GP-Research_Methodology-080426-123554.pdf"
+                    label="Research Methodology"
                   />
                 </div>
               </div>
@@ -540,20 +500,17 @@ export default function UxSystemPage(): ReactElement {
                   </p>
                 </div>
               </div>
-              <div className="lg:sticky lg:top-24 space-y-3">
-                <CaseImages
-                  images={[{ src: '/cases/02/customer-program.png', alt: 'Customer Program — enterprise clients including DHL, DNB, Volvo, Storebrand, Inditex' }]}
-                  columns={1}
-                />
+              <div className="lg:sticky lg:top-24 space-y-4">
+                <CaseImages images={[{ src: '/cases/02/customer-program.png', alt: 'Customer Program — enterprise clients including DHL, DNB, Volvo, Storebrand, Inditex' }]} />
                 <CasePdfViewer href="/cases/02/DHL_Customer_Program.pdf" label="DHL Customer Program" />
               </div>
             </div>
 
             {/* Step 4: AI Learning Hub */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
+            <div className="py-16 reveal">
               <div>
                 <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">The AI learning hub</div>
-                <div className="space-y-4 text-base leading-[1.65] text-ink-secondary">
+                <div className="space-y-4 text-base leading-[1.65] text-ink-secondary mb-8">
                   <p>
                     In 2025 I launched an internal AI Learning Hub within the UX team — a structured programme to build capability for AI-integrated ways of working across three tracks: AI product design, AI-augmented UX practice, and AI-aware product management.
                   </p>
@@ -564,12 +521,7 @@ export default function UxSystemPage(): ReactElement {
                     In practice, AI integration has already changed how we work. Research sessions are recorded and synthesised with AI assistance — reducing the time from interview to insight. Requirements documents are drafted with AI support. Workshop outputs are processed faster. We also beta-launched an AI-assisted message composer — the first AI-native capability in the portal — giving the team direct experience with the challenges of AI product design: managing user expectations, handling failure states, deciding where AI adds value versus where it creates confusion.
                   </p>
                 </div>
-              </div>
-              <div className="lg:sticky lg:top-24">
-                <CaseImages
-                  images={[{ src: '/cases/02/UX_Learning_HUB_Kickoff_workshop.jpg', alt: 'AI Learning Hub kickoff workshop' }]}
-                  columns={1}
-                />
+                <CaseImages images={[{ src: '/cases/02/UX_Learning_HUB_Kickoff_workshop.jpg', alt: 'AI Learning Hub kickoff workshop' }]} />
               </div>
             </div>
 
@@ -589,7 +541,9 @@ export default function UxSystemPage(): ReactElement {
           </div>
         </div>
 
-        <ResultsStrip results={RESULTS} />
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <ResultsStrip results={RESULTS} />
+        </div>
 
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-[800px] mx-auto mt-16 space-y-5">
