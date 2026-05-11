@@ -236,64 +236,65 @@ export default function AboutPage(): ReactElement {
               })}
             </div>
 
+            {/* Languages */}
+            <div className="mt-12 reveal">
+              <div className="flex items-center gap-4 mb-8">
+                <span className="text-2xs font-semibold tracking-widest uppercase text-ink-tertiary flex-shrink-0">
+                  Languages
+                </span>
+                <div className="flex-1 h-px bg-border" />
+              </div>
+              <div className="flex flex-col">
+                {LANGUAGES.map(({ name, level }, i) => (
+                  <div
+                    key={name}
+                    className={cn(
+                      'flex items-center justify-between py-4',
+                      i < LANGUAGES.length - 1 && 'border-b border-border/60',
+                    )}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-accent/60 flex-shrink-0" />
+                      <span className="font-serif text-base font-medium tracking-[-0.01em] text-ink">{name}</span>
+                    </div>
+                    <span className="text-xs font-medium tracking-[0.04em] text-ink-tertiary">{level}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
+        </div>
+      </section>
+
+      {/* ── Education ───────────────────────────────────────────── */}
+      <section className="px-6 lg:px-10 py-14 max-w-[1400px] mx-auto">
+        <div className="flex items-center gap-4 mb-8 reveal">
+          <span className="text-2xs font-semibold tracking-widest uppercase text-ink-tertiary flex-shrink-0">
+            Education
+          </span>
+          <div className="flex-1 h-px bg-border" />
+        </div>
+        <div className="flex flex-col gap-6 reveal">
+          {EDUCATION.map((edu) => (
+            <div key={edu.degree}>
+              <p className="text-sm font-medium text-ink leading-snug mb-0.5">{edu.degree}</p>
+              <p className="text-xs text-ink-secondary mb-0.5">{edu.school}</p>
+              <p className="text-xs text-ink-tertiary/70">{edu.period}{edu.note ? ` · ${edu.note}` : ''}</p>
+            </div>
+          ))}
         </div>
       </section>
 
       {/* ── Personal ────────────────────────────────────────────── */}
       <section className="px-6 lg:px-10 py-14 max-w-[1400px] mx-auto">
 
-
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16">
-
-          {/* Languages */}
-          <div className="reveal">
-            <p className="text-2xs font-semibold tracking-widest uppercase text-ink-tertiary pb-2.5 border-b border-border mb-5">
-              Languages
-            </p>
-            <div className="flex flex-col">
-              {LANGUAGES.map(({ name, level }, i) => (
-                <div
-                  key={name}
-                  className={cn(
-                    'flex items-center justify-between py-4',
-                    i < LANGUAGES.length - 1 && 'border-b border-border/60',
-                  )}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-accent/60 flex-shrink-0" />
-                    <span className="font-serif text-base font-medium tracking-[-0.01em] text-ink">{name}</span>
-                  </div>
-                  <span className="text-xs font-medium tracking-[0.04em] text-ink-tertiary">{level}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Education */}
-          <div className="reveal [transition-delay:100ms]">
-            <p className="text-2xs font-semibold tracking-widest uppercase text-ink-tertiary pb-2.5 border-b border-border mb-5">
-              Education
-            </p>
-            <div className="flex flex-col gap-6">
-              {EDUCATION.map((edu) => (
-                <div key={edu.degree}>
-                  <p className="text-sm font-medium text-ink leading-snug mb-0.5">{edu.degree}</p>
-                  <p className="text-xs text-ink-secondary mb-0.5">{edu.school}</p>
-                  <p className="text-xs text-ink-tertiary/70">{edu.period}{edu.note ? ` · ${edu.note}` : ''}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-        </div>
-
         {/* Beyond work: text + kite photo */}
-        <div className="grid lg:grid-cols-[1fr_380px] gap-10 lg:gap-16 items-center mt-14 pt-14 border-t border-border">
+        <p className="text-2xs font-semibold tracking-widest uppercase text-ink-tertiary pb-2.5 border-b border-border mb-10 reveal">
+          Beyond work
+        </p>
+        <div className="grid lg:grid-cols-[1fr_380px] gap-10 lg:gap-16 items-center">
           <div className="reveal">
-            <p className="text-2xs font-semibold tracking-widest uppercase text-ink-tertiary pb-2.5 border-b border-border mb-6">
-              Beyond work
-            </p>
             <p className="font-serif text-[clamp(1.15rem,1.9vw,1.4rem)] font-light leading-[1.55] tracking-[-0.02em] text-ink mb-5">
               When I&apos;m not thinking about product, I&apos;m usually in the water.
             </p>
