@@ -481,28 +481,30 @@ export default function UxSystemPage(): ReactElement {
             </div>
 
             {/* Step 3: Customer Program */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 py-16 items-start reveal">
-              <div>
-                <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">The customer program</div>
-                <div className="space-y-4 text-base leading-[1.65] text-ink-secondary">
-                  <p>
-                    The research infrastructure gave us methods. The Customer Program gave us relationships.
-                  </p>
-                  <p>
-                    I created the Customer Program from scratch — a structured co-creation initiative that brought a small group of enterprise clients directly into the product development process. The goal was not to collect feedback at scale, but to build deep, ongoing relationships with clients who could tell us things that surveys never would.
-                  </p>
-                  <p>
-                    I started by working with sales representatives to identify the right candidates: clients who were strategic to LINK, technically sophisticated, and trusted enough by their account managers to have an honest conversation about what wasn&apos;t working. The program offered early access to new features and a direct line to the product team. In return: workshops, prototype testing, and interviews.
-                  </p>
-                  <p>
-                    The program eventually became self-service — customers could sign up from within MyLINK, submit feedback through an integrated Usersnap widget, and participate on their own schedule. That shift — from manually curated to embedded in the product — meant customer insight stopped being something we had to go and find.{' '}
-                    <strong className="text-ink font-medium">It started coming to us.</strong>
-                  </p>
+            <div className="py-16 reveal">
+              <CaseImages images={[{ src: '/cases/02/customer-program.png', alt: 'Customer Program — enterprise clients including DHL, DNB, Volvo, Storebrand, Inditex' }]} />
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 mt-12 items-start">
+                <div>
+                  <div className="text-2xs font-semibold tracking-label uppercase text-accent mb-5">The customer program</div>
+                  <div className="space-y-4 text-base leading-[1.65] text-ink-secondary">
+                    <p>
+                      The research infrastructure gave us methods. The Customer Program gave us relationships.
+                    </p>
+                    <p>
+                      I created the Customer Program from scratch — a structured co-creation initiative that brought a small group of enterprise clients directly into the product development process. The goal was not to collect feedback at scale, but to build deep, ongoing relationships with clients who could tell us things that surveys never would.
+                    </p>
+                    <p>
+                      I started by working with sales representatives to identify the right candidates: clients who were strategic to LINK, technically sophisticated, and trusted enough by their account managers to have an honest conversation about what wasn&apos;t working. The program offered early access to new features and a direct line to the product team. In return: workshops, prototype testing, and interviews.
+                    </p>
+                    <p>
+                      The program eventually became self-service — customers could sign up from within MyLINK, submit feedback through an integrated Usersnap widget, and participate on their own schedule. That shift — from manually curated to embedded in the product — meant customer insight stopped being something we had to go and find.{' '}
+                      <strong className="text-ink font-medium">It started coming to us.</strong>
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="lg:sticky lg:top-24 space-y-4">
-                <CaseImages images={[{ src: '/cases/02/customer-program.png', alt: 'Customer Program — enterprise clients including DHL, DNB, Volvo, Storebrand, Inditex' }]} />
-                <CasePdfViewer href="/cases/02/DHL_Customer_Program.pdf" label="DHL Customer Program" />
+                <div className="lg:sticky lg:top-24">
+                  <CasePdfViewer href="/cases/02/DHL_Customer_Program.pdf" label="DHL Customer Program" />
+                </div>
               </div>
             </div>
 
