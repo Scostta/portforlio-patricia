@@ -31,9 +31,11 @@ export async function POST(req: Request) {
   // Create session first (FK constraint: messages reference sessions)
   if (chatId && isNewChat && userSessionId) {
     const title = question.length > 50 ? question.slice(0, 50) + '…' : question
+    const userAgent = req.headers.get('user-agent') ?? null
+    const country = req.headers.get('x-vercel-ip-country') ?? null
     const { error } = await supabase
       .from('chat_sessions')
-      .insert({ id: chatId, session_id: userSessionId, title })
+      .insert({ id: chatId, session_id: userSessionId, title, user_agent: userAgent, country })
     if (error) console.error('[supabase] create session:', error.message)
   }
 
