@@ -2,6 +2,7 @@ import type { ReactElement } from 'react'
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans, Cormorant_Garamond } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Cursor } from '~/components/cursor.client'
 import { ScrollProgress } from '~/components/scroll-progress.client'
 import { TopBanner } from '~/components/top-banner.client'
@@ -68,6 +69,7 @@ export default function RootLayout({
         <ScrollProgress />
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
